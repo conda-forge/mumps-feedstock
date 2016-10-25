@@ -11,12 +11,12 @@ source:
   fn: MUMPS_{{ version }}.tar.gz
   url: http://mumps.enseeiht.fr/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  features:
-    - blas_{{ variant }}
 
 build:
   number: 0
   skip: true  # [win]
+  features:
+    - blas_{{ variant }}
 
 requirements:
   build:
