@@ -1,6 +1,7 @@
 {% set name = "mumps" %}
 {% set version = "5.0.1" %}
 {% set sha256 = "50355b2e67873e2239b4998a46f2bbf83f70cdad6517730ab287ae3aae9340a0" %}
+{% set variant = "openblas" %}
 
 package:
   name: mumps
@@ -10,6 +11,8 @@ source:
   fn: MUMPS_{{ version }}.tar.gz
   url: http://mumps.enseeiht.fr/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  features:
+    - blas_{{ variant }}
 
 build:
   number: 0
@@ -20,11 +23,13 @@ requirements:
     - toolchain
     - metis
     - scotch
+    - blas 1.1 {{ variant }}
     - openblas 0.2.18|0.2.18.*
     - gcc
   run:
     - metis
     - scotch
+    - blas 1.1 {{ variant }}
     - openblas 0.2.18|0.2.18.*
     - libgfortran
 
