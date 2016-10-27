@@ -1,6 +1,7 @@
 {% set name = "mumps" %}
 {% set version = "5.0.1" %}
 {% set sha256 = "50355b2e67873e2239b4998a46f2bbf83f70cdad6517730ab287ae3aae9340a0" %}
+{% set variant = "openblas" %}
 
 package:
   name: mumps
@@ -12,19 +13,23 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 200
   skip: true  # [win]
+  features:
+    - blas_{{ variant }}
 
 requirements:
   build:
     - toolchain
     - metis
     - scotch
+    - blas 1.1 {{ variant }}
     - openblas 0.2.18|0.2.18.*
     - gcc
   run:
     - metis
     - scotch
+    - blas 1.1 {{ variant }}
     - openblas 0.2.18|0.2.18.*
     - libgfortran
 
