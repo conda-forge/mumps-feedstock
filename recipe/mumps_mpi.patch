@@ -1,0 +1,184 @@
+From 616bc9acaa7cb028b0610b5227f0a99958fae9bd Mon Sep 17 00:00:00 2001
+From: "Peter St. John" <peterc.stjohn@gmail.com>
+Date: Mon, 28 Nov 2016 08:50:28 -0700
+Subject: [PATCH] patch
+
+patch2
+---
+ examples/c_example.c  |  4 ++++
+ libseq/mpi.h          | 48 ------------------------------------------------
+ libseq/mpic.c         |  2 +-
+ libseq/mumps_mpi.h    | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+ src/mumps_orderings.h |  8 ++++++++
+ 5 files changed, 61 insertions(+), 49 deletions(-)
+ delete mode 100644 libseq/mpi.h
+ create mode 100644 libseq/mumps_mpi.h
+
+diff --git a/examples/c_example.c b/examples/c_example.c
+index 3ebe98c..af9daf1 100644
+--- a/examples/c_example.c
++++ b/examples/c_example.c
+@@ -11,7 +11,11 @@
+  * Solution is [1 2]^T */
+ #include <stdio.h>
+ #include <string.h>
++#ifdef MPI
+ #include "mpi.h"
++#else
++#include "mumps_mpi.h"
++#endif
+ #include "dmumps_c.h"
+ #define JOB_INIT -1
+ #define JOB_END -2
+diff --git a/libseq/mpi.h b/libseq/mpi.h
+deleted file mode 100644
+index 4cd8ad4..0000000
+--- a/libseq/mpi.h
++++ /dev/null
+@@ -1,48 +0,0 @@
+-/*
+- *
+- *  This file is part of MUMPS 5.0.2, released
+- *  on Fri Jul 15 09:12:54 UTC 2016
+- *
+- *
+- *  Copyright 1991-2016 CERFACS, CNRS, ENS Lyon, INP Toulouse, Inria,
+- *  University of Bordeaux.
+- *
+- *  This version of MUMPS is provided to you free of charge. It is
+- *  released under the CeCILL-C license:
+- *  http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html
+- *
+- */
+-#ifdef INTSIZE64
+-#include <inttypes.h>
+-#define LIBSEQ_INT int64_t
+-#else
+-#define LIBSEQ_INT int
+-#endif
+-
+-#ifndef MUMPS_MPI_H
+-#define MUMPS_MPI_H
+-
+-/* We define all symbols as extern "C" for users who call MUMPS with its
+-   libseq from a C++ driver. */
+-#ifdef __cplusplus
+-extern "C" {
+-#endif
+-
+-/* This is the minimum to have the C interface of MUMPS work.
+- * Most of the time, users who need this file have no call to MPI functions in
+- * their own code. Hence it is not worth declaring all MPI functions here.
+- * However if some users come to request some more stub functions of the MPI
+- * standards, we may add them. But it is not worth doing it until then. */
+-
+-typedef LIBSEQ_INT MPI_Comm; /* Simple type for MPI communicator */
+-static MPI_Comm MPI_COMM_WORLD=(MPI_Comm)0;
+-
+-LIBSEQ_INT MPI_Init(LIBSEQ_INT *pargc, char ***pargv);
+-LIBSEQ_INT MPI_Comm_rank(LIBSEQ_INT  comm, LIBSEQ_INT  *rank);
+-LIBSEQ_INT MPI_Finalize(void);
+-
+-#ifdef __cplusplus
+-}
+-#endif
+-
+-#endif /* MUMPS_MPI_H */
+diff --git a/libseq/mpic.c b/libseq/mpic.c
+index 24c6dee..0d7f0c8 100644
+--- a/libseq/mpic.c
++++ b/libseq/mpic.c
+@@ -12,7 +12,7 @@
+  *  http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html
+  *
+  */
+-#include <mpi.h>
++#include "mumps_mpi.h"
+ LIBSEQ_INT MPI_Init(LIBSEQ_INT *pargc, char ***pargv)
+ {
+   return 0;
+diff --git a/libseq/mumps_mpi.h b/libseq/mumps_mpi.h
+new file mode 100644
+index 0000000..4cd8ad4
+--- /dev/null
++++ b/libseq/mumps_mpi.h
+@@ -0,0 +1,48 @@
++/*
++ *
++ *  This file is part of MUMPS 5.0.2, released
++ *  on Fri Jul 15 09:12:54 UTC 2016
++ *
++ *
++ *  Copyright 1991-2016 CERFACS, CNRS, ENS Lyon, INP Toulouse, Inria,
++ *  University of Bordeaux.
++ *
++ *  This version of MUMPS is provided to you free of charge. It is
++ *  released under the CeCILL-C license:
++ *  http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html
++ *
++ */
++#ifdef INTSIZE64
++#include <inttypes.h>
++#define LIBSEQ_INT int64_t
++#else
++#define LIBSEQ_INT int
++#endif
++
++#ifndef MUMPS_MPI_H
++#define MUMPS_MPI_H
++
++/* We define all symbols as extern "C" for users who call MUMPS with its
++   libseq from a C++ driver. */
++#ifdef __cplusplus
++extern "C" {
++#endif
++
++/* This is the minimum to have the C interface of MUMPS work.
++ * Most of the time, users who need this file have no call to MPI functions in
++ * their own code. Hence it is not worth declaring all MPI functions here.
++ * However if some users come to request some more stub functions of the MPI
++ * standards, we may add them. But it is not worth doing it until then. */
++
++typedef LIBSEQ_INT MPI_Comm; /* Simple type for MPI communicator */
++static MPI_Comm MPI_COMM_WORLD=(MPI_Comm)0;
++
++LIBSEQ_INT MPI_Init(LIBSEQ_INT *pargc, char ***pargv);
++LIBSEQ_INT MPI_Comm_rank(LIBSEQ_INT  comm, LIBSEQ_INT  *rank);
++LIBSEQ_INT MPI_Finalize(void);
++
++#ifdef __cplusplus
++}
++#endif
++
++#endif /* MUMPS_MPI_H */
+diff --git a/src/mumps_orderings.h b/src/mumps_orderings.h
+index 8aa0223..4afc8a5 100644
+--- a/src/mumps_orderings.h
++++ b/src/mumps_orderings.h
+@@ -52,7 +52,11 @@ MUMPS_SCOTCH( const MUMPS_INT * const  n,
+               MUMPS_INT * const        ncmpa );
+ #endif /*scotch or ptscotch*/
+ #if defined(ptscotch)
++#ifdef MPI
+ #include "mpi.h"
++#else
++#include "mumps_mpi.h"
++#endif
+ #include <stdio.h>
+ #include "ptscotch.h"
+ #define MUMPS_DGRAPHINIT \
+@@ -61,7 +65,11 @@ void MUMPS_CALL
+ MUMPS_DGRAPHINIT(SCOTCH_Dgraph *graphptr, MPI_Fint *comm, MPI_Fint *ierr);
+ #endif /*ptscotch*/
+ #if defined(parmetis) || defined(parmetis3)
++#ifdef MPI
+ #include "mpi.h"
++#else
++#include "mumps_mpi.h"
++#endif
+ #include "parmetis.h"
+ #define MUMPS_PARMETIS \
+   F_SYMBOL(parmetis,PARMETIS)
+-- 
+2.7.4 (Apple Git-66)
+
