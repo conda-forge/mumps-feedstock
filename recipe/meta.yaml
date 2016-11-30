@@ -11,6 +11,8 @@ source:
   fn: MUMPS_{{ version }}.tar.gz
   url: http://mumps.enseeiht.fr/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    - mumps_mpi.patch
 
 build:
   number: 200
@@ -46,6 +48,7 @@ test:
     - test -f "${PREFIX}/include/zmumps_struc.h"
     - test -f "${PREFIX}/include/cmumps_struc.h"
     - test -f "${PREFIX}/include/smumps_struc.h"
+    - test -f "${PREFIX}/include/mumps_mpi.h"
 
 about:
   home: http://mumps.enseeiht.fr/
