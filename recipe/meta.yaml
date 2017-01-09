@@ -15,7 +15,7 @@ source:
     - mumps_mpi.patch
 
 build:
-  number: 201
+  number: 202
   skip: true  # [win]
   features:
     - blas_{{ variant }}
@@ -26,13 +26,13 @@ requirements:
     - metis
     - scotch
     - blas 1.1 {{ variant }}
-    - openblas 0.2.18|0.2.18.*
+    - openblas 0.2.19|0.2.19.*
     - gcc
   run:
     - metis
     - scotch
     - blas 1.1 {{ variant }}
-    - openblas 0.2.18|0.2.18.*
+    - openblas 0.2.19|0.2.19.*
     - libgfortran
 
 test:
