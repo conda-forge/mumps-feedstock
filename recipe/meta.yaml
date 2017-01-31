@@ -37,13 +37,13 @@ requirements:
 
 test:
   commands:
-    - test -f "${PREFIX}/lib/libzmumps.a"
-    - test -f "${PREFIX}/lib/libcmumps.a"
-    - test -f "${PREFIX}/lib/libdmumps.a"
-    - test -f "${PREFIX}/lib/libsmumps.a"
-    - test -f "${PREFIX}/lib/libmumps_common.a"
-    - test -f "${PREFIX}/lib/libpord.a"
-    - test -f "${PREFIX}/lib/libmpiseq.a"
+    - test -f "${PREFIX}/lib/libzmumps.so"
+    - test -f "${PREFIX}/lib/libcmumps.so"
+    - test -f "${PREFIX}/lib/libdmumps.so"
+    - test -f "${PREFIX}/lib/libsmumps.so"
+    - test -f "${PREFIX}/lib/libmumps_common.so"
+    - test -f "${PREFIX}/lib/libpord.so"
+    - test -f "${PREFIX}/lib/libmpiseq.so"
     - test -f "${PREFIX}/include/dmumps_struc.h"
     - test -f "${PREFIX}/include/zmumps_struc.h"
     - test -f "${PREFIX}/include/cmumps_struc.h"
