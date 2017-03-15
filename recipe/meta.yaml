@@ -2,6 +2,7 @@
 {% set version = "5.0.2" %}
 {% set sha256 = "77292b204942640256097a3da482c2abcd1e0d5a74ecd1d4bab0f5ef6e60fe45" %}
 {% set variant = "openblas" %}
+{% set mpi = "mpich" %}
 
 package:
   name: mumps
@@ -11,8 +12,6 @@ source:
   fn: MUMPS_{{ version }}.tar.gz
   url: http://mumps.enseeiht.fr/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  patches:
-    - mumps_mpi.patch
 
 build:
   number: 202
@@ -24,13 +23,17 @@ requirements:
   build:
     - toolchain
     - metis
-    - scotch
+    - {{ mpi }}
+    - ptscotch
+    - scalapack
     - blas 1.1 {{ variant }}
     - openblas 0.2.19|0.2.19.*
     - gcc
   run:
     - metis
-    - scotch
+    - {{ mpi }}
+    - ptscotch
+    - scalapack
     - blas 1.1 {{ variant }}
     - openblas 0.2.19|0.2.19.*
     - libgfortran
@@ -43,12 +46,10 @@ test:
     - test -f "${PREFIX}/lib/libsmumps.a"
     - test -f "${PREFIX}/lib/libmumps_common.a"
     - test -f "${PREFIX}/lib/libpord.a"
-    - test -f "${PREFIX}/lib/libmpiseq.a"
     - test -f "${PREFIX}/include/dmumps_struc.h"
     - test -f "${PREFIX}/include/zmumps_struc.h"
     - test -f "${PREFIX}/include/cmumps_struc.h"
     - test -f "${PREFIX}/include/smumps_struc.h"
-    - test -f "${PREFIX}/include/mumps_mpi.h"
 
 about:
   home: http://mumps.enseeiht.fr/
