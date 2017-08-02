@@ -1,19 +1,28 @@
 #!/bin/bash
+env | sort
+
+cp $RECIPE_DIR/Makefile.conda.PAR ./Makefile.inc
 
 if [ `uname` == "Darwin" ]; then
-  cp $RECIPE_DIR/Makefile.debian.SEQ_mac Makefile.inc
+  function mpi() {
+    mpiexec -n 4 $@
+  }
 else
-  cp $RECIPE_DIR/Makefile.debian.SEQ Makefile.inc
+  function mpi() {
+    # skip mpi on circle-ci due to output problems
+    $@
+  }
 fi
 
 make all
+
 cp lib/*.a ${PREFIX}/lib
-cp libseq/*.a ${PREFIX}/lib
-cp libseq/*.h ${PREFIX}/include
 cp include/*.h ${PREFIX}/include
 
 cd examples
-./ssimpletest < input_simpletest_real
-./dsimpletest < input_simpletest_real
-./csimpletest < input_simpletest_cmplx
-./zsimpletest < input_simpletest_cmplx
+
+mpi ./ssimpletest < input_simpletest_real
+mpi ./dsimpletest < input_simpletest_real
+mpi ./csimpletest < input_simpletest_cmplx
+mpi ./zsimpletest < input_simpletest_cmplx
+mpi ./c_example
