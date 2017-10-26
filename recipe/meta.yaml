@@ -14,7 +14,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 202
+  number: 203
   skip: true  # [win]
   features:
     - blas_{{ variant }}
@@ -22,7 +22,7 @@ build:
 requirements:
   build:
     - toolchain
-    - metis
+    - metis 5.1.*
     - {{ mpi }}
     - ptscotch
     - scalapack
@@ -30,7 +30,7 @@ requirements:
     - openblas 0.2.19|0.2.19.*
     - gcc
   run:
-    - metis
+    - metis 5.1.*
     - {{ mpi }}
     - ptscotch
     - scalapack
