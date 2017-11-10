@@ -14,7 +14,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 203
+  number: 204
   skip: true  # [win]
   features:
     - blas_{{ variant }}
