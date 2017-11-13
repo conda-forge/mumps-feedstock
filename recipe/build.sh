@@ -1,17 +1,6 @@
 #!/bin/bash
 
-cp $RECIPE_DIR/Makefile.conda.PAR ./Makefile.inc
-
-if [ `uname` == "Darwin" ]; then
-  function mpi() {
-    mpiexec -n 4 $@
-  }
-else
-  function mpi() {
-    # skip mpi on circle-ci due to output problems
-    $@
-  }
-fi
+cp $RECIPE_DIR/Makefile.conda.SEQ ./Makefile.inc
 
 make all
 
