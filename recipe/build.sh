@@ -1,5 +1,4 @@
 #!/bin/bash
-env | sort
 
 cp $RECIPE_DIR/Makefile.conda.PAR ./Makefile.inc
 
