@@ -4,7 +4,6 @@ env | sort
 cp $RECIPE_DIR/Makefile.conda.PAR ./Makefile.inc
 
 if [ `uname` == "Darwin" ]; then
-  sed -i'' -e 's/gcc/clang/g' ./Makefile.inc
   function mpi() {
     mpiexec -n 4 $@
   }

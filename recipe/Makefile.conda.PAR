@@ -29,13 +29,12 @@ LIBEXT  = .a
 OUTC    = -o
 OUTF    = -o
 RM = /bin/rm -f
-CC = gcc
+CC := $(CC) -fPIC $(CFLAGS)
 FC = gfortran -fPIC
 FL = gfortran -fPIC
 AR = ar vr #
 RANLIB = ranlib
 
-CC := $(CC) -fPIC $(CFLAGS)
 
 INCSEQ = -I$(topdir)/libseq
 LIBSEQ  =  -L$(topdir)/libseq -lmpiseq
