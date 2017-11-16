@@ -14,7 +14,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 205
+  number: 206
   skip: true  # [win]
   features:
     - blas_{{ variant }}
@@ -27,7 +27,7 @@ requirements:
     - ptscotch
     - scalapack
     - blas 1.1 {{ variant }}
-    - openblas 0.2.19|0.2.19.*
+    - openblas 0.2.20|0.2.20.*
     - gcc
   run:
     - metis 5.1.*
@@ -35,7 +35,7 @@ requirements:
     - ptscotch
     - scalapack
     - blas 1.1 {{ variant }}
-    - openblas 0.2.19|0.2.19.*
+    - openblas 0.2.20|0.2.20.*
     - libgfortran
 
 test:
