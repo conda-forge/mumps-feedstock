@@ -4,7 +4,6 @@
 {% set variant = "openblas" %}
 {% set mpi = "mpich" %}
 
-
 package:
   name: mumps
   version: {{ version }}
