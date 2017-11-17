@@ -15,7 +15,7 @@ source:
     - mumps_mpi.patch
 
 build:
-  number: 205
+  number: 206
   skip: true  # [win]
   features:
     - blas_{{ variant }}
