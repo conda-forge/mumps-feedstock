@@ -9,8 +9,8 @@ cp include/*.h ${PREFIX}/include
 
 cd examples
 
-mpi ./ssimpletest < input_simpletest_real
-mpi ./dsimpletest < input_simpletest_real
-mpi ./csimpletest < input_simpletest_cmplx
-mpi ./zsimpletest < input_simpletest_cmplx
-mpi ./c_example
+./ssimpletest < input_simpletest_real
+./dsimpletest < input_simpletest_real
+./csimpletest < input_simpletest_cmplx
+./zsimpletest < input_simpletest_cmplx
+./c_example
