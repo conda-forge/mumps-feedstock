@@ -5,7 +5,7 @@
 # metis (parmetis), scotch (ptscotch), mpich, gfortran
 
 # Begin orderings
-LSCOTCH   = -L$(PREFIX)/lib -lptesmumps -lptscotch -lptscotcherr -lscotch
+LSCOTCH   = -L$(PREFIX)/lib -lesmumps -lscotch -lscotcherr
 ISCOTCH   = -I$(PREFIX)/include
 
 LPORDDIR = $(topdir)/PORD/lib
@@ -16,7 +16,7 @@ IMETIS    = -I$(PREFIX)/include
 LMETIS    = -L$(PREFIX)/lib -lmetis
 
 # Corresponding variables reused later
-ORDERINGSF = -Dmetis -Dpord -Dscotch -Dptscotch
+ORDERINGSF = -Dmetis -Dpord -Dscotch
 ORDERINGSC  = $(ORDERINGSF)
 LORDERINGS = $(LMETIS) $(LPORD) $(LSCOTCH)
 IORDERINGSF = $(ISCOTCH)
@@ -55,6 +55,6 @@ OPTF    = -O  -DALLOW_NON_INIT
 OPTL    = -O
 OPTC    = -O
 #End Optimized options
-INCS = $(INCPAR)
-LIBS = $(LIBPAR)
-LIBSEQNEEDED = 
+INCS = $(INCSEQ)
+LIBS = $(LIBSEQ)
+LIBSEQNEEDED = libseqneeded
