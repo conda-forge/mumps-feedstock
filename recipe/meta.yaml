@@ -47,6 +47,8 @@ test:
     - test -f "${PREFIX}/include/zmumps_struc.h"
     - test -f "${PREFIX}/include/cmumps_struc.h"
     - test -f "${PREFIX}/include/smumps_struc.h"
+    - test -f "${PREFIX}/lib/libmpiseq.a"
+    - test -f "${PREFIX}/include/mumps_mpi.h"
 
 about:
   home: http://mumps.enseeiht.fr/
