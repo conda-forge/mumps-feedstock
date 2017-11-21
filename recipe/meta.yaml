@@ -8,68 +8,44 @@ package:
   version: {{ version }}
 
 source:
-  fn: MUMPS_{{ version }}.tar.gz
-  url: http://mumps.enseeiht.fr/MUMPS_{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+#  fn: MUMPS_{{ version }}.tar.gz
+  path: C:\\Users\rotis\git\MUMPS_5.0.2
+#  sha256: {{ sha256 }}
   patches:
     - mumps_mpi.patch
-
 build:
   number: 203
   features:
-    - blas_{{ variant }}
-    - vc9  # [win and py27]
-    - vc10  # [win and py34]
-    - vc14  # [win and py35]
+    - blas_{{ variant }} # [not win]
 
 requirements:
   build:
-    - toolchain
-    - metis
-    - scotch
-    - blas 1.1 {{ variant }}
-    - openblas 0.2.19|0.2.19.*
-    - gcc
-    - python  # [win]
-    - vc 9  # [win and py27]
-    - vc 10  # [win and py34]
-    - vc 14  # [win and py35]
+    - toolchain # [not win]
+    - blas 1.1 {{ variant }} # [not win]
+    - openblas 0.2.19|0.2.19.* # [not win]
+    - gcc # [not win]
+    - m2w64-toolchain # [win]
+    - m2w64-openblas # [win]
+    - cmake # [win]
+    - patch # [win]
   run:
-    - metis
-    - scotch
-    - blas 1.1 {{ variant }}
-    - openblas 0.2.19|0.2.19.*
-    - libgfortran
-    - vc 9  # [win and py27]
-    - vc 10  # [win and py34]
-    - vc 14  # [win and py35]
+    - blas 1.1 {{ variant }} # [not win]
+    - openblas 0.2.19|0.2.19.* # [not win]
+    - libgfortran # [not win]
+    - m2w64-openblas # [win]
 
 test:
   commands:
-    - test -f "${PREFIX}/lib/libzmumps.a"  # [not win]
-    - test -f "${PREFIX}/lib/libcmumps.a"  # [not win]
     - test -f "${PREFIX}/lib/libdmumps.a"  # [not win]
-    - test -f "${PREFIX}/lib/libsmumps.a"  # [not win]
     - test -f "${PREFIX}/lib/libmumps_common.a"  # [not win]
     - test -f "${PREFIX}/lib/libpord.a"  # [not win]
-    - test -f "${PREFIX}/lib/libmpiseq.a"  # [not win]
     - test -f "${PREFIX}/include/dmumps_struc.h"  # [not win]
-    - test -f "${PREFIX}/include/zmumps_struc.h"  # [not win]
-    - test -f "${PREFIX}/include/cmumps_struc.h"  # [not win]
-    - test -f "${PREFIX}/include/smumps_struc.h"  # [not win]
-    - test -f "${PREFIX}/include/mumps_mpi.h"  # [not win]
-    - if not exist "%LIBRARY_LIB%\\libzmumps.lib" exit 1  # [win]
-    - if not exist "%LIBRARY_LIB%\\libcmumps.lib" exit 1  # [win]
-    - if not exist "%LIBRARY_LIB%\\libdmumps.lib" exit 1  # [win]
-    - if not exist "%LIBRARY_LIB%\\libsmumps.lib" exit 1  # [win]
-    - if not exist "%LIBRARY_LIB%\\libmumps_common.lib" exit 1  # [win]
-    - if not exist "%LIBRARY_LIB%\\libpord.lib" exit 1  # [win]
-    - if not exist "%LIBRARY_LIB%\\libmpiseq.lib" exit 1  # [win]
+    - if not exist "%LIBRARY_LIB%\\libdmumps.dll" exit 1  # [win]
+    - if not exist "%LIBRARY_LIB%\\libmumps_common.a" exit 1  # [win]
+    - if not exist "%LIBRARY_LIB%\\libpord.a" exit 1  # [win]
     - if not exist "%LIBRARY_INC%\\dmumps_struc.h" exit 1  # [win]
-    - if not exist "%LIBRARY_INC%\\zmumps_struc.h" exit 1  # [win]
-    - if not exist "%LIBRARY_INC%\\cmumps_struc.h" exit 1  # [win]
-    - if not exist "%LIBRARY_INC%\\smumps_struc.h" exit 1  # [win]
     - if not exist "%LIBRARY_INC%\\mumps_mpi.h" exit 1  # [win]
+
 
 about:
   home: http://mumps.enseeiht.fr/
