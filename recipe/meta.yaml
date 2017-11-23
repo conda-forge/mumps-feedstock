@@ -8,11 +8,12 @@ package:
   version: {{ version }}
 
 source:
-#  fn: MUMPS_{{ version }}.tar.gz
-  path: C:\\Users\rotis\git\MUMPS_5.0.2
-#  sha256: {{ sha256 }}
+  fn: MUMPS_{{ version }}.tar.gz
+  url: http://mumps.enseeiht.fr/MUMPS_{{ version }}.tar.gz
+  sha256: {{ sha256 }}
   patches:
     - mumps_mpi.patch
+    - cmake.patch # [win]
 build:
   number: 203
   features:
@@ -40,11 +41,11 @@ test:
     - test -f "${PREFIX}/lib/libmumps_common.a"  # [not win]
     - test -f "${PREFIX}/lib/libpord.a"  # [not win]
     - test -f "${PREFIX}/include/dmumps_struc.h"  # [not win]
-    - if not exist "%LIBRARY_LIB%\\libdmumps.dll" exit 1  # [win]
-    - if not exist "%LIBRARY_LIB%\\libmumps_common.a" exit 1  # [win]
-    - if not exist "%LIBRARY_LIB%\\libpord.a" exit 1  # [win]
-    - if not exist "%LIBRARY_INC%\\dmumps_struc.h" exit 1  # [win]
-    - if not exist "%LIBRARY_INC%\\mumps_mpi.h" exit 1  # [win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libdmumps.dll" exit 1  # [win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\lib\libmumps_common.a" exit 1  # [win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\lib\libpord.a" exit 1  # [win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\include\dmumps_struc.h" exit 1  # [win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\include\mumps_mpi.h" exit 1  # [win]
 
 
 about:
