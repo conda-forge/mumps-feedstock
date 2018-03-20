@@ -13,11 +13,11 @@ source:
   sha256: {{ sha256 }}
   patches:
     - mumps_mpi.patch
-    - cmake.patch # [win]
+    - cmake.patch  # [win]
 build:
   number: 209
   features:
-    - blas_{{ variant }} # [not win]
+    - blas_{{ variant }}  # [not win]
 
 requirements:
   build:
