@@ -9,7 +9,7 @@ Feedstock license: BSD 3-Clause
 
 Summary: MUMPS: a parallel sparse direct solver
 
-MUMPS (“MUltifrontal Massively Parallel Solver”) is a package for solving
+MUMPS (MUltifrontal Massively Parallel Solver) is a package for solving
 systems of linear equations of the form Ax = b, where A is a square sparse
 matrix that can be either unsymmetric, symmetric positive definite, or
 general symmetric, on distributed memory computers. MUMPS implements a
