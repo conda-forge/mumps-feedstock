@@ -24,6 +24,8 @@ requirements:
     - toolchain  # [not win]
     - blas 1.1 {{ variant }}  # [not win]
     - openblas 0.2.20|0.2.20.*  # [not win]
+    - metis 5.1.*  # [not win]
+    - scotch  # [not win]
     - gcc  # [not win]
     - m2w64-toolchain  # [win]
     - m2w64-openblas  # [win]
@@ -32,6 +34,8 @@ requirements:
   run:
     - blas 1.1 {{ variant }}  # [not win]
     - openblas 0.2.20|0.2.20.*  # [not win]
+    - metis  # [not win]
+    - scotch  # [not win]
     - libgfortran  # [not win]
     - m2w64-openblas  # [win]
 
