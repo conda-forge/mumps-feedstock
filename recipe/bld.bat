@@ -8,6 +8,7 @@ cd build
 cmake -G "MinGW Makefiles" ^
       -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%\mingw-w64" ^
       -DCMAKE_BUILD_TYPE:STRING=Release ^
+      -DCMAKE_SH="CMAKE_SH-NOTFOUND" ^
       ..
 if errorlevel 1 exit 1
 
