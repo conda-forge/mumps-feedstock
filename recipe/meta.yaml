@@ -13,42 +13,43 @@ source:
   sha256: {{ sha256 }}
   patches:
     - mumps_mpi.patch
-
+    - cmake.patch  # [win]
 build:
-  number: 208
-  skip: true  # [win]
+  number: 209
   features:
-    - blas_{{ variant }}
+    - blas_{{ variant }}  # [not win]
 
 requirements:
   build:
-    - toolchain
-    - metis 5.1.*
-    - scotch
-    - blas 1.1 {{ variant }}
-    - openblas 0.2.20|0.2.20.*
-    - gcc
+    - toolchain  # [not win]
+    - blas 1.1 {{ variant }}  # [not win]
+    - openblas 0.2.20|0.2.20.*  # [not win]
+    - metis 5.1.*  # [not win]
+    - scotch  # [not win]
+    - gcc  # [not win]
+    - m2w64-toolchain  # [win]
+    - m2w64-openblas  # [win]
+    - cmake  # [win]
+    - patch  # [win]
   run:
-    - metis 5.1.*
-    - scotch
-    - blas 1.1 {{ variant }}
-    - openblas 0.2.20|0.2.20.*
-    - libgfortran
+    - blas 1.1 {{ variant }}  # [not win]
+    - openblas 0.2.20|0.2.20.*  # [not win]
+    - metis  # [not win]
+    - scotch  # [not win]
+    - libgfortran  # [not win]
+    - m2w64-openblas  # [win]
 
 test:
   commands:
-    - test -f "${PREFIX}/lib/libzmumps.a"
-    - test -f "${PREFIX}/lib/libcmumps.a"
-    - test -f "${PREFIX}/lib/libdmumps.a"
-    - test -f "${PREFIX}/lib/libsmumps.a"
-    - test -f "${PREFIX}/lib/libmumps_common.a"
-    - test -f "${PREFIX}/lib/libpord.a"
-    - test -f "${PREFIX}/include/dmumps_struc.h"
-    - test -f "${PREFIX}/include/zmumps_struc.h"
-    - test -f "${PREFIX}/include/cmumps_struc.h"
-    - test -f "${PREFIX}/include/smumps_struc.h"
-    - test -f "${PREFIX}/lib/libmpiseq.a"
-    - test -f "${PREFIX}/include/mumps_mpi.h"
+    - test -f "${PREFIX}/lib/libdmumps.a"  # [not win]
+    - test -f "${PREFIX}/lib/libmumps_common.a"  # [not win]
+    - test -f "${PREFIX}/lib/libpord.a"  # [not win]
+    - test -f "${PREFIX}/include/dmumps_struc.h"  # [not win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libdmumps.dll" exit 1  # [win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\lib\libmumps_common.a" exit 1  # [win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\lib\libpord.a" exit 1  # [win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\include\dmumps_struc.h" exit 1  # [win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\include\mumps_mpi.h" exit 1  # [win]
 
 about:
   home: http://mumps.enseeiht.fr/
@@ -56,7 +57,7 @@ about:
   license_file: LICENSE
   summary: 'MUMPS: a parallel sparse direct solver'
   description: |
-    MUMPS (“MUltifrontal Massively Parallel Solver”) is a package for solving 
+    MUMPS (MUltifrontal Massively Parallel Solver) is a package for solving 
     systems of linear equations of the form Ax = b, where A is a square sparse 
     matrix that can be either unsymmetric, symmetric positive definite, or 
     general symmetric, on distributed memory computers. MUMPS implements a 
