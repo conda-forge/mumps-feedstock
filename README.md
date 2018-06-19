@@ -20,14 +20,16 @@ factorization.
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/mumps-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/mumps-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/mumps-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/mumps-feedstock)
-Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/mumps-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/mumps-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/mumps-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/mumps-feedstock)
+![Windows disabled](https://img.shields.io/badge/Windows-disabled-lightgrey.svg)
 
 Current release info
 ====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/mumps-mpi/badges/version.svg)](https://anaconda.org/conda-forge/mumps-mpi)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/mumps-mpi/badges/downloads.svg)](https://anaconda.org/conda-forge/mumps-mpi)
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-mumps--mpi-green.svg)](https://anaconda.org/conda-forge/mumps-mpi) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mumps-mpi.svg)](https://anaconda.org/conda-forge/mumps-mpi) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mumps-mpi.svg)](https://anaconda.org/conda-forge/mumps-mpi) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mumps-mpi.svg)](https://anaconda.org/conda-forge/mumps-mpi) |
 
 Installing mumps-mpi
 ====================
