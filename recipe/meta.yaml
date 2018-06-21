@@ -15,7 +15,7 @@ source:
     - mumps_mpi.patch
     - cmake.patch  # [win]
 build:
-  number: 209
+  number: 210
   features:
     - blas_{{ variant }}  # [not win]
 
@@ -41,7 +41,10 @@ requirements:
 
 test:
   commands:
+    - test -f "${PREFIX}/lib/libsmumps.a"  # [not win]
     - test -f "${PREFIX}/lib/libdmumps.a"  # [not win]
+    - test -f "${PREFIX}/lib/libcmumps.a"  # [not win]
+    - test -f "${PREFIX}/lib/libzmumps.a"  # [not win]
     - test -f "${PREFIX}/lib/libmumps_common.a"  # [not win]
     - test -f "${PREFIX}/lib/libpord.a"  # [not win]
     - test -f "${PREFIX}/include/dmumps_struc.h"  # [not win]
