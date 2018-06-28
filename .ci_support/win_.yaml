@@ -1,5 +1,0 @@
-metis:
-- '5.1'
-pin_run_as_build:
-  metis:
-    max_pin: x.x

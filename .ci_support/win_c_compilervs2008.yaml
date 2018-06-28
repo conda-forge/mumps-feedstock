@@ -1,13 +1,11 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '10.9'
 c_compiler:
-- toolchain_c
+- vs2008
 fortran_compiler:
-- toolchain_fort
-macos_machine:
-- x86_64-apple-darwin13.4.0
-macos_min_version:
-- '10.9'
+- flang
+m2w64_c_compiler:
+- m2w64-toolchain
+m2w64_fortran_compiler:
+- m2w64-toolchain
 metis:
 - '5.1'
 openblas:
