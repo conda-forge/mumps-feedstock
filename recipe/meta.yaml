@@ -15,7 +15,7 @@ source:
     - mumps_mpi.patch
     - cmake.patch  # [win]
 build:
-  number: 210
+  number: 211
   features:
     - blas_{{ variant }}  # [not win]
 
