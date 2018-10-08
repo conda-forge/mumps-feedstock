@@ -19,3 +19,12 @@ if errorlevel 1 exit 1
 :: Install!
 mingw32-make install
 if errorlevel 1 exit 1
+
+%~dp0build\ssimpletest < %~dp0examples\input_simpletest_real
+if errorlevel 1 exit 1
+%~dp0build\dsimpletest < %~dp0examples\input_simpletest_real
+if errorlevel 1 exit 1
+%~dp0build\csimpletest < %~dp0examples\input_simpletest_cmplx
+if errorlevel 1 exit 1
+%~dp0build\zsimpletest < %~dp0examples\input_simpletest_cmplx
+if errorlevel 1 exit 1
