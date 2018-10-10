@@ -6,6 +6,7 @@
 #    =========     ==========           =====================
 #    Nov 2016        YUAN Xi                 Original
 #    Nov 2017     Richard Otis         -DAdd_ for m2w64 support
+#    Oct 2018     Joseph Weston     Enable builds for all supported precisions
 ###############################################################################
 
 cmake_minimum_required(VERSION 3.6.0)
