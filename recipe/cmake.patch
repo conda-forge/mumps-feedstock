@@ -3,7 +3,7 @@ new file mode 100644
 index 0000000..51ebbdd
 --- /dev/null
 +++ CMakeLists.txt
-@@ -0,0 +1,239 @@
+@@ -0,0 +1,242 @@
 +###############################################################################
 +#    Try to compile MUMPS.
 +#
@@ -25,7 +25,6 @@ index 0000000..51ebbdd
 +###############################################################################
 +# Options
 +###############################################################################
-+add_definitions(-D"MUMPS_ARITH=MUMPS_ARITH_d" )
 +add_definitions(-DAdd_)
 +
 +
@@ -114,7 +113,28 @@ index 0000000..51ebbdd
 +src/mumps_c.C
 +)
 +
-+set(ARCH "d")
++add_library(mumps_common STATIC ${COMMON_CSOURCES} ${COMMON_FSOURCES})
++
++set(PORD_SOURCES
++PORD/lib/graph.C
++PORD/lib/gbipart.C
++PORD/lib/gbisect.C
++PORD/lib/ddcreate.C
++PORD/lib/ddbisect.C
++PORD/lib/nestdiss.C
++PORD/lib/multisector.C
++PORD/lib/gelim.C
++PORD/lib/bucket.C
++PORD/lib/tree.C
++PORD/lib/symbfac.C
++PORD/lib/interface.C
++PORD/lib/sort.C
++PORD/lib/minpriority.C
++)
++add_library(pord STATIC ${PORD_SOURCES})
++
++
++foreach(ARCH s d c z)
 +
 +set(FSOURCES
 +src/${ARCH}ana_aux_par.F
@@ -204,42 +224,25 @@ index 0000000..51ebbdd
 +src/${ARCH}mumps_restart.F
 +)
 +
-+set(PORD_SOURCES
-+PORD/lib/graph.C
-+PORD/lib/gbipart.C
-+PORD/lib/gbisect.C
-+PORD/lib/ddcreate.C
-+PORD/lib/ddbisect.C
-+PORD/lib/nestdiss.C
-+PORD/lib/multisector.C
-+PORD/lib/gelim.C
-+PORD/lib/bucket.C
-+PORD/lib/tree.C
-+PORD/lib/symbfac.C
-+PORD/lib/interface.C
-+PORD/lib/sort.C
-+PORD/lib/minpriority.C
-+)
-+
 +
 +set(ARCHLIB ${ARCH}mumps)
 +set(EXAMPLE
 +examples/${ARCH}simpletest.F
 +)
 +
-+add_library(mumps_common STATIC ${COMMON_CSOURCES} ${COMMON_FSOURCES})
 +add_library(${ARCHLIB} SHARED ${CSOURCES} ${FSOURCES})
-+add_library(pord STATIC ${PORD_SOURCES})
-+add_executable(aexample ${EXAMPLE})
++target_compile_definitions(${ARCHLIB} PUBLIC MUMPS_ARITH=MUMPS_ARITH_${ARCH} )
++add_executable(${ARCH}simpletest ${EXAMPLE})
 +target_link_libraries(${ARCHLIB} mumps_common pord ${BLAS_LIBRARIES})
-+target_link_libraries(aexample ${ARCHLIB} mumps_common pord ${BLAS_LIBRARIES})
++target_link_libraries(${ARCH}simpletest ${ARCHLIB} mumps_common pord ${BLAS_LIBRARIES})
 +install(TARGETS ${ARCHLIB} DESTINATION bin)
-+install(TARGETS mumps_common pord DESTINATION lib)
 +install(FILES include/${ARCH}mumps_struc.h include/${ARCH}mumps_root.h include/${ARCH}mumps_c.h DESTINATION include)
++
++endforeach(ARCH)
++
++install(TARGETS mumps_common pord DESTINATION lib)
 +install(FILES include/mumps_c_types.h include/mumps_compat.h DESTINATION include)
 +if(NOT WITH_MPI)
 +  install(FILES libseq/mpif.h DESTINATION include)
 +  install(FILES libseq/mumps_mpi.h DESTINATION include)
 +endif()
-+
-+
