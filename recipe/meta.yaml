@@ -13,7 +13,6 @@ source:
   sha256: {{ sha256 }}
   patches:
     - mumps_mpi.patch
-    - cmake.patch  # [win]
 build:
   number: 211
   features:
