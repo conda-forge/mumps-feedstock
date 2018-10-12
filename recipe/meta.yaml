@@ -13,9 +13,8 @@ source:
   sha256: {{ sha256 }}
   patches:
     - mumps_mpi.patch
-    - cmake.patch  # [win]
 build:
-  number: 211
+  number: 212
   features:
     - blas_{{ variant }}  # [not win]
 
@@ -76,3 +75,4 @@ extra:
   recipe-maintainers:
     - basnijholt
     - minrk
+    - jbweston

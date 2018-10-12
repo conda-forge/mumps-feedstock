@@ -1,6 +1,8 @@
 setlocal EnableDelayedExpansion
 
 cd work
+copy %RECIPE_DIR%\CMakeLists.txt %~dp0CMakeLists.txt
+
 mkdir build
 cd build
 
