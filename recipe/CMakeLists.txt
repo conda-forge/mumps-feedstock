@@ -7,6 +7,7 @@
 #    Nov 2016        YUAN Xi                 Original
 #    Nov 2017     Richard Otis         -DAdd_ for m2w64 support
 #    Oct 2018     Joseph Weston     Enable builds for all supported precisions
+#    Oct 2018     Joseph Weston     Modify for use with MUMPS 5.1.x
 ###############################################################################
 
 cmake_minimum_required(VERSION 3.6.0)
@@ -52,26 +53,36 @@ if(NOT WITH_MPI)
 endif()
 
 set(COMMON_CSOURCES
-src/mumps_common.C
-src/mumps_orderings.C
+src/mumps_pord.C
+src/mumps_metis.C
+src/mumps_metis64.C
+src/mumps_metis_int.C
+src/mumps_scotch.C
+src/mumps_scotch64.C
+src/mumps_scotch_int.C
 src/mumps_size.C
 src/mumps_io.C
 src/mumps_io_basic.C
 src/mumps_io_err.C
 src/mumps_io_thread.C
 src/mumps_numa.C
+src/mumps_numa.C
+src/mumps_thread.C
+src/mumps_save_restore_C.C
 )
 
 if(NOT WITH_MPI)
-  set(COMMON_CSOURCES 
+  set(COMMON_CSOURCES
   ${COMMON_CSOURCES}
   libseq/elapse.C
   libseq/mpic.C)
 endif()
 
 set(COMMON_FSOURCES
+src/lr_common.F
 src/ana_omp_m.F
-src/tools_common_mod.F
+src/ana_orderings_wrappers_m.F
+src/mumps_memory_mod.F
 src/mumps_static_mapping.F
 src/mumps_sol_es.F
 src/fac_future_niv2_mod.F
@@ -99,7 +110,7 @@ src/ana_set_ordering.F
 )
 
 if(NOT WITH_MPI)
-  set(COMMON_FSOURCES 
+  set(COMMON_FSOURCES
   ${COMMON_FSOURCES}
   libseq/mpi.F)
 endif()
@@ -145,6 +156,8 @@ src/${ARCH}mumps_ooc.F
 src/${ARCH}mumps_struc_def.F
 src/${ARCH}static_ptr_m.F
 src/${ARCH}lr_core.F
+src/${ARCH}lr_type.F
+src/${ARCH}lr_stats.F
 src/${ARCH}fac_lr.F
 src/${ARCH}fac_omp_m.F
 src/${ARCH}fac_par_m.F
@@ -154,6 +167,8 @@ src/${ARCH}fac_front_LDLT_type1.F
 src/${ARCH}fac_front_LDLT_type2.F
 src/${ARCH}fac_front_aux.F
 src/${ARCH}fac_front_type2_aux.F
+src/${ARCH}mumps_save_restore_files.F
+src/${ARCH}mumps_save_restore.F
 src/${ARCH}ini_driver.F
 src/${ARCH}ana_driver.F
 src/${ARCH}fac_driver.F
@@ -216,7 +231,6 @@ src/${ARCH}sol_matvec.F
 src/${ARCH}sol_root_parallel.F
 src/${ARCH}tools.F
 src/${ARCH}type3_root.F
-src/${ARCH}mumps_restart.F
 )
 
 
