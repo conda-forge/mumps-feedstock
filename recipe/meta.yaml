@@ -14,7 +14,7 @@ source:
   patches:
     - mumps_mpi.patch
 build:
-  number: 212
+  number: 1212
   features:
     - blas_{{ variant }}  # [not win]
 
