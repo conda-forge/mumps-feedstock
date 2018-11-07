@@ -53,30 +53,29 @@ if(NOT WITH_MPI)
 endif()
 
 set(COMMON_CSOURCES
-src/mumps_pord.C
-src/mumps_metis.C
-src/mumps_metis64.C
-src/mumps_metis_int.C
-src/mumps_scotch.C
-src/mumps_scotch64.C
-src/mumps_scotch_int.C
-src/mumps_size.C
-src/mumps_io.C
-src/mumps_io_basic.C
-src/mumps_io_err.C
-src/mumps_io_thread.C
-src/mumps_numa.C
-src/mumps_numa.C
-src/mumps_thread.C
-src/mumps_save_restore_C.C
 src/mumps_common.c
+src/mumps_pord.c
+src/mumps_metis.c
+src/mumps_metis64.c
+src/mumps_metis_int.c
+src/mumps_scotch.c
+src/mumps_scotch64.c
+src/mumps_scotch_int.c
+src/mumps_size.c
+src/mumps_io.c
+src/mumps_io_basic.c
+src/mumps_io_thread.c
+src/mumps_io_err.c
+src/mumps_numa.c
+src/mumps_thread.c
+src/mumps_save_restore_C.c
 )
 
 if(NOT WITH_MPI)
   set(COMMON_CSOURCES
   ${COMMON_CSOURCES}
-  libseq/elapse.C
-  libseq/mpic.C)
+  libseq/elapse.c
+  libseq/mpic.c)
 endif()
 
 set(COMMON_FSOURCES
@@ -117,26 +116,26 @@ if(NOT WITH_MPI)
 endif()
 
 set(CSOURCES
-src/mumps_c.C
+src/mumps_c.c
 )
 
 add_library(mumps_common STATIC ${COMMON_CSOURCES} ${COMMON_FSOURCES})
 
 set(PORD_SOURCES
-PORD/lib/graph.C
-PORD/lib/gbipart.C
-PORD/lib/gbisect.C
-PORD/lib/ddcreate.C
-PORD/lib/ddbisect.C
-PORD/lib/nestdiss.C
-PORD/lib/multisector.C
-PORD/lib/gelim.C
-PORD/lib/bucket.C
-PORD/lib/tree.C
-PORD/lib/symbfac.C
-PORD/lib/interface.C
-PORD/lib/sort.C
-PORD/lib/minpriority.C
+PORD/lib/graph.c
+PORD/lib/gbipart.c
+PORD/lib/gbisect.c
+PORD/lib/ddcreate.c
+PORD/lib/ddbisect.c
+PORD/lib/nestdiss.c
+PORD/lib/multisector.c
+PORD/lib/gelim.c
+PORD/lib/bucket.c
+PORD/lib/tree.c
+PORD/lib/symbfac.c
+PORD/lib/interface.c
+PORD/lib/sort.c
+PORD/lib/minpriority.c
 )
 add_library(pord STATIC ${PORD_SOURCES})
 
