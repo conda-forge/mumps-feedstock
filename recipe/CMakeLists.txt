@@ -69,6 +69,7 @@ src/mumps_numa.C
 src/mumps_numa.C
 src/mumps_thread.C
 src/mumps_save_restore_C.C
+src/mumps_common.c
 )
 
 if(NOT WITH_MPI)
