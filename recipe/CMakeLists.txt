@@ -7,6 +7,7 @@
 #    Nov 2016        YUAN Xi                 Original
 #    Nov 2017     Richard Otis         -DAdd_ for m2w64 support
 #    Oct 2018     Joseph Weston     Enable builds for all supported precisions
+#    Oct 2018     Joseph Weston     Modify for use with MUMPS 5.1.x
 ###############################################################################
 
 cmake_minimum_required(VERSION 3.6.0)
@@ -52,26 +53,36 @@ if(NOT WITH_MPI)
 endif()
 
 set(COMMON_CSOURCES
-src/mumps_common.C
-src/mumps_orderings.C
-src/mumps_size.C
-src/mumps_io.C
-src/mumps_io_basic.C
-src/mumps_io_err.C
-src/mumps_io_thread.C
-src/mumps_numa.C
+src/mumps_common.c
+src/mumps_pord.c
+src/mumps_metis.c
+src/mumps_metis64.c
+src/mumps_metis_int.c
+src/mumps_scotch.c
+src/mumps_scotch64.c
+src/mumps_scotch_int.c
+src/mumps_size.c
+src/mumps_io.c
+src/mumps_io_basic.c
+src/mumps_io_thread.c
+src/mumps_io_err.c
+src/mumps_numa.c
+src/mumps_thread.c
+src/mumps_save_restore_C.c
 )
 
 if(NOT WITH_MPI)
-  set(COMMON_CSOURCES 
+  set(COMMON_CSOURCES
   ${COMMON_CSOURCES}
-  libseq/elapse.C
-  libseq/mpic.C)
+  libseq/elapse.c
+  libseq/mpic.c)
 endif()
 
 set(COMMON_FSOURCES
+src/lr_common.F
 src/ana_omp_m.F
-src/tools_common_mod.F
+src/ana_orderings_wrappers_m.F
+src/mumps_memory_mod.F
 src/mumps_static_mapping.F
 src/mumps_sol_es.F
 src/fac_future_niv2_mod.F
@@ -99,32 +110,32 @@ src/ana_set_ordering.F
 )
 
 if(NOT WITH_MPI)
-  set(COMMON_FSOURCES 
+  set(COMMON_FSOURCES
   ${COMMON_FSOURCES}
   libseq/mpi.F)
 endif()
 
 set(CSOURCES
-src/mumps_c.C
+src/mumps_c.c
 )
 
 add_library(mumps_common STATIC ${COMMON_CSOURCES} ${COMMON_FSOURCES})
 
 set(PORD_SOURCES
-PORD/lib/graph.C
-PORD/lib/gbipart.C
-PORD/lib/gbisect.C
-PORD/lib/ddcreate.C
-PORD/lib/ddbisect.C
-PORD/lib/nestdiss.C
-PORD/lib/multisector.C
-PORD/lib/gelim.C
-PORD/lib/bucket.C
-PORD/lib/tree.C
-PORD/lib/symbfac.C
-PORD/lib/interface.C
-PORD/lib/sort.C
-PORD/lib/minpriority.C
+PORD/lib/graph.c
+PORD/lib/gbipart.c
+PORD/lib/gbisect.c
+PORD/lib/ddcreate.c
+PORD/lib/ddbisect.c
+PORD/lib/nestdiss.c
+PORD/lib/multisector.c
+PORD/lib/gelim.c
+PORD/lib/bucket.c
+PORD/lib/tree.c
+PORD/lib/symbfac.c
+PORD/lib/interface.c
+PORD/lib/sort.c
+PORD/lib/minpriority.c
 )
 add_library(pord STATIC ${PORD_SOURCES})
 
@@ -145,6 +156,8 @@ src/${ARCH}mumps_ooc.F
 src/${ARCH}mumps_struc_def.F
 src/${ARCH}static_ptr_m.F
 src/${ARCH}lr_core.F
+src/${ARCH}lr_type.F
+src/${ARCH}lr_stats.F
 src/${ARCH}fac_lr.F
 src/${ARCH}fac_omp_m.F
 src/${ARCH}fac_par_m.F
@@ -154,6 +167,8 @@ src/${ARCH}fac_front_LDLT_type1.F
 src/${ARCH}fac_front_LDLT_type2.F
 src/${ARCH}fac_front_aux.F
 src/${ARCH}fac_front_type2_aux.F
+src/${ARCH}mumps_save_restore_files.F
+src/${ARCH}mumps_save_restore.F
 src/${ARCH}ini_driver.F
 src/${ARCH}ana_driver.F
 src/${ARCH}fac_driver.F
@@ -216,7 +231,6 @@ src/${ARCH}sol_matvec.F
 src/${ARCH}sol_root_parallel.F
 src/${ARCH}tools.F
 src/${ARCH}type3_root.F
-src/${ARCH}mumps_restart.F
 )
 
 
@@ -237,7 +251,3 @@ endforeach(ARCH)
 
 install(TARGETS mumps_common pord DESTINATION lib)
 install(FILES include/mumps_c_types.h include/mumps_compat.h DESTINATION include)
-if(NOT WITH_MPI)
-  install(FILES libseq/mpif.h DESTINATION include)
-  install(FILES libseq/mumps_mpi.h DESTINATION include)
-endif()
