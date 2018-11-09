@@ -29,9 +29,11 @@ LIBEXT  = .a
 OUTC    = -o
 OUTF    = -o
 RM = /bin/rm -f
+CC ?= gcc
 CC := $(CC) -fPIC $(CFLAGS)
-FC = gfortran -fPIC
-FL = gfortran -fPIC
+FC ?= gfortran
+FC := $(FC) -fPIC
+FL := $(FC) -fPIC
 AR = ar vr #
 RANLIB = ranlib
 
