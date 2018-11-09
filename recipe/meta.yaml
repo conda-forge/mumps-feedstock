@@ -20,33 +20,33 @@ build:
 
 requirements:
   build:
-    - gcc  # [not win]
-    - toolchain
+    - {{ compiler('c') }}
+    - {{ compiler('fortran') }}
     - blas 1.* {{ blas }}
     {% if blas == 'openblas' %}
-    - openblas 0.2.20|0.2.20.*
+    - openblas
     {% endif %}
-    - metis 5.1.*
+    - metis
     - {{ mpi }}
-    - scalapack 2.0.*
-    - parmetis 4.0.*
-    - ptscotch 6.0.*
+    - scalapack
+    - parmetis
+    - ptscotch
 
   run:
-    - libgfortran
     - blas 1.* {{ blas }}
     {% if blas == 'openblas' %}
-    - openblas 0.2.20|0.2.20.*
+    - openblas
     {% endif %}
-    - metis 5.1.*
+    - metis
     - {{ mpi }}
-    - scalapack 2.0.*
-    - parmetis 4.0.*
-    - ptscotch 6.0.*
+    - scalapack
+    - parmetis
+    - ptscotch
 
 test:
   requires:
-    - gcc  # [not win]
+    - {{ compiler('c') }}
+    - {{ compiler('fortran') }}
   commands:
     - test -f "${PREFIX}/lib/libzmumps.a"
     - test -f "${PREFIX}/lib/libcmumps.a"
