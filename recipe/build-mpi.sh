@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 cp $RECIPE_DIR/Makefile.conda.PAR ./Makefile.inc
 

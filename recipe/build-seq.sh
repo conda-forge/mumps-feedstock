@@ -1,12 +1,20 @@
 #!/bin/bash
+set -ex
 
 cp $RECIPE_DIR/Makefile.conda.SEQ ./Makefile.inc
 
 make all
 
-cp lib/*.a ${PREFIX}/lib
-cp libseq/*.a ${PREFIX}/lib
-cp include/*.h ${PREFIX}/include
+mkdir -p "${PREFIX}/lib"
+mkdir -p "${PREFIX}/include/mumps_seq"
+
+for f in lib/*.a; do
+  # add _seq suffix to libs
+  cp $f ${PREFIX}/${f/.a/_seq.a}
+fi
+cp libseq/*.a ${PREFIX}/lib/
+cp libseq/*.h ${PREFIX}/include/mumps_seq/
+
 
 cd examples
 
