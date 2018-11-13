@@ -19,9 +19,19 @@ build:
   features:
     - blas_{{ variant }}  # [not win]
 
+requirements:
+  build:
+    # need these dummy dependencies in order to get the right build
+    # matrix out of conda-smithy
+    - {{ compiler('fortran') }}        # [unix]
+    - {{ compiler('m2w64_fortran') }}  # [win]
+    - {{ compiler('c') }}        # [unix]
+    - {{ compiler('m2w64_c') }}  # [win]
+    - mpi * {{ mpi }}  # [mpi != "nompi"]
+
 outputs:
   {% if not mpi %}
-  - name: mumps
+  - name: mumps-seq
     requirements:
       build:
         - cmake  # [win]
@@ -30,10 +40,6 @@ outputs:
         - {{ compiler('m2w64_fortran') }}  # [win]
         - {{ compiler('c') }}        # [unix]
         - {{ compiler('m2w64_c') }}  # [win]
-        # dummy mpi dependency here to ensure we get the full matrix
-        # the matrix in mumps-mpi output is not fully registered
-        # by conda-smithy
-        - mpi * {{ mpi }}  # [mpi != "nompi"]
       host:
         - blas 1.1 {{ variant }}  # [not win]
         - openblas                  # [not win]
@@ -75,14 +81,14 @@ outputs:
       host:
         - blas 1.1 {{ variant }}
         - openblas
-        - {{ mpi }}
+        - {{ mpi }}  # [mpi != 'nompi']
         - parmetis
         - ptscotch
         - scalapack
       run:
         - blas 1.1 {{ variant }}
         - openblas
-        - {{ mpi }}
+        - {{ mpi }}  # [mpi != 'nompi']
         - parmetis
         - ptscotch
         - scalapack
