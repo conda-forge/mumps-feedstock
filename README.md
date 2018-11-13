@@ -30,6 +30,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-mumps-green.svg)](https://anaconda.org/conda-forge/mumps) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mumps.svg)](https://anaconda.org/conda-forge/mumps) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mumps.svg)](https://anaconda.org/conda-forge/mumps) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mumps.svg)](https://anaconda.org/conda-forge/mumps) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-mumps--mpi-green.svg)](https://anaconda.org/conda-forge/mumps-mpi) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mumps-mpi.svg)](https://anaconda.org/conda-forge/mumps-mpi) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mumps-mpi.svg)](https://anaconda.org/conda-forge/mumps-mpi) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mumps-mpi.svg)](https://anaconda.org/conda-forge/mumps-mpi) |
 
 Installing mumps
 ================
@@ -40,10 +41,10 @@ Installing `mumps` from the `conda-forge` channel can be achieved by adding `con
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `mumps` can be installed with:
+Once the `conda-forge` channel has been enabled, `mumps, mumps-mpi` can be installed with:
 
 ```
-conda install mumps
+conda install mumps mumps-mpi
 ```
 
 It is possible to list all of the versions of `mumps` available on your platform with:
