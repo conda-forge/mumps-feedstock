@@ -2,6 +2,9 @@
 {% set version = "5.1.2" %}
 {% set sha256 = "eb345cda145da9aea01b851d17e54e7eef08e16bfa148100ac1f7f046cd42ae9" %}
 {% set variant = "openblas" %}
+{% if mpi == "nompi" %}
+{% set mpi = False %}
+{% endif %}
 
 package:
   name: mumps
@@ -16,43 +19,80 @@ build:
   features:
     - blas_{{ variant }}  # [not win]
 
-requirements:
-  build:
-    - cmake  # [win]
-    - patch  # [win]
-    - {{ compiler('fortran') }}        # [unix]
-    - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
-  host:
-    - blas 1.1 {{ variant }}  # [not win]
-    - openblas                  # [not win]
-    - metis        # [not win]
-    - scotch  # [not win]
-    - m2w64-openblas  # [win]
-  run:
-    - blas 1.1 {{ variant }}  # [not win]
-    - openblas                  # [not win]
-    - metis  # [not win]
-    - scotch  # [not win]
-    - m2w64-openblas  # [win]
+outputs:
+  {% if not mpi %}
+  - name: mumps
+    requirements:
+      build:
+        - cmake  # [win]
+        - patch  # [win]
+        - {{ compiler('fortran') }}        # [unix]
+        - {{ compiler('m2w64_fortran') }}  # [win]
+        - {{ compiler('c') }}        # [unix]
+        - {{ compiler('m2w64_c') }}  # [win]
+      host:
+        - blas 1.1 {{ variant }}  # [not win]
+        - openblas                  # [not win]
+        - m2w64-openblas  # [win]
+        - metis  # [not win]
+        - scotch  # [not win]
+      run:
+        - blas 1.1 {{ variant }}  # [not win]
+        - openblas                  # [not win]
+        - m2w64-openblas  # [win]
+        - metis  # [not win]
+        - scotch  # [not win]
 
-test:
-  commands:
-    - test -f "${PREFIX}/lib/libsmumps.a"  # [not win]
-    - test -f "${PREFIX}/lib/libdmumps.a"  # [not win]
-    - test -f "${PREFIX}/lib/libcmumps.a"  # [not win]
-    - test -f "${PREFIX}/lib/libzmumps.a"  # [not win]
-    - test -f "${PREFIX}/lib/libmumps_common.a"  # [not win]
-    - test -f "${PREFIX}/lib/libpord.a"  # [not win]
-    - test -f "${PREFIX}/include/dmumps_struc.h"  # [not win]
-    - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libsmumps.dll" exit 1  # [win]
-    - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libdmumps.dll" exit 1  # [win]
-    - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libcmumps.dll" exit 1  # [win]
-    - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libzmumps.dll" exit 1  # [win]
-    - if not exist "%LIBRARY_PREFIX%\mingw-w64\lib\libmumps_common.a" exit 1  # [win]
-    - if not exist "%LIBRARY_PREFIX%\mingw-w64\lib\libpord.a" exit 1  # [win]
-    - if not exist "%LIBRARY_PREFIX%\mingw-w64\include\dmumps_struc.h" exit 1  # [win]
+    test:
+      commands:
+        - test -f "${PREFIX}/lib/libsmumps.a"  # [not win]
+        - test -f "${PREFIX}/lib/libdmumps.a"  # [not win]
+        - test -f "${PREFIX}/lib/libcmumps.a"  # [not win]
+        - test -f "${PREFIX}/lib/libzmumps.a"  # [not win]
+        - test -f "${PREFIX}/lib/libmumps_common.a"  # [not win]
+        - test -f "${PREFIX}/lib/libpord.a"  # [not win]
+        - test -f "${PREFIX}/include/dmumps_struc.h"  # [not win]
+        - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libsmumps.dll" exit 1  # [win]
+        - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libdmumps.dll" exit 1  # [win]
+        - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libcmumps.dll" exit 1  # [win]
+        - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libzmumps.dll" exit 1  # [win]
+        - if not exist "%LIBRARY_PREFIX%\mingw-w64\lib\libmumps_common.a" exit 1  # [win]
+        - if not exist "%LIBRARY_PREFIX%\mingw-w64\lib\libpord.a" exit 1  # [win]
+        - if not exist "%LIBRARY_PREFIX%\mingw-w64\include\dmumps_struc.h" exit 1  # [win]
+
+  {% else %}
+  - name: mumps-mpi
+    skip: true  # [win]
+    script: build-mpi.sh
+    requirements:
+      build:
+        - {{ compiler('fortran') }}  # [not win]
+        - {{ compiler('c') }}  # [not win]
+      host:
+        - blas 1.1 {{ variant }}
+        - openblas
+        - {{ mpi }}
+        - parmetis
+        - ptscotch
+        - scalapack
+      run:
+        - blas 1.1 {{ variant }}
+        - openblas
+        - {{ mpi }}
+        - parmetis
+        - ptscotch
+        - scalapack
+
+    test:
+      commands:
+        - test -f "${PREFIX}/lib/libsmumps.a"
+        - test -f "${PREFIX}/lib/libdmumps.a"
+        - test -f "${PREFIX}/lib/libcmumps.a"
+        - test -f "${PREFIX}/lib/libzmumps.a"
+        - test -f "${PREFIX}/lib/libmumps_common.a"
+        - test -f "${PREFIX}/lib/libpord.a"
+        - test -f "${PREFIX}/include/dmumps_struc.h"
+    {% endif %}
 
 about:
   home: http://mumps.enseeiht.fr/
