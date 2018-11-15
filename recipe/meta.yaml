@@ -44,7 +44,7 @@ outputs:
   - name: mumps-seq
     build:
       script: ${RECIPE_DIR}/build-seq.sh  # [not win]
-      script: "%RECIPE_DIR%\\bld.bat" # [win]
+      script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
     requirements:
       build:
         - cmake  # [win]
