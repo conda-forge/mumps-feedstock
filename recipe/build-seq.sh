@@ -10,10 +10,10 @@ mkdir -p "${PREFIX}/include/mumps_seq"
 
 for f in lib/*.a; do
   # add _seq suffix to libs
-  cp $f ${PREFIX}/${f/.a/_seq.a}
-fi
-cp libseq/*.a ${PREFIX}/lib/
-cp libseq/*.h ${PREFIX}/include/mumps_seq/
+  cp -v $f ${PREFIX}/${f/.a/_seq.a}
+done
+cp -v libseq/*.a ${PREFIX}/lib/
+cp -v libseq/*.h ${PREFIX}/include/mumps_seq/
 
 
 cd examples

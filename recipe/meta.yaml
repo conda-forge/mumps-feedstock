@@ -42,6 +42,9 @@ outputs:
 
   {% if mpi == 'nompi' %}
   - name: mumps-seq
+    build:
+      script: ${RECIPE_DIR}/build-seq.sh  # [not win]
+      script: "%RECIPE_DIR%\\bld.bat" # [win]
     requirements:
       build:
         - cmake  # [win]
