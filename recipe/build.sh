@@ -6,6 +6,7 @@ make all
 
 cp lib/*.a ${PREFIX}/lib
 cp libseq/*.a ${PREFIX}/lib
+cp libseq/*.h ${PREFIX}/include
 cp include/*.h ${PREFIX}/include
 
 cd examples
