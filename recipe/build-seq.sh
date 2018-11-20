@@ -13,7 +13,8 @@ for f in lib/*.a; do
   cp -v $f ${PREFIX}/${f/.a/_seq.a}
 done
 cp -v libseq/*.a ${PREFIX}/lib/
-cp -v libseq/*.h ${PREFIX}/include/mumps_seq/
+cp -v libseq/mpi.h ${PREFIX}/include/mumps_seq/
+cp -v libseq/mpif.h ${PREFIX}/include/mumps_seq/
 
 
 cd examples

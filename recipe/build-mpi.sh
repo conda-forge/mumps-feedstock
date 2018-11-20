@@ -9,4 +9,3 @@ export FC=mpifort
 make all
 
 cp lib/*.a ${PREFIX}/lib
-cp include/*.h ${PREFIX}/include

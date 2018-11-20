@@ -251,3 +251,7 @@ endforeach(ARCH)
 
 install(TARGETS mumps_common pord DESTINATION lib)
 install(FILES include/mumps_c_types.h include/mumps_compat.h DESTINATION include)
+if(NOT WITH_MPI)
+  install(FILES libseq/mpif.h DESTINATION include/mumps_seq)
+  install(FILES libseq/mpi.h DESTINATION include/mumps_seq)
+endif()
