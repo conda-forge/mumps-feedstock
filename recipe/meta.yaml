@@ -12,7 +12,7 @@ source:
   url: http://mumps.enseeiht.fr/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
 build:
-  number: 1000
+  number: 1001
   features:
     - blas_{{ variant }}  # [not win]
 
@@ -46,6 +46,8 @@ test:
     - test -f "${PREFIX}/lib/libmumps_common.a"  # [not win]
     - test -f "${PREFIX}/lib/libpord.a"  # [not win]
     - test -f "${PREFIX}/include/dmumps_struc.h"  # [not win]
+    - test -f "${PREFIX}/include/mumps_mpi.h"  # [not win]
+    - test -f "${PREFIX}/include/mumps_mpif.h"  # [not win]
     - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libsmumps.dll" exit 1  # [win]
     - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libdmumps.dll" exit 1  # [win]
     - if not exist "%LIBRARY_PREFIX%\mingw-w64\bin\libcmumps.dll" exit 1  # [win]
@@ -54,6 +56,7 @@ test:
     - if not exist "%LIBRARY_PREFIX%\mingw-w64\lib\libpord.a" exit 1  # [win]
     - if not exist "%LIBRARY_PREFIX%\mingw-w64\include\dmumps_struc.h" exit 1  # [win]
     - if not exist "%LIBRARY_PREFIX%\mingw-w64\include\mumps_mpi.h" exit 1  # [win]
+    - if not exist "%LIBRARY_PREFIX%\mingw-w64\include\mumps_mpif.h" exit 1  # [win]
 
 about:
   home: http://mumps.enseeiht.fr/
