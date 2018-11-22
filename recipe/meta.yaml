@@ -15,8 +15,6 @@ source:
 
 build:
   number: {{ build }}
-  features:
-    - blas_{{ variant }}  # [not win]
 
 requirements:
   build:
@@ -96,6 +94,8 @@ outputs:
     build:
       skip: true  # [win]
       script: ${RECIPE_DIR}/build-mpi.sh
+      features:
+        - blas_{{ variant }}  # [not win]
     requirements:
       build:
         - {{ compiler('fortran') }}  # [not win]
