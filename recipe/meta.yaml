@@ -11,6 +11,11 @@ source:
   fn: MUMPS_{{ version }}.tar.gz
   url: http://mumps.enseeiht.fr/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    - shared-pord.patch
+    - shared-mumps.patch
+    - shared-libseq.patch
+    - examples-mpilibs.patch
 
 build:
   number: 1002
