@@ -14,4 +14,4 @@ export FC=mpifort
 
 make all
 
-cp lib/*.a ${PREFIX}/lib
+cp -av lib/*${SHLIB_EXT} ${PREFIX}/lib
