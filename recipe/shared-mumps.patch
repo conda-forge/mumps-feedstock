@@ -11,9 +11,9 @@ Index: mumps/src/Makefile
 -mumps_lib:    $(libdir)/libmumps_common$(PLAT)$(LIBEXT) \
 -              $(libdir)/lib$(ARITH)mumps$(PLAT)$(LIBEXT)
 +mumps_lib:    $(libdir)/libmumps_common$(PLAT).a \
-+              $(libdir)/libmumps_common$(PLAT).so \
++              $(libdir)/libmumps_common$(PLAT)$(SHLIB_EXT) \
 +              $(libdir)/lib$(ARITH)mumps$(PLAT).a \
-+              $(libdir)/lib$(ARITH)mumps$(PLAT).so
++              $(libdir)/lib$(ARITH)mumps$(PLAT)$(SHLIB_EXT)
  
  OBJS_COMMON_MOD = \
          lr_common.o \
@@ -29,17 +29,17 @@ Index: mumps/src/Makefile
  
 -$(libdir)/lib$(ARITH)mumps$(PLAT)$(LIBEXT):    $(OBJS_MOD) $(OBJS_OTHER)
 -	$(AR)$@ $?
-+$(libdir)/libmumps_common$(PLAT).so:      $(OBJS_COMMON_MOD) $(OBJS_COMMON_OTHER)
-+	$(FC) -shared $^ -Wl,-soname,libmumps_common$(PLAT)-5.1.2.so -L$(libdir) $(LORDERINGS) -lpthread $(MPIFLIB) $(MPICLIB) -o $(libdir)/libmumps_common$(PLAT)-5.1.2.so -Wl,-z,defs
-+	ln -s libmumps_common$(PLAT)-5.1.2.so $@
++$(libdir)/libmumps_common$(PLAT)$(SHLIB_EXT):      $(OBJS_COMMON_MOD) $(OBJS_COMMON_OTHER)
++	$(FC) -shared $^ -Wl,-$(soname),@rpath/libmumps_common$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -L$(libdir) $(LORDERINGS) -lpthread $(MPIFLIB) $(MPICLIB) -o $(libdir)/libmumps_common$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
++	ln -s libmumps_common$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $@
 +
 +$(libdir)/lib$(ARITH)mumps$(PLAT).a:    $(OBJS_MOD) $(OBJS_OTHER)
 +	$(AR) $@ $?
  	$(RANLIB) $@
  
-+$(libdir)/lib$(ARITH)mumps$(PLAT).so:    $(OBJS_MOD) $(OBJS_OTHER)
-+	$(FC) -shared $^ -Wl,-soname,lib$(ARITH)mumps$(PLAT)-5.1.2.so -L$(libdir) -lmumps_common$(PLAT) $(LORDERINGS) $(MPIFLIB) -lblas $(SCALAP) $(LAPACK) -o $(libdir)/lib$(ARITH)mumps$(PLAT)-5.1.2.so -Wl,-z,defs
-+	ln -s lib$(ARITH)mumps$(PLAT)-5.1.2.so $@
++$(libdir)/lib$(ARITH)mumps$(PLAT)$(SHLIB_EXT):    $(OBJS_MOD) $(OBJS_OTHER)
++	$(FC) -shared $^ -Wl,-$(soname),@rpath/lib$(ARITH)mumps$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -L$(libdir) -lmumps_common$(PLAT) $(LORDERINGS) $(MPIFLIB) -lblas $(SCALAP) $(LAPACK) -o $(libdir)/lib$(ARITH)mumps$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
++	ln -s lib$(ARITH)mumps$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $@
 +
  # Dependencies between modules:
  $(ARITH)mumps_load.o:		$(ARITH)mumps_comm_buffer.o \

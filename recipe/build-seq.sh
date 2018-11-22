@@ -3,6 +3,12 @@ set -ex
 
 cp $RECIPE_DIR/Makefile.conda.SEQ ./Makefile.inc
 
+if [[ "$(uname)" == "Darwin" ]]; then
+  export soname=install_name
+else
+  export soname=soname
+fi
+
 make all PLAT=_seq
 
 mkdir -p "${PREFIX}/lib"

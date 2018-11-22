@@ -9,15 +9,15 @@ Index: mumps/libseq/Makefile
  include ../Makefile.inc
  
 -libmpiseq: libmpiseq$(PLAT)$(LIBEXT)
-+libmpiseq: libmpiseq$(PLAT).a libmpiseq$(PLAT).so
++libmpiseq: libmpiseq$(PLAT).a libmpiseq$(PLAT)$(SHLIB_EXT)
  
 -libmpiseq$(PLAT)$(LIBEXT): mpi.o mpic.o elapse.o
 -	$(AR)$@ mpi.o mpic.o elapse.o
 +libmpiseq$(PLAT).a: mpi.o mpic.o elapse.o
 +	$(AR) $@ mpi.o mpic.o elapse.o
  	$(RANLIB) $@
-+libmpiseq$(PLAT).so: mpi.o mpic.o elapse.o
-+	$(FC) -shared $^ -Wl,-soname,libmpiseq$(PLAT)-5.1.2.so -o libmpiseq$(PLAT)-5.1.2.so -Wl,-z,defs
++libmpiseq$(PLAT)$(SHLIB_EXT): mpi.o mpic.o elapse.o
++	$(FC) -shared $^ -Wl,-$(soname),@rpath/libmpiseq$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -o libmpiseq$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
  .f.o:
 -	$(FC) $(OPTF)              -c $*.f $(OUTF)$*.o
 +	$(FC) $(OPTF)              -fPIC -c $*.f $(OUTF)$*.o
@@ -27,7 +27,7 @@ Index: mumps/libseq/Makefile
  
  clean:
 -	$(RM) *.o *$(LIBEXT)
-+	$(RM) *.o *.a *.so
++	$(RM) *.o *.a *$(SHLIB_EXT)
 Index: mumps/Makefile
 ===================================================================
 --- mumps.orig/Makefile

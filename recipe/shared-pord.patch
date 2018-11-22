@@ -23,16 +23,16 @@ Index: mumps/PORD/lib/Makefile
 +	$(AR) $@ $(OBJS)
  	$(RANLIB) $@
  
-+libpord$(PLAT).so: $(OBJS)
-+	$(CC) -shared $(OBJS) -Wl,-soname,libpord$(PLAT)-5.1.2.so -o libpord$(PLAT)-5.1.2.so -Wl,-z,defs
-+	ln -s libpord$(PLAT)-5.1.2.so $@
++libpord$(PLAT)$(SHLIB_EXT): $(OBJS)
++	$(CC) -shared $(OBJS) -Wl,-$(soname),@rpath/libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -o libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
++	ln -s libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $@
 +
  clean:
  	rm -f *.o
  
  realclean:
 -	rm -f *.o libpord.a
-+	rm -f *.o libpord*.a *.so
++	rm -f *.o libpord*.a *$(SHLIB_EXT)
 Index: mumps/Makefile
 ===================================================================
 --- mumps.orig/Makefile
@@ -42,7 +42,7 @@ Index: mumps/Makefile
  	(cd examples ; $(MAKE) multi)
  
 -requiredobj: Makefile.inc $(LIBSEQNEEDED) $(libdir)/libpord$(PLAT)$(LIBEXT)
-+requiredobj: Makefile.inc $(LIBSEQNEEDED) $(libdir)/libpord$(PLAT).a $(libdir)/libpord$(PLAT).so
++requiredobj: Makefile.inc $(LIBSEQNEEDED) $(libdir)/libpord$(PLAT).a $(libdir)/libpord$(PLAT)$(SHLIB_EXT)
  
  # dummy MPI library (sequential version)
  
@@ -61,17 +61,17 @@ Index: mumps/Makefile
 +	  cp $(LPORDDIR)/libpord$(PLAT).a $@; \
  	fi;
  
-+$(libdir)/libpord$(PLAT).so:
++$(libdir)/libpord$(PLAT)$(SHLIB_EXT):
 +	if [ "$(LPORDDIR)" != "" ] ; then \
-+	cd $(LPORDDIR); make CC="$(CC)" CFLAGS="$(OPTC)" AR="$(AR)" ARFUNCT= RANLIB="$(RANLIB)" libpord$(PLAT).so; fi;
++	cd $(LPORDDIR); make CC="$(CC)" CFLAGS="$(OPTC)" AR="$(AR)" ARFUNCT= RANLIB="$(RANLIB)" libpord$(PLAT)$(SHLIB_EXT); fi;
 +	if [ "$(LPORDDIR)" != "" ] ; then \
-+	cp -a $(LPORDDIR)/libpord*.so lib/; fi;
++	cp -a $(LPORDDIR)/libpord*$(SHLIB_EXT) lib/; fi;
 +
  clean:
  	(cd src; $(MAKE) clean)
  	(cd examples; $(MAKE) clean)
 -	(cd $(libdir); $(RM) *$(PLAT)$(LIBEXT))
-+	(cd $(libdir); $(RM) *$(PLAT).a *$(PLAT).so)
++	(cd $(libdir); $(RM) *$(PLAT).a *$(PLAT)$(SHLIB_EXT))
  	(cd libseq; $(MAKE) clean)
  	if [ "$(LPORDDIR)" != "" ] ; then \
  	  cd $(LPORDDIR); $(MAKE) realclean; \
