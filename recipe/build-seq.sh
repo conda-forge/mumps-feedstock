@@ -3,15 +3,12 @@ set -ex
 
 cp $RECIPE_DIR/Makefile.conda.SEQ ./Makefile.inc
 
-make all
+make all PLAT=_seq
 
 mkdir -p "${PREFIX}/lib"
 mkdir -p "${PREFIX}/include/mumps_seq"
 
-for f in lib/*.a; do
-  # add _seq suffix to libs
-  cp -v $f ${PREFIX}/${f/.a/_seq.a}
-done
+cp -v lib/*.a ${PREFIX}/lib/
 cp -v libseq/*.a ${PREFIX}/lib/
 cp -v libseq/mpi.h ${PREFIX}/include/mumps_seq/
 cp -v libseq/mpif.h ${PREFIX}/include/mumps_seq/

@@ -74,7 +74,7 @@ outputs:
         - test -f "${PREFIX}/lib/libzmumps_seq.a"
         - test -f "${PREFIX}/lib/libmumps_common_seq.a"
         - test -f "${PREFIX}/lib/libpord_seq.a"
-        - test -f "${PREFIX}/lib/libmpiseq.a"
+        - test -f "${PREFIX}/lib/libmpiseq_seq.a"
         - test -f "${PREFIX}/include/mumps_seq/mpi.h"
         - test -f "${PREFIX}/include/mumps_seq/mpif.h"
         {% else %}
