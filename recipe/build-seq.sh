@@ -4,9 +4,9 @@ set -ex
 cp $RECIPE_DIR/Makefile.conda.SEQ ./Makefile.inc
 
 if [[ "$(uname)" == "Darwin" ]]; then
-  export soname=install_name
+  export SONAME="-Wl,-install_name,@rpath/"
 else
-  export soname=soname
+  export SONAME="-Wl,-soname,"
 fi
 
 make all PLAT=_seq

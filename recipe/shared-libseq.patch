@@ -17,7 +17,7 @@ Index: mumps/libseq/Makefile
 +	$(AR) $@ mpi.o mpic.o elapse.o
  	$(RANLIB) $@
 +libmpiseq$(PLAT)$(SHLIB_EXT): mpi.o mpic.o elapse.o
-+	$(FC) -shared $^ -Wl,-$(soname),@rpath/libmpiseq$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -o libmpiseq$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
++	$(FC) -shared $^ $(SONAME)libmpiseq$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -o libmpiseq$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
  .f.o:
 -	$(FC) $(OPTF)              -c $*.f $(OUTF)$*.o
 +	$(FC) $(OPTF)              -fPIC -c $*.f $(OUTF)$*.o

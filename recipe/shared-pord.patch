@@ -24,7 +24,7 @@ Index: mumps/PORD/lib/Makefile
  	$(RANLIB) $@
  
 +libpord$(PLAT)$(SHLIB_EXT): $(OBJS)
-+	$(CC) -shared $(OBJS) -Wl,-$(soname),@rpath/libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -o libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
++	$(CC) -shared $(OBJS) $(SONAME)libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -o libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
 +	ln -s libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $@
 +
  clean:
