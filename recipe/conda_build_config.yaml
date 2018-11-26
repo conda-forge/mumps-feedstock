@@ -1,0 +1,27 @@
+mpi:
+  - nompi
+  - mpich  # [not win]
+  - openmpi  # [not win]
+
+pin_run_as_build:
+  mpich:
+    min_pin: x.x.x
+    max_pin: x.x
+  openmpi:
+    min_pin: x.x.x
+    max_pin: x.x
+  metis:
+    min_pin: x.x.x
+    max_pin: x.x
+  ptscotch:
+    min_pin: x.x.x
+    max_pin: x.x
+  parmetis:
+    min_pin: x.x.x
+    max_pin: x.x
+  scalapack:
+    min_pin: x.x.x
+    max_pin: x.x
+  scotch:
+    min_pin: x.x.x
+    max_pin: x.x

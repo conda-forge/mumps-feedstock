@@ -1,7 +1,9 @@
 setlocal EnableDelayedExpansion
 
+set src=%cd%
+
 cd work
-copy %RECIPE_DIR%\CMakeLists.txt %~dp0CMakeLists.txt
+copy %RECIPE_DIR%\CMakeLists.txt %src%\CMakeLists.txt
 
 mkdir build
 cd build
@@ -22,11 +24,11 @@ if errorlevel 1 exit 1
 mingw32-make install
 if errorlevel 1 exit 1
 
-%~dp0build\ssimpletest < %~dp0examples\input_simpletest_real
+%src%\build\ssimpletest < %src%\examples\input_simpletest_real
 if errorlevel 1 exit 1
-%~dp0build\dsimpletest < %~dp0examples\input_simpletest_real
+%src%\build\dsimpletest < %src%\examples\input_simpletest_real
 if errorlevel 1 exit 1
-%~dp0build\csimpletest < %~dp0examples\input_simpletest_cmplx
+%src%\build\csimpletest < %src%\examples\input_simpletest_cmplx
 if errorlevel 1 exit 1
-%~dp0build\zsimpletest < %~dp0examples\input_simpletest_cmplx
+%src%\build\zsimpletest < %src%\examples\input_simpletest_cmplx
 if errorlevel 1 exit 1

@@ -1,24 +1,28 @@
-#  This file is part of MUMPS 5.0.1, released
-#  on Thu Jul 23 17:08:29 UTC 2015
+#
+#  This file is part of MUMPS 5.1.2, released
+#  on Mon Oct  2 07:37:01 UTC 2017
 #
 # These settings for a PC under Debian/linux with standard packages :
-# metis (parmetis), scotch (ptscotch), mpich, gfortran
+# metis (parmetis), scotch (ptscotch), openmpi, gfortran
+
+# packages installation :
+# apt-get install libmetis-dev libparmetis-dev libscotch-dev libptscotch-dev libatlas-base-dev openmpi-bin libopenmpi-dev lapack-dev
 
 # Begin orderings
-LSCOTCH   = -L$(PREFIX)/lib -lesmumps -lscotch -lscotcherr
-ISCOTCH   = -I$(PREFIX)/include
+ISCOTCH  = -I$(PREFIX)/include
+LSCOTCH  = -L$(PREFIX)/lib -lptesmumps -lptscotch -lptscotcherr -lscotch
 
 LPORDDIR = $(topdir)/PORD/lib
 IPORD    = -I$(topdir)/PORD/include
 LPORD    = -L$(LPORDDIR) -lpord
 
-IMETIS    = -I$(PREFIX)/include
-LMETIS    = -L$(PREFIX)/lib -lmetis
+IMETIS   = -I$(PREFIX)/include
+LMETIS   = -L$(PREFIX)/lib -lparmetis -lmetis
 
 # Corresponding variables reused later
-ORDERINGSF = -Dmetis -Dpord -Dscotch
+ORDERINGSF  = -Dparmetis -Dpord -Dptscotch
 ORDERINGSC  = $(ORDERINGSF)
-LORDERINGS = $(LMETIS) $(LPORD) $(LSCOTCH)
+LORDERINGS  = $(LMETIS) $(LPORD) $(LSCOTCH)
 IORDERINGSF = $(ISCOTCH)
 IORDERINGSC = $(IMETIS) $(IPORD) $(ISCOTCH)
 # End orderings
@@ -29,22 +33,20 @@ LIBEXT  = .a
 OUTC    = -o
 OUTF    = -o
 RM = /bin/rm -f
-CC ?= gcc
 CC := $(CC) -fPIC $(CFLAGS)
-FC ?= gfortran
-FC := $(FC) -fPIC
-FL := $(FC) -fPIC
+FC := $(FC) -fPIC $(FFLAGS)
+FL := $(FC) -fPIC $(FFLAGS)
 AR = ar vr #
 RANLIB = ranlib
 
 
-INCSEQ = -I$(topdir)/libseq
-LIBSEQ  =  -L$(topdir)/libseq -lmpiseq$(PLAT)
+INCSEQ  = -I$(topdir)/libseq
+LIBSEQ  = -L$(topdir)/libseq -lmpiseq
 
-SCALAP  = -lscalapack
+SCALAP  = -L$(PREFIX)/lib -lscalapack
 
-INCPAR = -I$(PREFIX)/include
-LIBPAR = $(SCALAP) -lmpi -lmpifort -lgfortran
+INCPAR  = -I$(PREFIX)/include
+LIBPAR  = $(SCALAP)
 
 LIBBLAS = -Wl,-rpath,$(PREFIX)/lib -L$(PREFIX)/lib -lopenblas
 LIBOTHERS = -lpthread
@@ -57,6 +59,7 @@ OPTF    = -O  -DALLOW_NON_INIT
 OPTL    = -O
 OPTC    = -O
 #End Optimized options
-INCS = $(INCSEQ)
-LIBS = $(LIBSEQ)
-LIBSEQNEEDED = libseqneeded
+
+INCS = $(INCPAR)
+LIBS = $(LIBPAR)
+LIBSEQNEEDED =
