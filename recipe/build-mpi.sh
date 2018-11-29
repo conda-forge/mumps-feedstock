@@ -3,9 +3,15 @@ set -ex
 
 cp $RECIPE_DIR/Makefile.conda.PAR ./Makefile.inc
 
+if [[ "$(uname)" == "Darwin" ]]; then
+  export SONAME="-Wl,-install_name,@rpath/"
+else
+  export SONAME="-Wl,-soname,"
+fi
+
 export CC=mpicc
 export FC=mpifort
 
 make all
 
-cp lib/*.a ${PREFIX}/lib
+cp -av lib/*${SHLIB_EXT} ${PREFIX}/lib

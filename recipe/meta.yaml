@@ -11,6 +11,11 @@ source:
   fn: MUMPS_{{ version }}.tar.gz
   url: http://mumps.enseeiht.fr/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    - shared-pord.patch
+    - shared-mumps.patch
+    - shared-libseq.patch
+    - examples-mpilibs.patch
 
 build:
   number: 1002
@@ -43,6 +48,8 @@ outputs:
     build:
       script: ${RECIPE_DIR}/build-seq.sh  # [not win]
       script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
+      run_exports:
+        - {{ pin_subpackage('mumps-seq', max_pin='x.x.x') }}  # [not win]
     requirements:
       build:
         - cmake  # [win]
@@ -68,13 +75,24 @@ outputs:
     test:
       commands:
         {% if not win %}
-        - test -f "${PREFIX}/lib/libsmumps_seq.a"
-        - test -f "${PREFIX}/lib/libdmumps_seq.a"
-        - test -f "${PREFIX}/lib/libcmumps_seq.a"
-        - test -f "${PREFIX}/lib/libzmumps_seq.a"
-        - test -f "${PREFIX}/lib/libmumps_common_seq.a"
-        - test -f "${PREFIX}/lib/libpord_seq.a"
-        - test -f "${PREFIX}/lib/libmpiseq_seq.a"
+
+        {% for lib in [
+          'smumps',
+          'dmumps',
+          'cmumps',
+          'zmumps',
+          'mumps_common',
+          'pord',
+        ] %}
+        - test -f "${PREFIX}/lib/lib{{ lib }}_seq-{{ version }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/lib{{ lib }}_seq${SHLIB_EXT}"
+        - test -h "${PREFIX}/lib/lib{{ lib }}_seq${SHLIB_EXT}"
+        {% endfor %}
+        - test -f "${PREFIX}/lib/libmpiseq_seq-{{ version }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/libmpiseq_seq${SHLIB_EXT}"
+        - test -h "${PREFIX}/lib/libmpiseq_seq${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/libmpiseq${SHLIB_EXT}"
+        - test -h "${PREFIX}/lib/libmpiseq${SHLIB_EXT}"
         - test -f "${PREFIX}/include/mumps_seq/mpi.h"
         - test -f "${PREFIX}/include/mumps_seq/mpif.h"
         {% else %}
@@ -92,6 +110,8 @@ outputs:
     build:
       skip: true  # [win]
       script: ${RECIPE_DIR}/build-mpi.sh
+      run_exports:
+        - {{ pin_subpackage('mumps-mpi', max_pin='x.x.x') }}  # [not win]
       features:
         - blas_{{ variant }}  # [not win]
     requirements:
@@ -106,6 +126,7 @@ outputs:
         - parmetis
         - ptscotch
         - scalapack
+        - scotch
       run:
         - {{ pin_subpackage('mumps-include', exact=True) }}
         - blas 1.1 {{ variant }}
@@ -115,16 +136,23 @@ outputs:
         - parmetis
         - ptscotch
         - scalapack
+        - scotch
 
     test:
       commands:
-        - test -f "${PREFIX}/lib/libsmumps.a"
-        - test -f "${PREFIX}/lib/libdmumps.a"
-        - test -f "${PREFIX}/lib/libcmumps.a"
-        - test -f "${PREFIX}/lib/libzmumps.a"
-        - test -f "${PREFIX}/lib/libmumps_common.a"
-        - test -f "${PREFIX}/lib/libpord.a"
-        - test ! -f "${PREFIX}/lib/libmpiseq.a"
+        {% for lib in [
+          'smumps',
+          'dmumps',
+          'cmumps',
+          'zmumps',
+          'mumps_common',
+          'pord',
+        ] %}
+        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ version }}${SHLIB_EXT}"
+        - test -h "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
+        {% endfor %}
+        - test ! -f "${PREFIX}/lib/libmpiseq*"
         - test ! -d "${PREFIX}/include/mumps_seq"
     {% endif %}
 
