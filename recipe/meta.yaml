@@ -112,6 +112,8 @@ outputs:
       script: ${RECIPE_DIR}/build-mpi.sh
       run_exports:
         - {{ pin_subpackage('mumps-mpi', max_pin='x.x.x') }}  # [not win]
+      features:
+        - blas_{{ variant }}  # [not win]
     requirements:
       build:
         - {{ compiler('fortran') }}  # [not win]
