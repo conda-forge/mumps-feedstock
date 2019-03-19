@@ -1,7 +1,6 @@
 {% set name = "mumps" %}
 {% set version = "5.1.2" %}
 {% set sha256 = "eb345cda145da9aea01b851d17e54e7eef08e16bfa148100ac1f7f046cd42ae9" %}
-{% set variant = "openblas" %}
 
 package:
   name: mumps
@@ -18,7 +17,7 @@ source:
     - examples-mpilibs.patch
 
 build:
-  number: 1005
+  number: 1006
 
 requirements:
   build:
@@ -59,15 +58,13 @@ outputs:
         - {{ compiler('c') }}        # [unix]
         - {{ compiler('m2w64_c') }}  # [win]
       host:
-        - blas 1.1 {{ variant }}  # [not win]
-        - openblas                  # [not win]
+        - libblas
+        - libcblas
         - m2w64-openblas  # [win]
         - metis  # [not win]
         - scotch  # [not win]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
-        - blas 1.1 {{ variant }}  # [not win]
-        - openblas                  # [not win]
         - m2w64-openblas  # [win]
         - metis  # [not win]
         - scotch  # [not win]
@@ -113,14 +110,13 @@ outputs:
       run_exports:
         - {{ pin_subpackage('mumps-mpi', max_pin='x.x.x') }}  # [not win]
       features:
-        - blas_{{ variant }}  # [not win]
     requirements:
       build:
         - {{ compiler('fortran') }}  # [not win]
         - {{ compiler('c') }}  # [not win]
       host:
-        - blas 1.1 {{ variant }}
-        - openblas
+        - libblas
+        - libcblas
         - {{ mpi }}
         - metis
         - parmetis
@@ -129,8 +125,6 @@ outputs:
         - scotch
       run:
         - {{ pin_subpackage('mumps-include', exact=True) }}
-        - blas 1.1 {{ variant }}
-        - openblas
         - {{ mpi }}
         - metis
         - parmetis
