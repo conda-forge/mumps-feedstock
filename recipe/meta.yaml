@@ -59,13 +59,11 @@ outputs:
         - {{ compiler('m2w64_c') }}  # [win]
       host:
         - libblas
-        - libcblas
-        - m2w64-openblas  # [win]
+        - liblapack
         - metis  # [not win]
         - scotch  # [not win]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
-        - m2w64-openblas  # [win]
         - metis  # [not win]
         - scotch  # [not win]
 
@@ -116,7 +114,7 @@ outputs:
         - {{ compiler('c') }}  # [not win]
       host:
         - libblas
-        - libcblas
+        - liblapack
         - {{ mpi }}
         - metis
         - parmetis
