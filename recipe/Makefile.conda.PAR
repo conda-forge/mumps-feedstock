@@ -48,7 +48,7 @@ SCALAP  = -L$(PREFIX)/lib -lscalapack
 INCPAR  = -I$(PREFIX)/include
 LIBPAR  = $(SCALAP)
 
-LIBBLAS = -Wl,-rpath,$(PREFIX)/lib -L$(PREFIX)/lib -lopenblas
+LIBBLAS = -Wl,-rpath,$(PREFIX)/lib -L$(PREFIX)/lib -llapack -lblas
 LIBOTHERS = -lpthread
 
 #Preprocessor defs for calling Fortran from C (-DAdd_ or -DAdd__ or -DUPPER)
