@@ -38,7 +38,7 @@ Index: mumps/src/Makefile
  	$(RANLIB) $@
  
 +$(libdir)/lib$(ARITH)mumps$(PLAT)$(SHLIB_EXT):    $(OBJS_MOD) $(OBJS_OTHER)
-+	$(FC) -shared $^ $(SONAME)lib$(ARITH)mumps$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -L$(libdir) -lmumps_common$(PLAT) $(LORDERINGS) $(MPIFLIB) -lblas $(SCALAP) $(LAPACK) -o $(libdir)/lib$(ARITH)mumps$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
++	$(FC) -shared $^ $(SONAME)lib$(ARITH)mumps$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -L$(libdir) -lmumps_common$(PLAT) $(LORDERINGS) $(MPIFLIB) -llapack -lblas $(SCALAP) $(LAPACK) -o $(libdir)/lib$(ARITH)mumps$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
 +	ln -s lib$(ARITH)mumps$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $@
 +
  # Dependencies between modules:
