@@ -46,7 +46,7 @@ SCALAP =
 INCPAR = -I$(PREFIX)/include
 LIBPAR = $(SCALAP) -lmpi -lmpifort -lgfortran
 
-LIBBLAS = -Wl,-rpath,$(PREFIX)/lib -L$(PREFIX)/lib -lopenblas
+LIBBLAS = -Wl,-rpath,$(PREFIX)/lib -L$(PREFIX)/lib -llapack -lblas
 LIBOTHERS = -lpthread
 
 # debian patch variables for dynamic linking
