@@ -29,6 +29,11 @@ if(NOT BLAS_FOUND)
   message(FATAL_ERROR "BLAS not found")
 endif()
 
+find_package(LAPACK)
+if(NOT LAPACK_FOUND)
+  message(FATAL_ERROR "LAPACK not found")
+endif()
+
 # -DWITH_MPI
 option(WITH_MPI "for parallel environment with MPI" OFF)
 if(WITH_MPI)
@@ -242,8 +247,8 @@ examples/${ARCH}simpletest.F
 add_library(${ARCHLIB} SHARED ${CSOURCES} ${FSOURCES})
 target_compile_definitions(${ARCHLIB} PUBLIC MUMPS_ARITH=MUMPS_ARITH_${ARCH} )
 add_executable(${ARCH}simpletest ${EXAMPLE})
-target_link_libraries(${ARCHLIB} mumps_common pord ${BLAS_LIBRARIES})
-target_link_libraries(${ARCH}simpletest ${ARCHLIB} mumps_common pord ${BLAS_LIBRARIES})
+target_link_libraries(${ARCHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
+target_link_libraries(${ARCH}simpletest ${ARCHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 install(TARGETS ${ARCHLIB} DESTINATION bin)
 install(FILES include/${ARCH}mumps_struc.h include/${ARCH}mumps_root.h include/${ARCH}mumps_c.h DESTINATION include)
 

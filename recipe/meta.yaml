@@ -17,7 +17,7 @@ source:
     - examples-mpilibs.patch
 
 build:
-  number: 1006
+  number: 1007
 
 requirements:
   build:
@@ -30,25 +30,24 @@ requirements:
     - mpi * {{ mpi }}  # [mpi != 'nompi']
 
 outputs:
-  {% if not win %}
   - name: mumps-include
     build:
       script: ${RECIPE_DIR}/build-headers.sh
+      skip: true  # [win]
     requirements:
       build: []
       host: []
     test:
       commands:
         - test -f "${PREFIX}/include/mumps_compat.h"
-  {% endif %}
 
-  {% if mpi == 'nompi' %}
   - name: mumps-seq
     build:
       script: ${RECIPE_DIR}/build-seq.sh  # [not win]
       script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
       run_exports:
         - {{ pin_subpackage('mumps-seq', max_pin='x.x.x') }}  # [not win]
+      skip: true  # [mpi != 'nompi']
     requirements:
       build:
         - cmake  # [win]
@@ -100,10 +99,9 @@ outputs:
         - if not exist "%LIBRARY_PREFIX%\mingw-w64\include\dmumps_struc.h" exit 1
         {% endif %}
 
-  {% else %}
   - name: mumps-mpi
     build:
-      skip: true  # [win]
+      skip: true  # [win or mpi == 'nompi']
       script: ${RECIPE_DIR}/build-mpi.sh
       run_exports:
         - {{ pin_subpackage('mumps-mpi', max_pin='x.x.x') }}  # [not win]
@@ -146,7 +144,6 @@ outputs:
         {% endfor %}
         - test ! -f "${PREFIX}/lib/libmpiseq*"
         - test ! -d "${PREFIX}/include/mumps_seq"
-    {% endif %}
 
 about:
   home: http://mumps.enseeiht.fr/
