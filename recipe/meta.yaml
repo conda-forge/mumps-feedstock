@@ -1,6 +1,6 @@
 {% set name = "mumps" %}
-{% set version = "5.1.2" %}
-{% set sha256 = "eb345cda145da9aea01b851d17e54e7eef08e16bfa148100ac1f7f046cd42ae9" %}
+{% set version = "5.2.0" %}
+{% set sha256 = "41f2c7cb20d69599fb47e2ad6f628f3798c429f49e72e757e70722680f70853f" %}
 
 package:
   name: mumps
@@ -17,7 +17,7 @@ source:
     - examples-mpilibs.patch
 
 build:
-  number: 1007
+  number: 0
 
 requirements:
   build:
