@@ -89,7 +89,6 @@ src/ana_omp_m.F
 src/ana_orderings_wrappers_m.F
 src/mumps_memory_mod.F
 src/mumps_static_mapping.F
-src/mumps_sol_es.F
 src/fac_future_niv2_mod.F
 src/mumps_comm_ibcast.F
 src/mumps_ooc_common.F
@@ -159,6 +158,7 @@ src/${ARCH}mumps_lr_data_m.F
 src/${ARCH}mumps_ooc_buffer.F
 src/${ARCH}mumps_ooc.F
 src/${ARCH}mumps_struc_def.F
+src/${ARCH}mumps_sol_es.F
 src/${ARCH}static_ptr_m.F
 src/${ARCH}lr_core.F
 src/${ARCH}lr_type.F
@@ -197,6 +197,7 @@ src/${ARCH}fac_mem_compress_cb.F
 src/${ARCH}fac_mem_free_block_cb.F
 src/${ARCH}fac_mem_stack_aux.F
 src/${ARCH}fac_mem_stack.F
+src/${ARCH}fac_mem_dynamic.F
 src/${ARCH}fac_process_band.F
 src/${ARCH}fac_process_blfac_slave.F
 src/${ARCH}fac_process_blocfacto_LDLT.F
