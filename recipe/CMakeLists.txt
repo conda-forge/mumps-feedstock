@@ -57,74 +57,75 @@ if(NOT WITH_MPI)
   include_directories(${MUMPS_SOURCE_DIR}/libseq)
 endif()
 
-set(COMMON_CSOURCES
-src/mumps_common.c
-src/mumps_pord.c
-src/mumps_metis.c
-src/mumps_metis64.c
-src/mumps_metis_int.c
-src/mumps_scotch.c
-src/mumps_scotch64.c
-src/mumps_scotch_int.c
-src/mumps_size.c
-src/mumps_io.c
-src/mumps_io_basic.c
-src/mumps_io_thread.c
-src/mumps_io_err.c
-src/mumps_numa.c
-src/mumps_thread.c
-src/mumps_save_restore_C.c
+# update sources on each release
+# order and section shall match Makefile in MUMPS source
+
+# OBJS_COMMON_MOD
+set(
+  COMMON_MOD
+  src/ana_omp_m.F
+  src/ana_orderings_wrappers_m.F
+  src/double_linked_list.F
+  src/fac_asm_build_sort_index_m.F
+  src/fac_asm_build_sort_index_ELT_m.F
+  src/fac_descband_data_m.F
+  src/fac_future_niv2_mod.F
+  src/fac_ibct_data_m.F
+  src/fac_maprow_data_m.F
+  src/front_data_mgt_m.F
+  src/lr_common.F
+  src/mumps_comm_ibcast.F
+  src/mumps_l0_omp_m.F
+  src/mumps_memory_mod.F
+  src/mumps_ooc_common.F
+  src/mumps_static_mapping.F
+  src/omp_tps_common_m.F
+)
+
+# OBJS_COMMON_OTHER
+set(
+  COMMON_OTHER
+  src/ana_orderings.F
+  src/ana_set_ordering.F
+  src/ana_AMDMF.F
+  src/bcast_errors.F
+  src/estim_flops.F
+  src/mumps_type_size.F
+  src/mumps_type2_blocking.F
+  src/mumps_version.F
+  src/mumps_print_defined.F
+  src/mumps_common.c
+  src/mumps_pord.c
+  src/mumps_metis.c
+  src/mumps_metis64.c
+  src/mumps_metis_int.c
+  src/mumps_scotch.c
+  src/mumps_scotch64.c
+  src/mumps_scotch_int.c
+  src/mumps_size.c
+  src/mumps_io.c
+  src/mumps_io_basic.c
+  src/mumps_io_thread.c
+  src/mumps_io_err.c
+  src/mumps_numa.c
+  src/mumps_thread.c
+  src/mumps_save_restore_C.c
+  src/mumps_config_file_C.c
+  src/mumps_thread_affinity.c
+  src/tools_common.F
+  src/sol_common.F
 )
 
 if(NOT WITH_MPI)
-  set(COMMON_CSOURCES
-  ${COMMON_CSOURCES}
-  libseq/elapse.c
-  libseq/mpic.c)
+  set(COMMON_OTHER
+    ${COMMON_OTHER}
+    libseq/elapse.c
+    libseq/mpic.c
+    libseq/mpi.F
+  )
 endif()
 
-set(COMMON_FSOURCES
-src/lr_common.F
-src/ana_omp_m.F
-src/ana_orderings_wrappers_m.F
-src/mumps_memory_mod.F
-src/mumps_static_mapping.F
-src/mumps_sol_es.F
-src/fac_future_niv2_mod.F
-src/mumps_comm_ibcast.F
-src/mumps_ooc_common.F
-src/double_linked_list.F
-src/fac_asm_build_sort_index_m.F
-src/fac_asm_build_sort_index_ELT_m.F
-src/omp_tps_common_m.F
-src/mumps_l0_omp_m.F
-src/front_data_mgt_m.F
-src/fac_maprow_data_m.F
-src/fac_descband_data_m.F
-src/fac_ibct_data_m.F
-src/ana_orderings.F
-src/ana_AMDMF.F
-src/bcast_errors.F
-src/estim_flops.F
-src/mumps_type_size.F
-src/mumps_type2_blocking.F
-src/mumps_version.F
-src/tools_common.F
-src/mumps_print_defined.F
-src/ana_set_ordering.F
-)
-
-if(NOT WITH_MPI)
-  set(COMMON_FSOURCES
-  ${COMMON_FSOURCES}
-  libseq/mpi.F)
-endif()
-
-set(CSOURCES
-src/mumps_c.c
-)
-
-add_library(mumps_common STATIC ${COMMON_CSOURCES} ${COMMON_FSOURCES})
+add_library(mumps_common STATIC ${COMMON_MOD} ${COMMON_OTHER})
 
 set(PORD_SOURCES
 PORD/lib/graph.c
@@ -145,114 +146,125 @@ PORD/lib/minpriority.c
 add_library(pord STATIC ${PORD_SOURCES})
 
 
-foreach(ARCH s d c z)
+foreach(ARITH s d c z)
 
-set(FSOURCES
-src/${ARCH}ana_aux_par.F
-src/${ARCH}ana_lr.F
-src/${ARCH}fac_asm_master_m.F
-src/${ARCH}fac_asm_master_ELT_m.F
-src/${ARCH}omp_tps_m.F
-src/${ARCH}mumps_comm_buffer.F
-src/${ARCH}mumps_load.F
-src/${ARCH}mumps_lr_data_m.F
-src/${ARCH}mumps_ooc_buffer.F
-src/${ARCH}mumps_ooc.F
-src/${ARCH}mumps_struc_def.F
-src/${ARCH}static_ptr_m.F
-src/${ARCH}lr_core.F
-src/${ARCH}lr_type.F
-src/${ARCH}lr_stats.F
-src/${ARCH}fac_lr.F
-src/${ARCH}fac_omp_m.F
-src/${ARCH}fac_par_m.F
-src/${ARCH}fac_front_LU_type1.F
-src/${ARCH}fac_front_LU_type2.F
-src/${ARCH}fac_front_LDLT_type1.F
-src/${ARCH}fac_front_LDLT_type2.F
-src/${ARCH}fac_front_aux.F
-src/${ARCH}fac_front_type2_aux.F
-src/${ARCH}mumps_save_restore_files.F
-src/${ARCH}mumps_save_restore.F
-src/${ARCH}ini_driver.F
-src/${ARCH}ana_driver.F
-src/${ARCH}fac_driver.F
-src/${ARCH}sol_driver.F
-src/${ARCH}end_driver.F
-src/${ARCH}ana_aux_ELT.F
-src/${ARCH}ana_aux.F
-src/${ARCH}ana_dist_m.F
-src/${ARCH}ana_LDLT_preprocess.F
-src/${ARCH}ana_reordertree.F
-src/${ARCH}arrowheads.F
-src/${ARCH}bcast_int.F
-src/${ARCH}fac_asm_ELT.F
-src/${ARCH}fac_asm.F
-src/${ARCH}fac_b.F
-src/${ARCH}fac_distrib_distentry.F
-src/${ARCH}fac_distrib_ELT.F
-src/${ARCH}fac_lastrtnelind.F
-src/${ARCH}fac_mem_alloc_cb.F
-src/${ARCH}fac_mem_compress_cb.F
-src/${ARCH}fac_mem_free_block_cb.F
-src/${ARCH}fac_mem_stack_aux.F
-src/${ARCH}fac_mem_stack.F
-src/${ARCH}fac_process_band.F
-src/${ARCH}fac_process_blfac_slave.F
-src/${ARCH}fac_process_blocfacto_LDLT.F
-src/${ARCH}fac_process_blocfacto.F
-src/${ARCH}fac_process_bf.F
-src/${ARCH}fac_process_end_facto_slave.F
-src/${ARCH}fac_process_contrib_type1.F
-src/${ARCH}fac_process_contrib_type2.F
-src/${ARCH}fac_process_contrib_type3.F
-src/${ARCH}fac_process_maprow.F
-src/${ARCH}fac_process_master2.F
-src/${ARCH}fac_process_message.F
-src/${ARCH}fac_process_root2slave.F
-src/${ARCH}fac_process_root2son.F
-src/${ARCH}fac_process_rtnelind.F
-src/${ARCH}fac_root_parallel.F
-src/${ARCH}fac_scalings.F
-src/${ARCH}fac_determinant.F
-src/${ARCH}fac_scalings_simScaleAbs.F
-src/${ARCH}fac_scalings_simScale_util.F
-src/${ARCH}fac_sol_pool.F
-src/${ARCH}fac_type3_symmetrize.F
-src/${ARCH}ini_defaults.F
-src/${ARCH}mumps_driver.F
-src/${ARCH}mumps_f77.F
-src/${ARCH}mumps_iXamax.F
-src/${ARCH}ana_mtrans.F
-src/${ARCH}ooc_panel_piv.F
-src/${ARCH}rank_revealing.F
-src/${ARCH}sol_aux.F
-src/${ARCH}sol_bwd_aux.F
-src/${ARCH}sol_bwd.F
-src/${ARCH}sol_c.F
-src/${ARCH}sol_fwd_aux.F
-src/${ARCH}sol_fwd.F
-src/${ARCH}sol_matvec.F
-src/${ARCH}sol_root_parallel.F
-src/${ARCH}tools.F
-src/${ARCH}type3_root.F
+# OBJS_MOD
+set(
+  ARITH_MOD
+  src/${ARITH}ana_aux.F
+  src/${ARITH}ana_aux_par.F
+  src/${ARITH}ana_lr.F
+  src/${ARITH}fac_asm_master_ELT_m.F
+  src/${ARITH}fac_asm_master_m.F
+  src/${ARITH}fac_front_aux.F
+  src/${ARITH}fac_front_LU_type1.F
+  src/${ARITH}fac_front_LU_type2.F
+  src/${ARITH}fac_front_LDLT_type1.F
+  src/${ARITH}fac_front_LDLT_type2.F
+  src/${ARITH}fac_front_type2_aux.F
+  src/${ARITH}fac_lr.F
+  src/${ARITH}fac_mem_dynamic.F
+  src/${ARITH}fac_omp_m.F
+  src/${ARITH}fac_par_m.F
+  src/${ARITH}lr_core.F
+  src/${ARITH}lr_stats.F
+  src/${ARITH}lr_type.F
+  src/${ARITH}mumps_comm_buffer.F
+  src/${ARITH}mumps_config_file.F
+  src/${ARITH}mumps_load.F
+  src/${ARITH}mumps_lr_data_m.F
+  src/${ARITH}mumps_ooc_buffer.F
+  src/${ARITH}mumps_ooc.F
+  src/${ARITH}mumps_sol_es.F
+  src/${ARITH}mumps_save_restore.F
+  src/${ARITH}mumps_save_restore_files.F
+  src/${ARITH}mumps_struc_def.F
+  src/${ARITH}omp_tps_m.F
+  src/${ARITH}sol_lr.F
+  src/${ARITH}static_ptr_m.F
 )
 
-
-set(ARCHLIB ${ARCH}mumps)
-set(EXAMPLE
-examples/${ARCH}simpletest.F
+# OBJS_OTHER
+set(
+  ARITH_OTHER
+  src/${ARITH}ini_driver.F
+  src/${ARITH}ana_driver.F
+  src/${ARITH}fac_driver.F
+  src/${ARITH}sol_driver.F
+  src/${ARITH}sol_distrhs.F
+  src/${ARITH}end_driver.F
+  src/${ARITH}ana_aux_ELT.F
+  src/${ARITH}ana_dist_m.F
+  src/${ARITH}ana_LDLT_preprocess.F
+  src/${ARITH}ana_reordertree.F
+  src/${ARITH}arrowheads.F
+  src/${ARITH}bcast_int.F
+  src/${ARITH}fac_asm_ELT.F
+  src/${ARITH}fac_asm.F
+  src/${ARITH}fac_b.F
+  src/${ARITH}fac_distrib_distentry.F
+  src/${ARITH}fac_distrib_ELT.F
+  src/${ARITH}fac_lastrtnelind.F
+  src/${ARITH}fac_mem_alloc_cb.F
+  src/${ARITH}fac_mem_compress_cb.F
+  src/${ARITH}fac_mem_free_block_cb.F
+  src/${ARITH}fac_mem_stack_aux.F
+  src/${ARITH}fac_mem_stack.F
+  src/${ARITH}fac_process_band.F
+  src/${ARITH}fac_process_blfac_slave.F
+  src/${ARITH}fac_process_blocfacto_LDLT.F
+  src/${ARITH}fac_process_blocfacto.F
+  src/${ARITH}fac_process_bf.F
+  src/${ARITH}fac_process_end_facto_slave.F
+  src/${ARITH}fac_process_contrib_type1.F
+  src/${ARITH}fac_process_contrib_type2.F
+  src/${ARITH}fac_process_contrib_type3.F
+  src/${ARITH}fac_process_maprow.F
+  src/${ARITH}fac_process_master2.F
+  src/${ARITH}fac_process_message.F
+  src/${ARITH}fac_process_root2slave.F
+  src/${ARITH}fac_process_root2son.F
+  src/${ARITH}fac_process_rtnelind.F
+  src/${ARITH}fac_root_parallel.F
+  src/${ARITH}fac_scalings.F
+  src/${ARITH}fac_determinant.F
+  src/${ARITH}fac_scalings_simScaleAbs.F
+  src/${ARITH}fac_scalings_simScale_util.F
+  src/${ARITH}fac_sol_pool.F
+  src/${ARITH}fac_type3_symmetrize.F
+  src/${ARITH}ini_defaults.F
+  src/mumps_c.c
+  src/${ARITH}mumps_driver.F
+  src/${ARITH}mumps_f77.F
+  src/${ARITH}mumps_gpu.c
+  src/${ARITH}mumps_iXamax.F
+  src/${ARITH}ana_mtrans.F
+  src/${ARITH}ooc_panel_piv.F
+  src/${ARITH}rank_revealing.F
+  src/${ARITH}sol_aux.F
+  src/${ARITH}sol_bwd_aux.F
+  src/${ARITH}sol_bwd.F
+  src/${ARITH}sol_c.F
+  src/${ARITH}sol_fwd_aux.F
+  src/${ARITH}sol_fwd.F
+  src/${ARITH}sol_matvec.F
+  src/${ARITH}sol_root_parallel.F
+  src/${ARITH}tools.F
+  src/${ARITH}type3_root.F
 )
 
-add_library(${ARCHLIB} SHARED ${CSOURCES} ${FSOURCES})
-target_compile_definitions(${ARCHLIB} PUBLIC MUMPS_ARITH=MUMPS_ARITH_${ARCH} )
-add_executable(${ARCH}simpletest ${EXAMPLE})
-target_link_libraries(${ARCHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-target_link_libraries(${ARCH}simpletest ${ARCHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-install(TARGETS ${ARCHLIB} DESTINATION bin)
-install(FILES include/${ARCH}mumps_struc.h include/${ARCH}mumps_root.h include/${ARCH}mumps_c.h DESTINATION include)
+set(ARITHLIB ${ARITH}mumps)
+set(EXAMPLE examples/${ARITH}simpletest.F)
 
-endforeach(ARCH)
+add_library(${ARITHLIB} SHARED ${ARITH_MOD} ${ARITH_OTHER})
+target_compile_definitions(${ARITHLIB} PUBLIC MUMPS_ARITH=MUMPS_ARITH_${ARITH})
+add_executable(${ARITH}simpletest ${EXAMPLE})
+target_link_libraries(${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
+target_link_libraries(${ARITH}simpletest ${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
+install(TARGETS ${ARITHLIB} DESTINATION bin)
+install(FILES include/${ARITH}mumps_struc.h include/${ARITH}mumps_root.h include/${ARITH}mumps_c.h DESTINATION include)
+
+endforeach(ARITH)
 
 install(TARGETS mumps_common pord DESTINATION lib)
 install(FILES include/mumps_c_types.h include/mumps_compat.h DESTINATION include)
