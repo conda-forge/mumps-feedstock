@@ -59,6 +59,7 @@ endif()
 
 set(COMMON_CSOURCES
 src/mumps_common.c
+src/mumps_config_file_C.c
 src/mumps_pord.c
 src/mumps_metis.c
 src/mumps_metis64.c
@@ -88,8 +89,8 @@ src/lr_common.F
 src/ana_omp_m.F
 src/ana_orderings_wrappers_m.F
 src/mumps_memory_mod.F
+src/mumps_mpitoomp_m.F
 src/mumps_static_mapping.F
-src/mumps_sol_es.F
 src/fac_future_niv2_mod.F
 src/mumps_comm_ibcast.F
 src/mumps_ooc_common.F
@@ -109,7 +110,9 @@ src/estim_flops.F
 src/mumps_type_size.F
 src/mumps_type2_blocking.F
 src/mumps_version.F
+src/mumps_thread_affinity.F
 src/tools_common.F
+src/sol_common.F
 src/mumps_print_defined.F
 src/ana_set_ordering.F
 )
@@ -119,10 +122,6 @@ if(NOT WITH_MPI)
   ${COMMON_FSOURCES}
   libseq/mpi.F)
 endif()
-
-set(CSOURCES
-src/mumps_c.c
-)
 
 add_library(mumps_common STATIC ${COMMON_CSOURCES} ${COMMON_FSOURCES})
 
@@ -147,6 +146,11 @@ add_library(pord STATIC ${PORD_SOURCES})
 
 foreach(ARCH s d c z)
 
+set(CSOURCES
+  src/mumps_c.c
+  src/${ARCH}mumps_gpu.c
+)
+
 set(FSOURCES
 src/${ARCH}ana_aux_par.F
 src/${ARCH}ana_lr.F
@@ -154,10 +158,12 @@ src/${ARCH}fac_asm_master_m.F
 src/${ARCH}fac_asm_master_ELT_m.F
 src/${ARCH}omp_tps_m.F
 src/${ARCH}mumps_comm_buffer.F
+src/${ARCH}mumps_config_file.F
 src/${ARCH}mumps_load.F
 src/${ARCH}mumps_lr_data_m.F
 src/${ARCH}mumps_ooc_buffer.F
 src/${ARCH}mumps_ooc.F
+src/${ARCH}mumps_sol_es.F
 src/${ARCH}mumps_struc_def.F
 src/${ARCH}static_ptr_m.F
 src/${ARCH}lr_core.F
@@ -194,6 +200,7 @@ src/${ARCH}fac_distrib_ELT.F
 src/${ARCH}fac_lastrtnelind.F
 src/${ARCH}fac_mem_alloc_cb.F
 src/${ARCH}fac_mem_compress_cb.F
+src/${ARCH}fac_mem_dynamic.F
 src/${ARCH}fac_mem_free_block_cb.F
 src/${ARCH}fac_mem_stack_aux.F
 src/${ARCH}fac_mem_stack.F
@@ -230,14 +237,15 @@ src/${ARCH}sol_aux.F
 src/${ARCH}sol_bwd_aux.F
 src/${ARCH}sol_bwd.F
 src/${ARCH}sol_c.F
+src/${ARCH}sol_distrhs.F
 src/${ARCH}sol_fwd_aux.F
 src/${ARCH}sol_fwd.F
+src/${ARCH}sol_lr.F
 src/${ARCH}sol_matvec.F
 src/${ARCH}sol_root_parallel.F
 src/${ARCH}tools.F
 src/${ARCH}type3_root.F
 )
-
 
 set(ARCHLIB ${ARCH}mumps)
 set(EXAMPLE
