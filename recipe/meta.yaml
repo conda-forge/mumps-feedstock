@@ -51,7 +51,7 @@ outputs:
     requirements:
       build:
         - cmake  # [win]
-        - patch =2.5 # [win]
+        - patch  # [win]
         - {{ compiler('fortran') }}        # [unix]
         - {{ compiler('m2w64_fortran') }}  # [win]
         - {{ compiler('c') }}        # [unix]
