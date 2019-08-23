@@ -17,7 +17,7 @@ source:
     - examples-mpilibs.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -51,7 +51,7 @@ outputs:
     requirements:
       build:
         - cmake  # [win]
-        - patch  # [win]
+        - m2-patch  # [win]
         - {{ compiler('fortran') }}        # [unix]
         - {{ compiler('m2w64_fortran') }}  # [win]
         - {{ compiler('c') }}        # [unix]
