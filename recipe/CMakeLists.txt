@@ -258,16 +258,17 @@ set(
 )
 
 set(ARITHLIB ${ARITH}mumps)
-#set(EXAMPLE examples/${ARITH}simpletest.F)
+set(EXAMPLE examples/${ARITH}simpletest.F)
 
 add_library(${ARITHLIB} SHARED ${ARITH_MOD} ${ARITH_OTHER})
+set_target_properties(${ARITHLIB} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 target_compile_definitions(${ARITHLIB} PUBLIC MUMPS_ARITH=MUMPS_ARITH_${ARITH})
 # Hack to fix incorrect assumption that Windows=gfortran
 target_compile_definitions(${ARITHLIB} PRIVATE -DAdd_)
 target_compile_definitions(${ARITHLIB} PRIVATE -DMUMPS_CALL=__declspec\(dllexport\))
-#add_executable(${ARITH}simpletest ${EXAMPLE})
+add_executable(${ARITH}simpletest ${EXAMPLE})
 target_link_libraries(${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-#target_link_libraries(${ARITH}simpletest ${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
+target_link_libraries(${ARITH}simpletest ${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 install(TARGETS ${ARITHLIB} DESTINATION bin)
 install(FILES include/${ARITH}mumps_struc.h include/${ARITH}mumps_root.h include/${ARITH}mumps_c.h DESTINATION include)
 
