@@ -1,5 +1,5 @@
 c_compiler:
-- vs2008
+- vs2015
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -14,3 +14,11 @@ liblapack:
 - 3.8.0 *netlib
 mpi:
 - nompi
+pin_run_as_build:
+  vc:
+    max_pin: x
+vc:
+- '14'
+zip_keys:
+- - vc
+  - c_compiler
