@@ -9,26 +9,22 @@ mkdir build
 cd build
 
 :: Configure using the CMakeFiles
-cmake -G "MinGW Makefiles" ^
-      -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%\mingw-w64" ^
+cmake -G "NMake Makefiles" ^
+      -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
+      -DCMAKE_INSTALL_PREFIX:PATH=%LIBRARY_PREFIX% ^
+      -DCMAKE_VERBOSE_MAKEFILE=1 ^
       -DCMAKE_BUILD_TYPE:STRING=Release ^
-      -DCMAKE_SH="CMAKE_SH-NOTFOUND" ^
       ..
 if errorlevel 1 exit 1
-
-:: Build!
-mingw32-make
+cmake --build . --config Release --target install
 if errorlevel 1 exit 1
-
-:: Install!
-mingw32-make install
+%src%\build\c_example < %src%\examples\input_simpletest_real
 if errorlevel 1 exit 1
-
-%src%\build\ssimpletest < %src%\examples\input_simpletest_real
+rem %src%\build\ssimpletest < %src%\examples\input_simpletest_real
 if errorlevel 1 exit 1
-%src%\build\dsimpletest < %src%\examples\input_simpletest_real
+rem %src%\build\dsimpletest < %src%\examples\input_simpletest_real
 if errorlevel 1 exit 1
-%src%\build\csimpletest < %src%\examples\input_simpletest_cmplx
+rem %src%\build\csimpletest < %src%\examples\input_simpletest_cmplx
 if errorlevel 1 exit 1
-%src%\build\zsimpletest < %src%\examples\input_simpletest_cmplx
+rem %src%\build\zsimpletest < %src%\examples\input_simpletest_cmplx
 if errorlevel 1 exit 1

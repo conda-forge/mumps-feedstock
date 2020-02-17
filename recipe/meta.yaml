@@ -15,6 +15,7 @@ source:
     - shared-mumps.patch
     - shared-libseq.patch
     - examples-mpilibs.patch
+    - flang-support.patch
 
 build:
   number: 5
@@ -23,10 +24,9 @@ requirements:
   build:
     # dummy unused top-level requirements
     # needed to construct the right conda-smithy matrix
-    - {{ compiler('fortran') }}        # [unix]
-    - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('fortran') }}
+    - {{ compiler('c') }}
+    - m2-patch  # [win]
     - mpi * {{ mpi }}  # [mpi != 'nompi']
 
 outputs:
@@ -52,10 +52,8 @@ outputs:
       build:
         - cmake  # [win]
         - m2-patch  # [win]
-        - {{ compiler('fortran') }}        # [unix]
-        - {{ compiler('m2w64_fortran') }}  # [win]
-        - {{ compiler('c') }}        # [unix]
-        - {{ compiler('m2w64_c') }}  # [win]
+        - {{ compiler('fortran') }}
+        - {{ compiler('c') }}
       host:
         - libblas
         - liblapack
@@ -108,8 +106,8 @@ outputs:
       features:
     requirements:
       build:
-        - {{ compiler('fortran') }}  # [not win]
-        - {{ compiler('c') }}  # [not win]
+        - {{ compiler('fortran') }}
+        - {{ compiler('c') }}
       host:
         - libblas
         - liblapack
