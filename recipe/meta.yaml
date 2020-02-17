@@ -19,6 +19,7 @@ source:
 
 build:
   number: 6
+  skip: true  # [win and vc<14]
 
 requirements:
   build:
@@ -47,7 +48,7 @@ outputs:
       script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
       run_exports:
         - {{ pin_subpackage('mumps-seq', max_pin='x.x.x') }}  # [not win]
-      skip: true  # [mpi != 'nompi']
+      skip: true  # [(win and vc<14) or mpi != 'nompi']
     requirements:
       build:
         - cmake  # [win]
