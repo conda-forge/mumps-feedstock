@@ -12,7 +12,6 @@ cd build
 cmake -G "NMake Makefiles" ^
       -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
       -DCMAKE_INSTALL_PREFIX:PATH=%LIBRARY_PREFIX% ^
-      -DCMAKE_VERBOSE_MAKEFILE=1 ^
       -DCMAKE_C_COMPILER=clang-cl ^
       -DCMAKE_BUILD_TYPE:STRING=Release ^
       ..
