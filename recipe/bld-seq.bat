@@ -8,11 +8,15 @@ copy %RECIPE_DIR%\CMakeLists.txt %src%\CMakeLists.txt
 mkdir build
 cd build
 
+REM This is a fix for a CMake bug where it crashes because of the "/GL" flag
+REM See: https://gitlab.kitware.com/cmake/cmake/issues/16282
+set CXXFLAGS=%CXXFLAGS:-GL=%
+set CFLAGS=%CFLAGS:-GL=%
+
 :: Configure using the CMakeFiles
 cmake -G "NMake Makefiles" ^
       -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
       -DCMAKE_INSTALL_PREFIX:PATH=%LIBRARY_PREFIX% ^
-      -DCMAKE_C_COMPILER=clang-cl ^
       -DCMAKE_BUILD_TYPE:STRING=Release ^
       ..
 if errorlevel 1 exit 1
