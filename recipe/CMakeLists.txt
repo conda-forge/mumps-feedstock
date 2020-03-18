@@ -21,7 +21,6 @@ project(MUMPS Fortran C)
 ###############################################################################
 # Options
 ###############################################################################
-add_definitions(-DAdd_)
 
 
 find_package(BLAS)
@@ -50,6 +49,7 @@ endif()
 
 include_directories(
   ${MUMPS_SOURCE_DIR}/include
+  ${MUMPS_SOURCE_DIR}/src
   ${MUMPS_SOURCE_DIR}/PORD/include
 )
 
@@ -126,6 +126,10 @@ if(NOT WITH_MPI)
 endif()
 
 add_library(mumps_common STATIC ${COMMON_MOD} ${COMMON_OTHER})
+target_compile_definitions(mumps_common PRIVATE -DAdd_)
+# Hack to fix incorrect assumption that Windows=gfortran
+target_compile_definitions(mumps_common PRIVATE -DMUMPS_CALL=__declspec\(dllexport\))
+target_compile_definitions(mumps_common PRIVATE -DLIBSEQ_CALL=__declspec\(dllexport\))
 
 set(PORD_SOURCES
 PORD/lib/graph.c
@@ -257,7 +261,11 @@ set(ARITHLIB ${ARITH}mumps)
 set(EXAMPLE examples/${ARITH}simpletest.F)
 
 add_library(${ARITHLIB} SHARED ${ARITH_MOD} ${ARITH_OTHER})
+set_target_properties(${ARITHLIB} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 target_compile_definitions(${ARITHLIB} PUBLIC MUMPS_ARITH=MUMPS_ARITH_${ARITH})
+# Hack to fix incorrect assumption that Windows=gfortran
+target_compile_definitions(${ARITHLIB} PRIVATE -DAdd_)
+target_compile_definitions(${ARITHLIB} PRIVATE -DMUMPS_CALL=__declspec\(dllexport\))
 add_executable(${ARITH}simpletest ${EXAMPLE})
 target_link_libraries(${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 target_link_libraries(${ARITH}simpletest ${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
@@ -265,7 +273,9 @@ install(TARGETS ${ARITHLIB} DESTINATION bin)
 install(FILES include/${ARITH}mumps_struc.h include/${ARITH}mumps_root.h include/${ARITH}mumps_c.h DESTINATION include)
 
 endforeach(ARITH)
-
+set(EXAMPLE examples/c_example.c)
+add_executable(c_example ${EXAMPLE})
+target_link_libraries(c_example dmumps mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 install(TARGETS mumps_common pord DESTINATION lib)
 install(FILES include/mumps_c_types.h include/mumps_compat.h DESTINATION include)
 if(NOT WITH_MPI)
