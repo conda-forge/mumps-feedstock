@@ -19,6 +19,3 @@ pin_run_as_build:
     max_pin: x
 vc:
 - '14'
-zip_keys:
-- - vc
-  - c_compiler
