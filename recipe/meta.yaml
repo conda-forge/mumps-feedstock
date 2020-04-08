@@ -18,7 +18,7 @@ source:
     - flang-support.patch
 
 build:
-  number: 6
+  number: 7
   skip: true  # [win and vc<14]
 
 requirements:
@@ -55,6 +55,7 @@ outputs:
         - m2-patch  # [win]
         - {{ compiler('fortran') }}
         - {{ compiler('c') }}
+        - make  # [unix]
       host:
         - libblas
         - liblapack
@@ -116,6 +117,7 @@ outputs:
       build:
         - {{ compiler('fortran') }}
         - {{ compiler('c') }}
+        - make  # [unix]
       host:
         - libblas
         - liblapack
