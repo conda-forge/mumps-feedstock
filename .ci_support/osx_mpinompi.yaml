@@ -35,6 +35,6 @@ pin_run_as_build:
     min_pin: x.x.x
     max_pin: x.x
 ptscotch:
-- 6.0.8
+- 6.0.9
 scotch:
 - 6.0.9
