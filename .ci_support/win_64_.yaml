@@ -14,5 +14,7 @@ liblapack:
 - 3.8.0 *netlib
 mpi:
 - nompi
+target_platform:
+- win-64
 vc:
 - '14'
