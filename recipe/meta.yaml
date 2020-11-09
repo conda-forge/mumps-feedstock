@@ -62,7 +62,7 @@ outputs:
         - metis  # [not win]
         - scotch  # [not win]
       run:
-        - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }} 
+        - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
         - metis  # [not win]
         - scotch  # [not win]
 
