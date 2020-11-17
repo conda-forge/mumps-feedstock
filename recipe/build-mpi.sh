@@ -15,3 +15,7 @@ export FC=mpifort
 make all
 
 cp -av lib/*${SHLIB_EXT} ${PREFIX}/lib
+
+
+otool -l ${PREFIX}/lib/libmumps*
+

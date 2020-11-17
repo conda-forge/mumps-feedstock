@@ -4,7 +4,7 @@ set -ex
 cp $RECIPE_DIR/Makefile.conda.SEQ ./Makefile.inc
 
 if [[ "$(uname)" == "Darwin" ]]; then
-  export SONAME="-Wl,-install_name,@rpath/"
+  export SONAME="-Wl,-install_name,@rpath/${PREFIX}/lib/"
 else
   export SONAME="-Wl,-soname,"
 fi
@@ -32,3 +32,6 @@ cd examples
 ./csimpletest < input_simpletest_cmplx
 ./zsimpletest < input_simpletest_cmplx
 ./c_example
+
+otool -l ${PREFIX}/lib/libmumps*
+
