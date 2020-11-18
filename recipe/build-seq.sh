@@ -11,6 +11,13 @@ fi
 
 make all PLAT=_seq
 
+# drop build-prefix rpath
+if [[ "$(uname)" == "Darwin" ]]; then
+  for f in lib/*${PKG_VERSION}.dylib libseq/*${PKG_VERSION}.dylib; do
+    ${INSTALL_NAME_TOOL} -delete_rpath ${BUILD_PREFIX}/lib ${f} || echo "delete_rpath failed"
+  done
+fi
+
 mkdir -p "${PREFIX}/lib"
 mkdir -p "${PREFIX}/include/mumps_seq"
 
