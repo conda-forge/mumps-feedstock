@@ -1,6 +1,6 @@
 {% set name = "mumps" %}
-{% set version = "5.2.1" %}
-{% set sha256 = "d988fc34dfc8f5eee0533e361052a972aa69cc39ab193e7f987178d24981744a" %}
+{% set version = "5.4.0" %}
+{% set sha256 = "c613414683e462da7c152c131cebf34f937e79b30571424060dd673368bbf627" %}
 
 package:
   name: mumps
@@ -18,7 +18,7 @@ source:
     - flang-support.patch
 
 build:
-  number: 10
+  number: 0
   skip: true  # [win and vc<14]
 
 requirements:
@@ -45,7 +45,7 @@ outputs:
   - name: mumps-seq
     build:
       script: ${RECIPE_DIR}/build-seq.sh  # [not win]
-      script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
+      script: '%RECIPE_DIR%\bld-seq.bat'  # [win]
       run_exports:
         - {{ pin_subpackage('mumps-seq', max_pin='x.x.x') }}
       skip: true  # [(win and vc<14) or mpi != 'nompi']

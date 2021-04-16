@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-name: linux_aarch64_c_compiler_version7fo_h038e363740
+name: linux_aarch64_mpimpich
 
 platform:
   os: linux
@@ -8,9 +8,9 @@ platform:
 
 steps:
 - name: Install and build
-  image: condaforge/linux-anvil-aarch64
+  image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_c_compiler_version7fortran_compiler_version7mpimpich
+    CONFIG: linux_aarch64_mpimpich
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:
@@ -31,7 +31,7 @@ steps:
 
 ---
 kind: pipeline
-name: linux_aarch64_c_compiler_version7fo_h2c4d7b2ae3
+name: linux_aarch64_mpinompi
 
 platform:
   os: linux
@@ -39,9 +39,9 @@ platform:
 
 steps:
 - name: Install and build
-  image: condaforge/linux-anvil-aarch64
+  image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_c_compiler_version7fortran_compiler_version7mpinompi
+    CONFIG: linux_aarch64_mpinompi
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:
@@ -62,7 +62,7 @@ steps:
 
 ---
 kind: pipeline
-name: linux_aarch64_c_compiler_version7fo_hc02314f3c6
+name: linux_aarch64_mpiopenmpi
 
 platform:
   os: linux
@@ -70,102 +70,9 @@ platform:
 
 steps:
 - name: Install and build
-  image: condaforge/linux-anvil-aarch64
+  image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_c_compiler_version7fortran_compiler_version7mpiopenmpi
-    UPLOAD_PACKAGES: True
-    PLATFORM: linux-aarch64
-    BINSTAR_TOKEN:
-      from_secret: BINSTAR_TOKEN
-    FEEDSTOCK_TOKEN:
-      from_secret: FEEDSTOCK_TOKEN
-    STAGING_BINSTAR_TOKEN:
-      from_secret: STAGING_BINSTAR_TOKEN
-  commands:
-    - export FEEDSTOCK_ROOT="$DRONE_WORKSPACE"
-    - export RECIPE_ROOT="$FEEDSTOCK_ROOT/recipe"
-    - export CI=drone
-    - export GIT_BRANCH="$DRONE_BRANCH"
-    - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
-    - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
-    - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
-    - echo "Done building"
-
----
-kind: pipeline
-name: linux_aarch64_c_compiler_version9fo_hfad9402678
-
-platform:
-  os: linux
-  arch: arm64
-
-steps:
-- name: Install and build
-  image: condaforge/linux-anvil-aarch64
-  environment:
-    CONFIG: linux_aarch64_c_compiler_version9fortran_compiler_version9mpimpich
-    UPLOAD_PACKAGES: True
-    PLATFORM: linux-aarch64
-    BINSTAR_TOKEN:
-      from_secret: BINSTAR_TOKEN
-    FEEDSTOCK_TOKEN:
-      from_secret: FEEDSTOCK_TOKEN
-    STAGING_BINSTAR_TOKEN:
-      from_secret: STAGING_BINSTAR_TOKEN
-  commands:
-    - export FEEDSTOCK_ROOT="$DRONE_WORKSPACE"
-    - export RECIPE_ROOT="$FEEDSTOCK_ROOT/recipe"
-    - export CI=drone
-    - export GIT_BRANCH="$DRONE_BRANCH"
-    - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
-    - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
-    - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
-    - echo "Done building"
-
----
-kind: pipeline
-name: linux_aarch64_c_compiler_version9fo_hca4724ef20
-
-platform:
-  os: linux
-  arch: arm64
-
-steps:
-- name: Install and build
-  image: condaforge/linux-anvil-aarch64
-  environment:
-    CONFIG: linux_aarch64_c_compiler_version9fortran_compiler_version9mpinompi
-    UPLOAD_PACKAGES: True
-    PLATFORM: linux-aarch64
-    BINSTAR_TOKEN:
-      from_secret: BINSTAR_TOKEN
-    FEEDSTOCK_TOKEN:
-      from_secret: FEEDSTOCK_TOKEN
-    STAGING_BINSTAR_TOKEN:
-      from_secret: STAGING_BINSTAR_TOKEN
-  commands:
-    - export FEEDSTOCK_ROOT="$DRONE_WORKSPACE"
-    - export RECIPE_ROOT="$FEEDSTOCK_ROOT/recipe"
-    - export CI=drone
-    - export GIT_BRANCH="$DRONE_BRANCH"
-    - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
-    - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
-    - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
-    - echo "Done building"
-
----
-kind: pipeline
-name: linux_aarch64_c_compiler_version9fo_h3555d21219
-
-platform:
-  os: linux
-  arch: arm64
-
-steps:
-- name: Install and build
-  image: condaforge/linux-anvil-aarch64
-  environment:
-    CONFIG: linux_aarch64_c_compiler_version9fortran_compiler_version9mpiopenmpi
+    CONFIG: linux_aarch64_mpiopenmpi
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:
