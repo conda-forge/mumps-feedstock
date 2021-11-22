@@ -25,10 +25,12 @@ cp -av lib/*${SHLIB_EXT} ${PREFIX}/lib/
 cp -av libseq/*${SHLIB_EXT} ${PREFIX}/lib/
 cp -av libseq/mpi*.h ${PREFIX}/include/mumps_seq/
 
-cd examples
-
-./ssimpletest < input_simpletest_real
-./dsimpletest < input_simpletest_real
-./csimpletest < input_simpletest_cmplx
-./zsimpletest < input_simpletest_cmplx
-./c_example
+if test "${BUILD}" == "${HOST}"
+then
+  cd examples
+  ./ssimpletest < input_simpletest_real
+  ./dsimpletest < input_simpletest_real
+  ./csimpletest < input_simpletest_cmplx
+  ./zsimpletest < input_simpletest_cmplx
+  ./c_example
+fi
