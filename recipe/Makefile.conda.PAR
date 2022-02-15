@@ -36,8 +36,10 @@ RM = /bin/rm -f
 CC := $(CC) -fPIC $(CFLAGS)
 FC := $(FC) -fPIC $(FFLAGS)
 FL := $(FC) $(LDFLAGS)
-AR = ar vr #
-RANLIB = ranlib
+AR ?= ar
+AR := $(AR) -r
+# AR := $(AR) vr #
+RANLIB ?= ranlib
 
 
 INCSEQ  = -I$(topdir)/libseq

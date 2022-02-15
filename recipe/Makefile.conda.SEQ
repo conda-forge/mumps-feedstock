@@ -32,10 +32,12 @@ RM = /bin/rm -f
 CC ?= gcc
 CC := $(CC) -fPIC $(CFLAGS)
 FC ?= gfortran
-FC := $(FC) -fPIC $(FFLAGS)
+FC := $(FC) -fPIC $(FFLAGS) -fallow-argument-mismatch
 FL := $(FC) $(LDFLAGS)
-AR = ar vr #
-RANLIB = ranlib
+AR ?= ar
+AR := $(AR) -r
+# AR := $(AR) vr #
+RANLIB ?= ranlib
 
 
 INCSEQ = -I$(topdir)/libseq

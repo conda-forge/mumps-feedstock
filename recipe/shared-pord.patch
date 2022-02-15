@@ -25,7 +25,7 @@ Index: mumps/PORD/lib/Makefile
  
 +libpord$(PLAT)$(SHLIB_EXT): $(OBJS)
 +	$(CC) -shared $(OBJS) $(SONAME)libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) -o libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $(LDFLAGS)
-+	ln -s libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $@
++	ln -sf libpord$(PLAT)-$(PKG_VERSION)$(SHLIB_EXT) $@
 +
  clean:
  	rm -f *.o
@@ -54,7 +54,8 @@ Index: mumps/Makefile
 +$(libdir)/libpord$(PLAT).a:
  	if [ "$(LPORDDIR)" != "" ] ; then \
  	  cd $(LPORDDIR); \
- 	  $(MAKE) CC="$(CC)" CFLAGS="$(OPTC)" AR="$(AR)" RANLIB="$(RANLIB)" OUTC="$(OUTC)" LIBEXT=$(LIBEXT); \
+- 	  $(MAKE) CC="$(CC)" CFLAGS="$(OPTC)" AR="$(AR)" RANLIB="$(RANLIB)" OUTC="$(OUTC)" LIBEXT=$(LIBEXT); \
++ 	  $(MAKE) CC="$(CC)" CFLAGS="$(OPTC)" AR="$(AR)" ARFLAGS="$(ARFLAGS)" ARFUNCT= RANLIB="$(RANLIB)" OUTC="$(OUTC)" LIBEXT=$(LIBEXT); \
  	fi;
  	if [ "$(LPORDDIR)" != "" ] ; then \
 -	  cp $(LPORDDIR)/libpord$(LIBEXT) $@; \
@@ -63,7 +64,7 @@ Index: mumps/Makefile
  
 +$(libdir)/libpord$(PLAT)$(SHLIB_EXT):
 +	if [ "$(LPORDDIR)" != "" ] ; then \
-+	cd $(LPORDDIR); make CC="$(CC)" CFLAGS="$(OPTC)" AR="$(AR)" ARFUNCT= RANLIB="$(RANLIB)" libpord$(PLAT)$(SHLIB_EXT); fi;
++	cd $(LPORDDIR); $(MAKE) CC="$(CC)" CFLAGS="$(OPTC)" LDFLAGS="$(LDFLAGS)" AR="$(AR)" ARFLAGS="$(ARFLAGS)" ARFUNCT= RANLIB="$(RANLIB)" libpord$(PLAT)$(SHLIB_EXT); fi;
 +	if [ "$(LPORDDIR)" != "" ] ; then \
 +	cp -a $(LPORDDIR)/libpord*$(SHLIB_EXT) lib/; fi;
 +
