@@ -14,6 +14,17 @@ liblapack:
 - 3.8 *netlib
 mpi:
 - nompi
+mpich:
+- '4'
+openmpi:
+- '4'
+pin_run_as_build:
+  mpich:
+    min_pin: x.x.x
+    max_pin: x.x
+  openmpi:
+    min_pin: x.x.x
+    max_pin: x.x
 target_platform:
 - win-64
 vc:
