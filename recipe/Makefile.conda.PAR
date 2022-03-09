@@ -36,9 +36,8 @@ RM = /bin/rm -f
 CC := $(CC) -fPIC $(CFLAGS)
 FC := $(FC) -fPIC $(FFLAGS)
 FL := $(FC) $(LDFLAGS)
-AR ?= ar
-# AR := $(AR) $(ARFLAGS)
-# AR := $(AR) vr #
+AR          = ar
+ARFLAGS     = -ruv
 RANLIB ?= ranlib
 
 
