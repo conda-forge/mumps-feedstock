@@ -35,7 +35,7 @@ FC ?= gfortran
 FC := $(FC) -fPIC $(FFLAGS) -fallow-argument-mismatch
 FL := $(FC) $(LDFLAGS)
 AR ?= ar
-AR := $(AR) $(ARFLAGS)
+# AR := $(AR) $(ARFLAGS)
 # AR := $(AR) vr #
 RANLIB ?= ranlib
 
