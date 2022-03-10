@@ -13,8 +13,7 @@ then
 fi
 
 if [[ "$(uname)" == "Darwin" ]]; then
-  # export SONAME="-Wl,-install_name,@rpath/"
-  export SONAME="-Wl,-install_name,"
+  export SONAME="-Wl,-install_name,@rpath/"
   export LDFLAGS="${LDFLAGS} -headerpad_max_install_names"
 else
   export SONAME="-Wl,-soname,"
