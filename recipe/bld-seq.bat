@@ -10,6 +10,7 @@ cd build
 
 :: Configure using the CMakeFiles
 cmake -G "NMake Makefiles" ^
+      -DCMAKE_Fortran_COMPILER:FILEPATH="%FC%" ^
       -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
       -DCMAKE_INSTALL_PREFIX:PATH=%LIBRARY_PREFIX% ^
       -DCMAKE_BUILD_TYPE:STRING=Release ^
