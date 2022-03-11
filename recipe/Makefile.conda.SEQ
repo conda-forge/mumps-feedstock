@@ -34,7 +34,7 @@ CC := $(CC) -fPIC $(CFLAGS)
 FC ?= gfortran
 FC := $(FC) -fPIC $(FFLAGS)
 FL := $(FC) $(LDFLAGS)
-AR = ar vr #
+AR = ar -ruv #
 RANLIB = ranlib
 
 
