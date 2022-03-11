@@ -17,6 +17,15 @@ jobs:
       osx_64_mpiopenmpi:
         CONFIG: osx_64_mpiopenmpi
         UPLOAD_PACKAGES: 'True'
+      osx_arm64_mpimpich:
+        CONFIG: osx_arm64_mpimpich
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_mpinompi:
+        CONFIG: osx_arm64_mpinompi
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_mpiopenmpi:
+        CONFIG: osx_arm64_mpiopenmpi
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 
   steps:
@@ -26,6 +35,11 @@ jobs:
       export OSX_FORCE_SDK_DOWNLOAD="1"
       export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
       export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
+      if [[ "${BUILD_REASON:-}" == "PullRequest" ]]; then
+        export IS_PR_BUILD="True"
+      else
+        export IS_PR_BUILD="False"
+      fi
       ./.scripts/run_osx_build.sh
     displayName: Run OSX build
     env:
