@@ -3,7 +3,7 @@ BUILD:
 c_compiler:
 - gcc
 c_compiler_version:
-- '10'
+- '11'
 cdt_arch:
 - aarch64
 cdt_name:
@@ -13,15 +13,15 @@ channel_sources:
 channel_targets:
 - conda-forge main
 docker_image:
-- quay.io/condaforge/linux-anvil-aarch64
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '10'
+- '11'
 libblas:
-- 3.8 *netlib
+- 3.9 *netlib
 liblapack:
-- 3.8 *netlib
+- 3.9 *netlib
 metis:
 - '5.1'
 mpi:
@@ -30,13 +30,10 @@ mpich:
 - '4'
 openmpi:
 - '4'
-pin_run_as_build:
-  metis:
-    max_pin: x.x
 ptscotch:
-- 6.0.9
+- 7.0.2
 scotch:
-- 6.0.9
+- 7.0.2
 target_platform:
 - linux-aarch64
 zip_keys:
