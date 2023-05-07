@@ -1,7 +1,7 @@
 About mumps
 ===========
 
-Home: http://mumps.enseeiht.fr/
+Home: https://mumps-solver.org/
 
 Package license: CECILL-C
 
@@ -9,7 +9,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/mumps-feedstock
 
 Summary: MUMPS: a parallel sparse direct solver
 
-Documentation: http://mumps.enseeiht.fr/index.php?page=doc
+Documentation: https://mumps-solver.org/index.php?page=doc
 
 MUMPS (MUltifrontal Massively Parallel Solver) is a package for solving
 systems of linear equations of the form Ax = b, where A is a square sparse
