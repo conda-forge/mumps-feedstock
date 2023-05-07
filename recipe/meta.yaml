@@ -1,5 +1,5 @@
 {% set name = "mumps" %}
-{% set version = "5.2.1" %}
+{% set version = "5.5.1" %}
 {% set sha256 = "d988fc34dfc8f5eee0533e361052a972aa69cc39ab193e7f987178d24981744a" %}
 
 package:
