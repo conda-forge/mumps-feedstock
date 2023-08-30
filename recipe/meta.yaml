@@ -156,7 +156,7 @@ outputs:
         - test ! -d "${PREFIX}/include/mumps_seq"
 
 about:
-  home: http://mumps.enseeiht.fr/
+  home: https://mumps-solver.org
   license: CECILL-C
   license_file: LICENSE
   summary: 'MUMPS: a parallel sparse direct solver'
@@ -167,7 +167,7 @@ about:
     general symmetric, on distributed memory computers. MUMPS implements a
     direct method based on a multifrontal approach which performs a Gaussian
     factorization.
-  doc_url: http://mumps.enseeiht.fr/index.php?page=doc
+  doc_url: https://mumps-solver.org/index.php?page=doc
 
 extra:
   recipe-maintainers:
