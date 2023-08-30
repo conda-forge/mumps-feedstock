@@ -124,7 +124,7 @@ outputs:
         - libblas
         - liblapack
         - {{ mpi }}
-        - metis
+        - metis  >=5.1.1
         - parmetis
         - ptscotch
         - scalapack
@@ -132,7 +132,6 @@ outputs:
       run:
         - {{ pin_subpackage('mumps-include', exact=True) }}
         - {{ mpi }}
-        - metis
         - parmetis
         - ptscotch
         - scalapack
