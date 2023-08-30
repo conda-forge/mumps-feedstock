@@ -16,7 +16,8 @@ source:
     - shared-libseq.patch
     - examples-mpilibs.patch
     - flang-support.patch
-
+    - mumps_support_only_metis_5_1_1.patch
+ 
 build:
   number: 12
   skip: true  # [win and vc<14]
@@ -60,11 +61,10 @@ outputs:
       host:
         - libblas
         - liblapack
-        - metis  # [not win]
+        - metis  >=5.1.1 # [not win]
         - scotch  # [not win]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
-        - metis  # [not win]
         - scotch  # [not win]
 
     test:
