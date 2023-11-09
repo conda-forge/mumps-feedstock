@@ -1,7 +1,7 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '10'
+- '12'
 cdt_name:
 - cos6
 channel_sources:
@@ -13,22 +13,19 @@ docker_image:
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '10'
+- '12'
 libblas:
-- 3.8 *netlib
+- 3.9 *netlib
 liblapack:
-- 3.8 *netlib
+- 3.9 *netlib
 metis:
-- '5.1'
+- 5.1.1
 mpi:
 - nompi
 mpich:
 - '4'
 openmpi:
 - '4'
-pin_run_as_build:
-  metis:
-    max_pin: x.x
 ptscotch:
 - 6.0.9
 scotch:
