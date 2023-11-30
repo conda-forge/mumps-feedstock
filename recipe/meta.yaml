@@ -171,6 +171,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - traversaro
     - basnijholt
     - dalcinl
     - minrk
