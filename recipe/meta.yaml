@@ -1,6 +1,6 @@
 {% set name = "mumps" %}
-{% set version = "5.2.1" %}
-{% set sha256 = "d988fc34dfc8f5eee0533e361052a972aa69cc39ab193e7f987178d24981744a" %}
+{% set version = "5.5.1" %}
+{% set sha256 = "1abff294fa47ee4cfd50dfd5c595942b72ebfcedce08142a75a99ab35014fa15" %}
 
 package:
   name: mumps
@@ -17,9 +17,9 @@ source:
     - examples-mpilibs.patch
     - flang-support.patch
     - mumps_support_only_metis_5_1_1.patch
- 
+
 build:
-  number: 12
+  number: 0
   skip: true  # [win and vc<14]
 
 requirements:
