@@ -25,9 +25,9 @@ mpich:
 openmpi:
 - '4'
 ptscotch:
-- 6.0.9
+- 7.0.2
 scotch:
-- 6.0.9
+- 7.0.2
 target_platform:
 - osx-64
 zip_keys:

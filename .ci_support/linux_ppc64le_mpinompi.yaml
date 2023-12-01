@@ -9,7 +9,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 docker_image:
-- quay.io/condaforge/linux-anvil-ppc64le
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
@@ -25,9 +25,9 @@ mpich:
 openmpi:
 - '4'
 ptscotch:
-- 6.0.9
+- 7.0.2
 scotch:
-- 6.0.9
+- 7.0.2
 target_platform:
 - linux-ppc64le
 zip_keys:
