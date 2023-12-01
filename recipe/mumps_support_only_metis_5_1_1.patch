@@ -1,0 +1,88 @@
+diff --git a/src/cini_driver.F b/src/cini_driver.F
+index e74f9ca..e49ef30 100644
+--- a/src/cini_driver.F
++++ b/src/cini_driver.F
+@@ -116,13 +116,13 @@ C     set to default options
+ C     Useful size is 40  
+ C     This sets the default values
+       CALL METIS_SETDEFAULTOPTIONS(id%METIS_OPTIONS)
+-C     This number, 18, corresponds to METIS_OPTIONS_NUMBERING which
++C     This number, 20, corresponds to METIS_OPTIONS_NUMBERING which
+ C     tells METIS to use fortran numbering and is found in metis.h
+ C     In Metis 5.0.3 and Parmetis 4.0.2, METIS_OPTIONS_NUMBERING 
+ C     was METIS_OPTIONS(17). MUMPS doesnot support those versions anymore.
+-C     To use them, just change METIS_OPTIONS(18) into METIS_OPTIONS(17)
++C     To use them, just change METIS_OPTIONS(20) into METIS_OPTIONS(17)
+ C     like that: METIS_OPTIONS(17) = 1
+-      id%METIS_OPTIONS(18) = 1
++      id%METIS_OPTIONS(20) = 1
+ #endif
+ #endif      
+ C
+diff --git a/src/mumps_metis.c b/src/mumps_metis.c
+index ed6451d..c379c1f 100644
+--- a/src/mumps_metis.c
++++ b/src/mumps_metis.c
+@@ -95,7 +95,7 @@ MUMPS_METIS_KWAY(MUMPS_INT *n,     MUMPS_INT *iptr,
+   ierr=METIS_SetDefaultOptions(options);
+   options[0]  = 0;
+   /* Use 1-based fortran numbering */
+-  options[17] = 1;
++  options[19] = 1;
+   ncon        = 1;
+   ierr = METIS_PartGraphKway(n, &ncon, iptr, jcn,
+                              NULL, NULL, NULL,
+diff --git a/src/mumps_metis64.c b/src/mumps_metis64.c
+index 0bddbf2..21f9030 100644
+--- a/src/mumps_metis64.c
++++ b/src/mumps_metis64.c
+@@ -110,7 +110,7 @@ MUMPS_METIS_KWAY_64(MUMPS_INT8 *n,     MUMPS_INT8 *iptr,
+   ierr=METIS_SetDefaultOptions(options);
+   options[0]  = 0;
+   /* Use 1-based fortran numbering */
+-  options[17] = 1;
++  options[19] = 1;
+   ncon        = 1;
+      ierr = METIS_PartGraphKway(n, &ncon, iptr, jcn,
+      NULL, NULL, NULL,
+diff --git a/src/sini_driver.F b/src/sini_driver.F
+index fcfb38f..453cc99 100644
+--- a/src/sini_driver.F
++++ b/src/sini_driver.F
+@@ -116,13 +116,13 @@ C     set to default options
+ C     Useful size is 40  
+ C     This sets the default values
+       CALL METIS_SETDEFAULTOPTIONS(id%METIS_OPTIONS)
+-C     This number, 18, corresponds to METIS_OPTIONS_NUMBERING which
++C     This number, 20, corresponds to METIS_OPTIONS_NUMBERING which
+ C     tells METIS to use fortran numbering and is found in metis.h
+ C     In Metis 5.0.3 and Parmetis 4.0.2, METIS_OPTIONS_NUMBERING 
+ C     was METIS_OPTIONS(17). MUMPS doesnot support those versions anymore.
+-C     To use them, just change METIS_OPTIONS(18) into METIS_OPTIONS(17)
++C     To use them, just change METIS_OPTIONS(20) into METIS_OPTIONS(17)
+ C     like that: METIS_OPTIONS(17) = 1
+-      id%METIS_OPTIONS(18) = 1
++      id%METIS_OPTIONS(20) = 1
+ #endif
+ #endif      
+ C
+diff --git a/src/zini_driver.F b/src/zini_driver.F
+index 92c621e..d9efb78 100644
+--- a/src/zini_driver.F
++++ b/src/zini_driver.F
+@@ -116,13 +116,13 @@ C     set to default options
+ C     Useful size is 40  
+ C     This sets the default values
+       CALL METIS_SETDEFAULTOPTIONS(id%METIS_OPTIONS)
+-C     This number, 18, corresponds to METIS_OPTIONS_NUMBERING which
++C     This number, 20, corresponds to METIS_OPTIONS_NUMBERING which
+ C     tells METIS to use fortran numbering and is found in metis.h
+ C     In Metis 5.0.3 and Parmetis 4.0.2, METIS_OPTIONS_NUMBERING 
+ C     was METIS_OPTIONS(17). MUMPS doesnot support those versions anymore.
+ C     To use them, just change METIS_OPTIONS(18) into METIS_OPTIONS(17)
+ C     like that: METIS_OPTIONS(17) = 1
+-      id%METIS_OPTIONS(18) = 1
++      id%METIS_OPTIONS(20) = 1
+ #endif
+ #endif      
+ C

@@ -8,7 +8,7 @@ package:
 
 source:
   fn: MUMPS_{{ version }}.tar.gz
-  url: http://mumps.enseeiht.fr/MUMPS_{{ version }}.tar.gz
+  url: https://graal.ens-lyon.fr/MUMPS/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
     - shared-pord.patch
@@ -16,9 +16,10 @@ source:
     - shared-libseq.patch
     - examples-mpilibs.patch
     - flang-support.patch
-
+    - mumps_support_only_metis_5_1_1.patch
+ 
 build:
-  number: 11
+  number: 12
   skip: true  # [win and vc<14]
 
 requirements:
@@ -60,11 +61,10 @@ outputs:
       host:
         - libblas
         - liblapack
-        - metis  # [not win]
+        - metis  >=5.1.1  # [not win]
         - scotch  # [not win]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
-        - metis  # [not win]
         - scotch  # [not win]
 
     test:
@@ -124,7 +124,7 @@ outputs:
         - libblas
         - liblapack
         - {{ mpi }}
-        - metis
+        - metis  >=5.1.1
         - parmetis
         - ptscotch
         - scalapack
@@ -132,7 +132,6 @@ outputs:
       run:
         - {{ pin_subpackage('mumps-include', exact=True) }}
         - {{ mpi }}
-        - metis
         - parmetis
         - ptscotch
         - scalapack
@@ -156,7 +155,7 @@ outputs:
         - test ! -d "${PREFIX}/include/mumps_seq"
 
 about:
-  home: http://mumps.enseeiht.fr/
+  home: https://mumps-solver.org
   license: CECILL-C
   license_file: LICENSE
   summary: 'MUMPS: a parallel sparse direct solver'
@@ -167,7 +166,7 @@ about:
     general symmetric, on distributed memory computers. MUMPS implements a
     direct method based on a multifrontal approach which performs a Gaussian
     factorization.
-  doc_url: http://mumps.enseeiht.fr/index.php?page=doc
+  doc_url: https://mumps-solver.org/index.php?page=doc
 
 extra:
   recipe-maintainers:
