@@ -62,10 +62,10 @@ outputs:
         - libblas
         - liblapack
         - metis  >=5.1.1  # [not win]
-        - scotch  # [not win]
+        - libscotch  # [not win]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
-        - scotch  # [not win]
+        - libscotch  # [not win]
 
     test:
       commands:
@@ -126,16 +126,16 @@ outputs:
         - {{ mpi }}
         - metis  >=5.1.1
         - parmetis
-        - ptscotch
+        - libptscotch
         - scalapack
-        - scotch
+        - libscotch
       run:
         - {{ pin_subpackage('mumps-include', exact=True) }}
         - {{ mpi }}
         - parmetis
-        - ptscotch
+        - libptscotch
         - scalapack
-        - scotch
+        - libscotch
 
     test:
       commands:
