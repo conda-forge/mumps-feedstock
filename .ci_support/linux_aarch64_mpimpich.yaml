@@ -29,9 +29,9 @@ mpich:
 openmpi:
 - '4'
 ptscotch:
-- 7.0.2
+- 7.0.4
 scotch:
-- 7.0.2
+- 7.0.4
 target_platform:
 - linux-aarch64
 zip_keys:
