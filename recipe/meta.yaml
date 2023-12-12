@@ -63,7 +63,7 @@ outputs:
         - liblapack
         - metis  >=5.1.1  # [not win]
         - libscotch  # [not win]
-        - libgfortran  # [osx and build_platform != target_platform]
+        - gfortran  # [osx and build_platform != target_platform]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
         - libscotch  # [not win]
