@@ -61,5 +61,5 @@ OPTC    = -O
 #End Optimized options
 
 INCS = $(INCPAR)
-LIBS = $(LIBPAR)
+LIBS = $(LIBPAR) $(LIBBLAS)
 LIBSEQNEEDED =

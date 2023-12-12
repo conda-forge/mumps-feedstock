@@ -21,13 +21,15 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
 fi
 
 if [[ "$(uname)" == "Darwin" ]]; then
-  export SONAME="-Wl,-install_name,@rpath/"
+  export SONAME="-install_name,@rpath/"
   export LDFLAGS="${LDFLAGS} -headerpad_max_install_names"
 else
-  export SONAME="-Wl,-soname,"
+  export SONAME="-soname"
 fi
 
-make all PLAT=_seq
+export LIBEXT_SHARED=${SHLIB_EXT}
+
+make allshared PLAT=_seq
 
 mkdir -p "${PREFIX}/lib"
 mkdir -p "${PREFIX}/include/mumps_seq"

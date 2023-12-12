@@ -62,5 +62,5 @@ OPTL    = -O
 OPTC    = -O
 #End Optimized options
 INCS = $(INCSEQ)
-LIBS = $(LIBSEQ)
+LIBS = $(LIBSEQ) $(LIBBLAS)
 LIBSEQNEEDED = libseqneeded
