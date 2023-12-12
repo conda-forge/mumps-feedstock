@@ -56,7 +56,8 @@ CDEFS   = -DAdd_
 
 #Begin Optimized options
 OPTF    = -O  -DALLOW_NON_INIT
-OPTL    = -O
+# Makefile doesn't accept LDFLAGS in C linking, pass via OPTL
+OPTL    = -O $(LDFLAGS)
 OPTC    = -O
 #End Optimized options
 
