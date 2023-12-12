@@ -12,6 +12,8 @@ source:
   sha256: {{ sha256 }}
   patches:
     - sonamecomma.patch  # [osx]
+    - soname_mpiseq_pord_mac.patch  # [osx]
+    - soname_mpiseq_pord.patch  # [linux]
     # - examples-mpilibs.patch
     - flang-support.patch
     - mumps_support_only_metis_5_1_1.patch
