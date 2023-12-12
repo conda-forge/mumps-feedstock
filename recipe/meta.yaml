@@ -85,13 +85,13 @@ outputs:
         - test -f "${PREFIX}/include/mumps_seq/mpif.h"
         {% else %}
         - if not exist "%LIBRARY_PREFIX%\bin\smumps.dll" exit 1
-        - if not exist "%LIBRARY_PREFIX%\bin\smumps.lib" exit 1
+        - if not exist "%LIBRARY_PREFIX%\lib\smumps.lib" exit 1
         - if not exist "%LIBRARY_PREFIX%\bin\dmumps.dll" exit 1
-        - if not exist "%LIBRARY_PREFIX%\bin\dmumps.lib" exit 1
+        - if not exist "%LIBRARY_PREFIX%\lib\dmumps.lib" exit 1
         - if not exist "%LIBRARY_PREFIX%\bin\cmumps.dll" exit 1
-        - if not exist "%LIBRARY_PREFIX%\bin\cmumps.lib" exit 1
+        - if not exist "%LIBRARY_PREFIX%\lib\cmumps.lib" exit 1
         - if not exist "%LIBRARY_PREFIX%\bin\zmumps.dll" exit 1
-        - if not exist "%LIBRARY_PREFIX%\bin\zmumps.lib" exit 1
+        - if not exist "%LIBRARY_PREFIX%\lib\zmumps.lib" exit 1
         - if not exist "%LIBRARY_PREFIX%\lib\mumps_common.lib" exit 1
         - if not exist "%LIBRARY_PREFIX%\lib\pord.lib" exit 1
         - if not exist "%LIBRARY_PREFIX%\include\dmumps_struc.h" exit 1

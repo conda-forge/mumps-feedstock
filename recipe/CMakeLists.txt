@@ -63,7 +63,9 @@ endif()
 # OBJS_COMMON_MOD
 set(
   COMMON_MOD
+  src/mumps_pivnul_mod.F
   src/ana_omp_m.F
+  src/ana_blk_m.F
   src/ana_orderings_wrappers_m.F
   src/double_linked_list.F
   src/fac_asm_build_sort_index_m.F
@@ -85,6 +87,7 @@ set(
 # OBJS_COMMON_OTHER
 set(
   COMMON_OTHER
+  src/ana_blk.F
   src/ana_orderings.F
   src/ana_set_ordering.F
   src/ana_AMDMF.F
@@ -94,6 +97,7 @@ set(
   src/mumps_type2_blocking.F
   src/mumps_version.F
   src/mumps_print_defined.F
+  src/mumps_addr.c
   src/mumps_common.c
   src/mumps_pord.c
   src/mumps_metis.c
@@ -102,7 +106,6 @@ set(
   src/mumps_scotch.c
   src/mumps_scotch64.c
   src/mumps_scotch_int.c
-  src/mumps_size.c
   src/mumps_io.c
   src/mumps_io_basic.c
   src/mumps_io_thread.c
@@ -112,6 +115,7 @@ set(
   src/mumps_save_restore_C.c
   src/mumps_config_file_C.c
   src/mumps_thread_affinity.c
+  src/mumps_register_thread.c
   src/tools_common.F
   src/sol_common.F
 )
@@ -166,10 +170,12 @@ set(
   src/${ARITH}fac_front_LDLT_type1.F
   src/${ARITH}fac_front_LDLT_type2.F
   src/${ARITH}fac_front_type2_aux.F
+  src/${ARITH}fac_sispointers_m.F
   src/${ARITH}fac_lr.F
   src/${ARITH}fac_mem_dynamic.F
   src/${ARITH}fac_omp_m.F
   src/${ARITH}fac_par_m.F
+  src/${ARITH}fac_sol_l0omp_m.F
   src/${ARITH}lr_core.F
   src/${ARITH}lr_stats.F
   src/${ARITH}lr_type.F
@@ -185,7 +191,9 @@ set(
   src/${ARITH}mumps_struc_def.F
   src/${ARITH}omp_tps_m.F
   src/${ARITH}sol_lr.F
+  src/${ARITH}sol_omp_m.F
   src/${ARITH}static_ptr_m.F
+  src/${ARITH}mumps_mpi3_mod.F
 )
 
 # OBJS_OTHER
@@ -269,14 +277,20 @@ target_compile_definitions(${ARITHLIB} PRIVATE -DMUMPS_CALL=__declspec\(dllexpor
 add_executable(${ARITH}simpletest ${EXAMPLE})
 target_link_libraries(${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 target_link_libraries(${ARITH}simpletest ${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-install(TARGETS ${ARITHLIB} DESTINATION bin)
+install(TARGETS ${ARITHLIB}
+        RUNTIME DESTINATION bin
+        ARCHIVE DESTINATION lib
+)
 install(FILES include/${ARITH}mumps_struc.h include/${ARITH}mumps_root.h include/${ARITH}mumps_c.h DESTINATION include)
 
 endforeach(ARITH)
 set(EXAMPLE examples/c_example.c)
 add_executable(c_example ${EXAMPLE})
 target_link_libraries(c_example dmumps mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-install(TARGETS mumps_common pord DESTINATION lib)
+install(TARGETS mumps_common pord
+        RUNTIME DESTINATION bin
+        ARCHIVE DESTINATION lib
+)
 install(FILES include/mumps_c_types.h include/mumps_compat.h DESTINATION include)
 if(NOT WITH_MPI)
   install(FILES libseq/mpif.h DESTINATION include/mumps_seq)
