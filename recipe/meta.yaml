@@ -77,15 +77,10 @@ outputs:
           'mumps_common',
           'pord',
         ] %}
-        - test -f "${PREFIX}/lib/lib{{ lib }}_seq-{{ version }}${SHLIB_EXT}"
         - test -f "${PREFIX}/lib/lib{{ lib }}_seq${SHLIB_EXT}"
-        - test -h "${PREFIX}/lib/lib{{ lib }}_seq${SHLIB_EXT}"
         {% endfor %}
-        - test -f "${PREFIX}/lib/libmpiseq_seq-{{ version }}${SHLIB_EXT}"
         - test -f "${PREFIX}/lib/libmpiseq_seq${SHLIB_EXT}"
-        - test -h "${PREFIX}/lib/libmpiseq_seq${SHLIB_EXT}"
         - test -f "${PREFIX}/lib/libmpiseq${SHLIB_EXT}"
-        - test -h "${PREFIX}/lib/libmpiseq${SHLIB_EXT}"
         - test -f "${PREFIX}/include/mumps_seq/mpi.h"
         - test -f "${PREFIX}/include/mumps_seq/mpif.h"
         {% else %}
@@ -145,8 +140,6 @@ outputs:
           'mumps_common',
           'pord',
         ] %}
-        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ version }}${SHLIB_EXT}"
-        - test -h "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
         {% endfor %}
         - test ! -f "${PREFIX}/lib/libmpiseq*"
