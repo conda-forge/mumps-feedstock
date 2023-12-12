@@ -10,7 +10,7 @@
 #    Oct 2018     Joseph Weston     Modify for use with MUMPS 5.1.x
 ###############################################################################
 
-cmake_minimum_required(VERSION 3.6.0)
+cmake_minimum_required(VERSION 3.14.0)
 
 
 ###############################################################################
@@ -277,20 +277,14 @@ target_compile_definitions(${ARITHLIB} PRIVATE -DMUMPS_CALL=__declspec\(dllexpor
 add_executable(${ARITH}simpletest ${EXAMPLE})
 target_link_libraries(${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 target_link_libraries(${ARITH}simpletest ${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-install(TARGETS ${ARITHLIB}
-        RUNTIME DESTINATION bin
-        ARCHIVE DESTINATION lib
-)
+install(TARGETS ${ARITHLIB})
 install(FILES include/${ARITH}mumps_struc.h include/${ARITH}mumps_root.h include/${ARITH}mumps_c.h DESTINATION include)
 
 endforeach(ARITH)
 set(EXAMPLE examples/c_example.c)
 add_executable(c_example ${EXAMPLE})
 target_link_libraries(c_example dmumps mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
-install(TARGETS mumps_common pord
-        RUNTIME DESTINATION bin
-        ARCHIVE DESTINATION lib
-)
+install(TARGETS mumps_common pord)
 install(FILES include/mumps_c_types.h include/mumps_compat.h DESTINATION include)
 if(NOT WITH_MPI)
   install(FILES libseq/mpif.h DESTINATION include/mumps_seq)
