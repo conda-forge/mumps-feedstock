@@ -21,21 +21,24 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
 fi
 
 if [[ "$(uname)" == "Darwin" ]]; then
-  export SONAME="-Wl,-install_name,@rpath/"
+  export SONAME="-install_name,@rpath/"
   export LDFLAGS="${LDFLAGS} -headerpad_max_install_names"
 else
-  export SONAME="-Wl,-soname,"
+  export SONAME="-soname"
 fi
 
-make all PLAT=_seq
+export LIBEXT_SHARED=${SHLIB_EXT}
+
+make allshared PLAT=_seq
 
 mkdir -p "${PREFIX}/lib"
 mkdir -p "${PREFIX}/include/mumps_seq"
 
+ls lib
 cd lib
-# resolve -lmpiseq and -lmpiseq_seq to libmpiseq_seq-5.1.2.dylib
-ln -sf libmpiseq_seq-${PKG_VERSION}${SHLIB_EXT} libmpiseq${SHLIB_EXT}
-ln -sf libmpiseq_seq-${PKG_VERSION}${SHLIB_EXT} libmpiseq_seq${SHLIB_EXT}
+# resolve -lmpiseq to libmpiseq_seq.dylib
+test -f libmpiseq_seq${SHLIB_EXT}
+ln -s libmpiseq_seq${SHLIB_EXT} libmpiseq${SHLIB_EXT}
 test -f libmpiseq${SHLIB_EXT}
 cd ..
 
