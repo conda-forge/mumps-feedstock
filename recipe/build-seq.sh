@@ -34,7 +34,13 @@ make allshared PLAT=_seq
 mkdir -p "${PREFIX}/lib"
 mkdir -p "${PREFIX}/include/mumps_seq"
 
-test -f lib/libmpiseq${SHLIB_EXT}
+ls lib
+cd lib
+# resolve -lmpiseq to libmpiseq_seq.dylib
+test -f libmpiseq_seq${SHLIB_EXT}
+ln -s libmpiseq_seq${SHLIB_EXT} libmpiseq${SHLIB_EXT}
+test -f libmpiseq${SHLIB_EXT}
+cd ..
 
 cp -av lib/*${SHLIB_EXT} ${PREFIX}/lib/
 cp -av libseq/*${SHLIB_EXT} ${PREFIX}/lib/
