@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 cp "${RECIPE_DIR}/parent/Makefile.conda.PAR" Makefile.inc
 cp -r "${RECIPE_DIR}/parent/tests-mpi" ./
