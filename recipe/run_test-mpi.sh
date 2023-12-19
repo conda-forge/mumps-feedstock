@@ -1,12 +1,8 @@
 #!/bin/bash
 set -e
-echo "$mpi"
-if [[ -z "${mpi}" || "${mpi}" == "nompi" ]]; then
-  exit 0
-fi
 
-cp "${RECIPE_DIR}/Makefile.conda.PAR" Makefile.inc
-cp -r "${RECIPE_DIR}/tests-mpi" .
+cp "${RECIPE_DIR}/parent/Makefile.conda.PAR" Makefile.inc
+cp -r "${RECIPE_DIR}/parent/tests-mpi" ./
 cd tests-mpi
 
 export CC=mpicc
@@ -15,7 +11,7 @@ export FC=mpifort
 make all
 
 mpiexec() {
-    ${RECIPE_DIR}/mpiexec.sh "$@"
+    "${RECIPE_DIR}/parent/mpiexec.sh" "$@"
 }
 
 mpiexec -n 2 ./ssimpletest < input_simpletest_real

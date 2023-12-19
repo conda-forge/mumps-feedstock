@@ -18,7 +18,7 @@ source:
     - mumps_support_only_metis_5_1_1.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
 
 requirements:
@@ -41,6 +41,7 @@ outputs:
     test:
       commands:
         - test -f "${PREFIX}/include/mumps_compat.h"
+        - test -f "${PREFIX}/include/mumps_int_def.h"
 
   - name: mumps-seq
     build:
@@ -145,6 +146,7 @@ outputs:
         {% endfor %}
         - test ! -f "${PREFIX}/lib/libmpiseq*"
         - test ! -d "${PREFIX}/include/mumps_seq"
+        - bash ${RECIPE_DIR}/parent/run_test-mpi.sh
 
 about:
   home: https://mumps-solver.org
