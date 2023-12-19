@@ -5,6 +5,7 @@ cp "${RECIPE_DIR}/parent/Makefile.conda.PAR" Makefile.inc
 cp -r "${RECIPE_DIR}/parent/tests-mpi" ./
 cd tests-mpi
 
+export LIBEXT_SHARED=${SHLIB_EXT}
 export CC=mpicc
 export FC=mpifort
 

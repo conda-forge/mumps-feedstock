@@ -21,28 +21,28 @@ multi:	multiple_arithmetics_example
 
 include $(topdir)/Makefile.inc
 
-LIBMUMPS_COMMON = $(libdir)/libmumps_common$(PLAT)$(LIBEXT)
+LIBMUMPS_COMMON = $(libdir)/libmumps_common$(PLAT)$(LIBEXT_SHARED)
 
 
-LIBSMUMPS = $(libdir)/libsmumps$(PLAT)$(LIBEXT) $(LIBMUMPS_COMMON)
+LIBSMUMPS = $(libdir)/libsmumps$(PLAT)$(LIBEXT_SHARED) $(LIBMUMPS_COMMON)
 
 ssimpletest:  $(LIBSMUMPS)  $$@.o
 	$(FL) -o $@ $(OPTL) ssimpletest.o  $(LIBSMUMPS) $(LORDERINGS) $(LIBS) $(LIBBLAS) $(LIBOTHERS)
 
 
-LIBDMUMPS = $(libdir)/libdmumps$(PLAT)$(LIBEXT) $(LIBMUMPS_COMMON)
+LIBDMUMPS = $(libdir)/libdmumps$(PLAT)$(LIBEXT_SHARED) $(LIBMUMPS_COMMON)
 
 dsimpletest: $(LIBDMUMPS)  $$@.o 
 	$(FL) -o $@ $(OPTL) dsimpletest.o  $(LIBDMUMPS) $(LORDERINGS) $(LIBS) $(LIBBLAS) $(LIBOTHERS)
 
 
-LIBCMUMPS = $(libdir)/libcmumps$(PLAT)$(LIBEXT) $(LIBMUMPS_COMMON)
+LIBCMUMPS = $(libdir)/libcmumps$(PLAT)$(LIBEXT_SHARED) $(LIBMUMPS_COMMON)
 
 csimpletest: $(LIBCMUMPS)  $$@.o
 	$(FL) -o $@ $(OPTL) csimpletest.o  $(LIBCMUMPS) $(LORDERINGS) $(LIBS) $(LIBBLAS) $(LIBOTHERS)
 
 
-LIBZMUMPS = $(libdir)/libzmumps$(PLAT)$(LIBEXT) $(LIBMUMPS_COMMON)
+LIBZMUMPS = $(libdir)/libzmumps$(PLAT)$(LIBEXT_SHARED) $(LIBMUMPS_COMMON)
 
 zsimpletest: $(LIBZMUMPS)  $$@.o
 	$(FL) -o $@ $(OPTL) zsimpletest.o  $(LIBZMUMPS) $(LORDERINGS) $(LIBS) $(LIBBLAS) $(LIBOTHERS)
@@ -57,24 +57,24 @@ multiple_arithmetics_example:	$(LIBSMUMPS) $(LIBDMUMPS) $(LIBCMUMPS) $(LIBZMUMPS
 
 .SUFFIXES: .c .F .o
 .F.o:
-	$(FC) $(OPTF) $(INCS) -I. -I$(topdir)/include -c $*.F $(OUTF)$*.o
+	$(FC) $(OPTF) $(INCS) -I.  -c $*.F $(OUTF)$*.o
 .c.o:
-	$(CC) $(OPTC) $(INCS) $(CDEFS) -I. -I$(topdir)/include -I$(topdir)/src -c $*.c $(OUTC)$*.o
+	$(CC) $(OPTC) $(INCS) $(CDEFS) -I. -I$(topdir)/src -c $*.c $(OUTC)$*.o
 
 
-$(libdir)/libsmumps$(PLAT)$(LIBEXT):
+$(libdir)/libsmumps$(PLAT)$(LIBEXT_SHARED):
 	@echo 'Error: you should build the library' $@ 'first'
 	exit 1
 
-$(libdir)/libdmumps$(PLAT)$(LIBEXT):
+$(libdir)/libdmumps$(PLAT)$(LIBEXT_SHARED):
 	@echo 'Error: you should build the library' $@ 'first'
 	exit 1
 
-$(libdir)/libcmumps$(PLAT)$(LIBEXT):
+$(libdir)/libcmumps$(PLAT)$(LIBEXT_SHARED):
 	@echo 'Error: you should build the library' $@ 'first'
 	exit 1
 
-$(libdir)/libzmumps$(PLAT)$(LIBEXT):
+$(libdir)/libzmumps$(PLAT)$(LIBEXT_SHARED):
 	@echo 'Error: you should build the library' $@ 'first'
 	exit 1
 
