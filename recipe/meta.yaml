@@ -135,6 +135,7 @@ outputs:
       requires:
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
+        - make  # [unix]
       commands:
         {% for lib in [
           'smumps',
