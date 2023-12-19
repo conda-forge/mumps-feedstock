@@ -133,6 +133,9 @@ outputs:
         - libscotch
 
     test:
+      requires:
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
       commands:
         {% for lib in [
           'smumps',
