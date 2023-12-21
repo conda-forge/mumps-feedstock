@@ -1,15 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 
-mpiexec="mpiexec"
-if [[ "$mpi" == "mpich" ]]; then
+if command -v "${PREFIX}/bin/mpichversion" >/dev/null; then
     export HYDRA_LAUNCHER=fork
-elif [[ "$mpi" == "openmpi" ]]; then
+    mpiexec="mpiexec"
+fi
+
+if command -v "${PREFIX}/bin/ompi_info" >/dev/null; then
     export OMPI_MCA_plm=isolated
     export OMPI_MCA_rmaps_base_oversubscribe=yes
     export OMPI_MCA_btl=tcp,self
     export OMPI_MCA_btl_vader_single_copy_mechanism=none
-    export OMPI_MCA_coll_basic_priority=100
     mpiexec="mpiexec --allow-run-as-root"
 fi
 
