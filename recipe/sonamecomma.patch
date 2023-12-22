@@ -9,7 +9,7 @@
  
  $(libdir)/lib$(ARITH)mumps$(PLAT)$(LIBEXT):    $(OBJS_MOD) $(OBJS_OTHER)
  	$(AR)$@ $?
- --- a/src/Makefile
+--- a/src/Makefile
 +++ b/src/Makefile
 @@ -224,7 +224,7 @@
 	$(RANLIB) $@
