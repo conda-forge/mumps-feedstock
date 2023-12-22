@@ -11,7 +11,7 @@
  	$(AR)$@ $?
  --- a/src/Makefile
 +++ b/src/Makefile
-@@ -214,7 +214,7 @@
+@@ -224,7 +224,7 @@
 	$(RANLIB) $@
 
 $(libdir)/lib$(ARITH)mumps$(PLAT)$(LIBEXT_SHARED):    $(OBJS_MOD) $(OBJS_OTHER) $(libdir)/libmumps_common$(PLAT)$(LIBEXT_SHARED)
