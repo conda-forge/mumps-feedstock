@@ -11,14 +11,13 @@ source:
   url: https://graal.ens-lyon.fr/MUMPS/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
-    - sonamecomma.patch  # [osx]
-    - soname_mpiseq_pord_mac.patch  # [osx]
-    - soname_mpiseq_pord.patch  # [linux]
+    - soname_mac.patch  # [osx]
+    - soname_linux.patch  # [linux]
     - flang-support.patch
     - mumps_support_only_metis_5_1_1.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
 
 requirements:
@@ -41,6 +40,7 @@ outputs:
     test:
       commands:
         - test -f "${PREFIX}/include/mumps_compat.h"
+        - test -f "${PREFIX}/include/mumps_int_def.h"
 
   - name: mumps-seq
     build:
@@ -132,6 +132,10 @@ outputs:
         - libscotch
 
     test:
+      requires:
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
+        - make  # [unix]
       commands:
         {% for lib in [
           'smumps',
@@ -145,6 +149,7 @@ outputs:
         {% endfor %}
         - test ! -f "${PREFIX}/lib/libmpiseq*"
         - test ! -d "${PREFIX}/include/mumps_seq"
+        - bash ${RECIPE_DIR}/parent/run_test-mpi.sh
 
 about:
   home: https://mumps-solver.org
