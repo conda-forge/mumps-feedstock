@@ -5,7 +5,7 @@ set src=%cd%
 cd work
 copy %RECIPE_DIR%\CMakeLists.txt %src%\CMakeLists.txt
 :: select 32b
-copy %src%\src\mumps_int_def32_h.in %src%\src\mumps_int_def.h
+copy %src%\src\mumps_int_def32_h.in %src%\include\mumps_int_def.h
 
 mkdir build
 cd build

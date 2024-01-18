@@ -17,7 +17,7 @@ source:
     - mumps_support_only_metis_5_1_1.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win and vc<14]
 
 requirements:
@@ -85,18 +85,22 @@ outputs:
         - test -f "${PREFIX}/include/mumps_seq/mpi.h"
         - test -f "${PREFIX}/include/mumps_seq/mpif.h"
         {% else %}
-        - if not exist "%LIBRARY_PREFIX%\bin\smumps.dll" exit 1
-        - if not exist "%LIBRARY_PREFIX%\lib\smumps.lib" exit 1
-        - if not exist "%LIBRARY_PREFIX%\bin\dmumps.dll" exit 1
-        - if not exist "%LIBRARY_PREFIX%\lib\dmumps.lib" exit 1
-        - if not exist "%LIBRARY_PREFIX%\bin\cmumps.dll" exit 1
-        - if not exist "%LIBRARY_PREFIX%\lib\cmumps.lib" exit 1
-        - if not exist "%LIBRARY_PREFIX%\bin\zmumps.dll" exit 1
-        - if not exist "%LIBRARY_PREFIX%\lib\zmumps.lib" exit 1
+        {% for lib in [
+          'smumps',
+          'dmumps',
+          'cmumps',
+          'zmumps',
+        ] %}
+        - if not exist "%LIBRARY_PREFIX%\bin\{{ lib }}.dll" exit 1
+        - if not exist "%LIBRARY_PREFIX%\lib\{{ lib }}.lib" exit 1
+        - if not exist "%LIBRARY_PREFIX%\include\{{ lib }}_c.h" exit 1
+        - if not exist "%LIBRARY_PREFIX%\include\{{ lib }}_struc.h" exit 1
+        - if not exist "%LIBRARY_PREFIX%\include\{{ lib }}_root.h" exit 1
+        {% endfor %}
         - if not exist "%LIBRARY_PREFIX%\lib\mumps_common.lib" exit 1
         - if not exist "%LIBRARY_PREFIX%\lib\pord.lib" exit 1
-        - if not exist "%LIBRARY_PREFIX%\include\dmumps_struc.h" exit 1
         - if not exist "%LIBRARY_PREFIX%\include\mumps_compat.h" exit 1
+        - if not exist "%LIBRARY_PREFIX%\include\mumps_int_def.h" exit 1
         - if not exist "%LIBRARY_PREFIX%\include\mumps_seq\mpi.h" exit 1
         - if not exist "%LIBRARY_PREFIX%\include\mumps_seq\mpif.h" exit 1
         {% endif %}
