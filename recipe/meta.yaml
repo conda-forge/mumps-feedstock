@@ -14,10 +14,9 @@ source:
     - soname_mac.patch  # [osx]
     - soname_linux.patch  # [linux]
     - flang-support.patch
-    - mumps_support_only_metis_5_1_1.patch
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win and vc<14]
 
 requirements:
@@ -60,7 +59,7 @@ outputs:
       host:
         - libblas
         - liblapack
-        - metis  >=5.1.1  # [not win]
+        - metis  # [not win]
         - libscotch  # [not win]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
@@ -122,7 +121,7 @@ outputs:
         - libblas
         - liblapack
         - {{ mpi }}
-        - metis  >=5.1.1
+        - metis
         - parmetis
         - libptscotch
         - scalapack

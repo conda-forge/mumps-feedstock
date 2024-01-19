@@ -22,6 +22,8 @@ libptscotch:
 - 7.0.4
 libscotch:
 - 7.0.4
+metis:
+- 5.1.0
 mpi:
 - openmpi
 mpich:
