@@ -59,7 +59,7 @@ outputs:
       host:
         - libblas
         - liblapack
-        - metis  =5.1.0  # [not win]
+        - metis  # [not win]
         - libscotch  # [not win]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
@@ -121,7 +121,7 @@ outputs:
         - libblas
         - liblapack
         - {{ mpi }}
-        - metis  =5.1.0
+        - metis
         - parmetis
         - libptscotch
         - scalapack
