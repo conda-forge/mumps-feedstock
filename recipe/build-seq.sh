@@ -46,6 +46,8 @@ cp -av lib/*${SHLIB_EXT} ${PREFIX}/lib/
 cp -av libseq/*${SHLIB_EXT} ${PREFIX}/lib/
 cp -av libseq/mpi*.h ${PREFIX}/include/mumps_seq/
 
+python3 $RECIPE_DIR/make_pkg_config.py
+
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
   cd examples
 
