@@ -16,7 +16,7 @@ source:
     - flang-support.patch
 
 build:
-  number: 3
+  number: 4
   skip: true  # [win and vc<14]
 
 requirements:
@@ -55,6 +55,7 @@ outputs:
         - {{ compiler('fortran') }}
         - {{ compiler('c') }}
         - make  # [unix]
+        - python
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
         - libblas
@@ -66,6 +67,8 @@ outputs:
         - libscotch  # [not win]
 
     test:
+      requires:
+        - pkg-config  # [not win]
       commands:
         {% if not win %}
 
@@ -83,6 +86,16 @@ outputs:
         - test -f "${PREFIX}/lib/libmpiseq${SHLIB_EXT}"
         - test -f "${PREFIX}/include/mumps_seq/mpi.h"
         - test -f "${PREFIX}/include/mumps_seq/mpif.h"
+        {% for lib in [
+          'smumps_seq',
+          'dmumps_seq',
+          'cmumps_seq',
+          'zmumps_seq',
+        ] %}
+        - test -f "${PREFIX}/lib/pkgconfig/{{ lib }}.pc"
+        - PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig pkg-config --cflags {{ lib }}
+        - PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig pkg-config --libs {{ lib }}
+        {% endfor %}
         {% else %}
         {% for lib in [
           'smumps',
@@ -117,6 +130,7 @@ outputs:
         - {{ compiler('c') }}
         - make  # [unix]
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
+        - python
       host:
         - libblas
         - liblapack
@@ -139,6 +153,7 @@ outputs:
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
         - make  # [unix]
+        - pkg-config  # [not win]
       commands:
         {% for lib in [
           'smumps',
@@ -152,6 +167,16 @@ outputs:
         {% endfor %}
         - test ! -f "${PREFIX}/lib/libmpiseq*"
         - test ! -d "${PREFIX}/include/mumps_seq"
+        {% for lib in [
+          'smumps',
+          'dmumps',
+          'cmumps',
+          'zmumps',
+        ] %}
+        - test -f "${PREFIX}/lib/pkgconfig/{{ lib }}.pc"
+        - PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig pkg-config --cflags {{ lib }}
+        - PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig pkg-config --libs {{ lib }}
+        {% endfor %}
         - bash ${RECIPE_DIR}/parent/run_test-mpi.sh
 
 about:
