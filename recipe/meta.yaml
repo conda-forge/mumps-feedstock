@@ -16,7 +16,7 @@ source:
     - flang-support.patch
 
 build:
-  number: 4
+  number: 5
   skip: true  # [win and vc<14]
 
 requirements:
@@ -52,7 +52,8 @@ outputs:
       build:
         - cmake  # [win]
         - m2-patch  # [win]
-        - {{ compiler('fortran') }}
+        - {{ compiler('fortran') }}  # [not win]
+        - flang
         - {{ compiler('c') }}
         - make  # [unix]
         - python
