@@ -10,8 +10,11 @@ copy %src%\src\mumps_int_def32_h.in %src%\include\mumps_int_def.h
 mkdir build
 cd build
 
+set "CC=clang-cl.exe"
+set "CXX=clang-cl.exe"
+
 :: Configure using the CMakeFiles
-cmake -G "NMake Makefiles" ^
+cmake -G "Ninja" ^
       -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
       -DCMAKE_INSTALL_PREFIX:PATH=%LIBRARY_PREFIX% ^
       -DCMAKE_BUILD_TYPE:STRING=Release ^
