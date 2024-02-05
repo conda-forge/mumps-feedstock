@@ -4,10 +4,6 @@ channel_sources:
 - conda-forge/label/llvm_rc,conda-forge
 channel_targets:
 - conda-forge main
-fortran_compiler:
-- flang
-fortran_compiler_version:
-- '5'
 libblas:
 - 3.9 *netlib
 liblapack:
