@@ -24,6 +24,7 @@ requirements:
     # dummy unused top-level requirements
     # needed to construct the right conda-smithy matrix
     - {{ compiler('fortran') }}  # [not win]
+    - flang  # [win]
     - {{ compiler('c') }}
     - m2-patch  # [win]
     - mpi * {{ mpi }}  # [mpi != 'nompi']
@@ -53,7 +54,7 @@ outputs:
         - cmake  # [win]
         - m2-patch  # [win]
         - {{ compiler('fortran') }}  # [not win]
-        - flang
+        - flang  # [win]
         - {{ compiler('c') }}
         - make  # [unix]
         - python
