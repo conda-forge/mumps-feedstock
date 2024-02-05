@@ -52,6 +52,7 @@ outputs:
     requirements:
       build:
         - cmake  # [win]
+        - ninja  # [win]
         - m2-patch  # [win]
         - {{ compiler('fortran') }}  # [not win]
         - flang  # [win]
