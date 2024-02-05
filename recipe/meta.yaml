@@ -23,7 +23,7 @@ requirements:
   build:
     # dummy unused top-level requirements
     # needed to construct the right conda-smithy matrix
-    - {{ compiler('fortran') }}
+    - {{ compiler('fortran') }}  # [not win]
     - {{ compiler('c') }}
     - m2-patch  # [win]
     - mpi * {{ mpi }}  # [mpi != 'nompi']
