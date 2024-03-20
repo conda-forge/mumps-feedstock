@@ -16,14 +16,15 @@ source:
     - flang-support.patch
 
 build:
-  number: 4
+  number: 5
   skip: true  # [win and vc<14]
 
 requirements:
   build:
     # dummy unused top-level requirements
     # needed to construct the right conda-smithy matrix
-    - {{ compiler('fortran') }}
+    - {{ compiler('fortran') }}  # [not win]
+    - flang  # [win]
     - {{ compiler('c') }}
     - m2-patch  # [win]
     - mpi * {{ mpi }}  # [mpi != 'nompi']
@@ -51,8 +52,10 @@ outputs:
     requirements:
       build:
         - cmake  # [win]
+        - ninja  # [win]
         - m2-patch  # [win]
-        - {{ compiler('fortran') }}
+        - {{ compiler('fortran') }}  # [not win]
+        - flang  # [win]
         - {{ compiler('c') }}
         - make  # [unix]
         - python
