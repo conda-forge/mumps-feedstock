@@ -10,6 +10,3 @@ pin_run_as_build:
   scalapack:
     min_pin: x.x.x
     max_pin: x.x
-
-channel_sources:  # [win]
-  - conda-forge  # [win]
