@@ -12,4 +12,4 @@ pin_run_as_build:
     max_pin: x.x
 
 channel_sources:  # [win]
-  - conda-forge/label/llvm_rc,conda-forge  # [win]
+  - conda-forge  # [win]
