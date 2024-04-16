@@ -13,6 +13,7 @@ cd build
 set "CC=clang-cl"
 set "CXX=clang-cl"
 set "FC=flang-new"
+set "LDFLAGS=%LDFLAGS% msvcrt.lib"
 
 :: Configure using the CMakeFiles
 cmake -G "Ninja" ^
