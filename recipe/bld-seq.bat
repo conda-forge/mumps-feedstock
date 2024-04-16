@@ -10,8 +10,8 @@ copy %src%\src\mumps_int_def32_h.in %src%\include\mumps_int_def.h
 mkdir build
 cd build
 
-set "CC=clang-cl"
-set "CXX=clang-cl"
+set "CC=cl"
+set "CXX=cl"
 set "FC=flang-new"
 set "LDFLAGS=%LDFLAGS% msvcrt.lib"
 
