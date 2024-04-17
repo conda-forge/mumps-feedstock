@@ -33,6 +33,7 @@ jobs:
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_arm64_mpiopenmpi
   timeoutInMinutes: 360
+  variables: {}
 
   steps:
   # TODO: Fast finish on azure pipelines?

@@ -10,8 +10,13 @@ copy %src%\src\mumps_int_def32_h.in %src%\include\mumps_int_def.h
 mkdir build
 cd build
 
+set "CC=cl"
+set "CXX=cl"
+set "FC=flang-new"
+set "LDFLAGS=%LDFLAGS% msvcrt.lib"
+
 :: Configure using the CMakeFiles
-cmake -G "NMake Makefiles" ^
+cmake -G "Ninja" ^
       -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
       -DCMAKE_INSTALL_PREFIX:PATH=%LIBRARY_PREFIX% ^
       -DCMAKE_BUILD_TYPE:STRING=Release ^
