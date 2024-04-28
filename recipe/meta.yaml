@@ -7,8 +7,7 @@ package:
   version: {{ version }}
 
 source:
-  fn: MUMPS_{{ version }}.tar.gz
-  url: https://graal.ens-lyon.fr/MUMPS/MUMPS_{{ version }}.tar.gz
+  url: https://mumps-solver.org/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
     - soname_mac.patch  # [osx]
