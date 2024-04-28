@@ -10,8 +10,8 @@ source:
   url: https://mumps-solver.org/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
-    - soname_mac.patch  # [osx]
-    - soname_linux.patch  # [linux]
+    # - soname_mac.patch  # [osx]
+    # - soname_linux.patch  # [linux]
     - flang-support.patch
 
 build:
@@ -54,6 +54,7 @@ outputs:
         - {{ compiler('fortran') }}
         - {{ compiler('c') }}
         - make  # [unix]
+        - patchelf  # [linux]
         - python
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
@@ -129,6 +130,7 @@ outputs:
         - {{ compiler('c') }}
         - make  # [unix]
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
+        - patchelf  # [linux]
         - python
       host:
         - libblas
