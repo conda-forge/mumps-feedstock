@@ -52,6 +52,7 @@ outputs:
         - m2-patch  # [win]
         - {{ compiler('fortran') }}
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - make  # [unix]
         - patchelf  # [linux]
         # python version specified to avoid windows build matrix
@@ -135,6 +136,7 @@ outputs:
       build:
         - {{ compiler('fortran') }}
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - make  # [unix]
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
         - patchelf  # [linux]
