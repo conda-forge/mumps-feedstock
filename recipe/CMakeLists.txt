@@ -93,7 +93,6 @@ set(
   src/ana_AMDMF.F
   src/bcast_errors.F
   src/estim_flops.F
-  src/mumps_type_size.F
   src/mumps_type2_blocking.F
   src/mumps_version.F
   src/mumps_print_defined.F
@@ -204,6 +203,7 @@ set(
   src/${ARITH}fac_driver.F
   src/${ARITH}sol_driver.F
   src/${ARITH}sol_distrhs.F
+  src/${ARITH}sol_distsol.F
   src/${ARITH}end_driver.F
   src/${ARITH}ana_aux_ELT.F
   src/${ARITH}ana_dist_m.F
@@ -214,7 +214,9 @@ set(
   src/${ARITH}fac_asm_ELT.F
   src/${ARITH}fac_asm.F
   src/${ARITH}fac_b.F
+  src/${ARITH}fac_diag.F
   src/${ARITH}fac_distrib_distentry.F
+  src/${ARITH}fac_dist_arrowheads_omp.F
   src/${ARITH}fac_distrib_ELT.F
   src/${ARITH}fac_lastrtnelind.F
   src/${ARITH}fac_mem_alloc_cb.F
