@@ -38,7 +38,7 @@ AR = ar -ruv #
 RANLIB = ranlib
 
 
-INCSEQ = -I$(topdir)/libseq
+INCSEQ = -I$(PREFIX)/include -I$(PREFIX)/include/mumps_seq -I$(topdir)/libseq
 LIBSEQ  =  -L$(topdir)/libseq -lmpiseq$(PLAT)
 
 SCALAP =
@@ -58,8 +58,7 @@ CDEFS   = -DAdd_
 
 #Begin Optimized options
 OPTF    = -O  -DALLOW_NON_INIT
-# Makefile doesn't accept LDFLAGS in C linking, pass via OPTL
-OPTL    = -O $(LDFLAGS)
+OPTL    = -O
 OPTC    = -O
 #End Optimized options
 INCS = $(INCSEQ)

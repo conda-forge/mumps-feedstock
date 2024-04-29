@@ -1,23 +1,19 @@
 {% set name = "mumps" %}
-{% set version = "5.6.2" %}
-{% set sha256 = "13a2c1aff2bd1aa92fe84b7b35d88f43434019963ca09ef7e8c90821a8f1d59a" %}
+{% set version = "5.7.0" %}
+{% set sha256 = "0ea2681a56246cb8eec578324cefa09f2142ea6f7c500a5fd6e0ad226a1a06cf" %}
 
 package:
   name: mumps
   version: {{ version }}
 
 source:
-  fn: MUMPS_{{ version }}.tar.gz
-  url: https://graal.ens-lyon.fr/MUMPS/MUMPS_{{ version }}.tar.gz
+  url: https://mumps-solver.org/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
-    - soname_mac.patch  # [osx]
-    - soname_linux.patch  # [linux]
     - flang-support.patch
 
 build:
-  number: 4
-  skip: true  # [win and vc<14]
+  number: 0
 
 requirements:
   build:
@@ -43,19 +39,23 @@ outputs:
 
   - name: mumps-seq
     build:
-      script: ${RECIPE_DIR}/build-seq.sh  # [not win]
+      script: ${RECIPE_DIR}/build-mumps.sh  # [not win]
       script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
       run_exports:
         - {{ pin_subpackage('mumps-seq', max_pin='x.x.x') }}
-      skip: true  # [(win and vc<14) or mpi != 'nompi']
+      skip: true  # [mpi != 'nompi']
     requirements:
       build:
         - cmake  # [win]
         - m2-patch  # [win]
         - {{ compiler('fortran') }}
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - make  # [unix]
-        - python
+        - patchelf  # [linux]
+        # python version specified to avoid windows build matrix
+        # not sure why that happens
+        - python 3.11
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
         - libblas
@@ -67,7 +67,12 @@ outputs:
         - libscotch  # [not win]
 
     test:
+      source_files:
+        - examples
       requires:
+        - {{ compiler("c") }}  # [not win]
+        - {{ compiler("fortran") }}  # [not win]
+        - make  # [not win]
         - pkg-config  # [not win]
       commands:
         {% if not win %}
@@ -116,11 +121,12 @@ outputs:
         - if not exist "%LIBRARY_PREFIX%\include\mumps_seq\mpi.h" exit 1
         - if not exist "%LIBRARY_PREFIX%\include\mumps_seq\mpif.h" exit 1
         {% endif %}
+        - bash ${RECIPE_DIR}/parent/run_test-seq.sh  # [not win]
 
   - name: mumps-mpi
     build:
       skip: true  # [win or mpi == 'nompi']
-      script: ${RECIPE_DIR}/build-mpi.sh
+      script: ${RECIPE_DIR}/build-mumps.sh
       run_exports:
         - {{ pin_subpackage('mumps-mpi', max_pin='x.x.x') }}  # [not win]
       features:
@@ -128,8 +134,10 @@ outputs:
       build:
         - {{ compiler('fortran') }}
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - make  # [unix]
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
+        - patchelf  # [linux]
         - python
       host:
         - libblas
@@ -149,6 +157,8 @@ outputs:
         - libscotch
 
     test:
+      source_files:
+        - examples
       requires:
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
