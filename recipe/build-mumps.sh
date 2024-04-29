@@ -1,10 +1,21 @@
 #!/bin/bash
 set -ex
 
-cp $RECIPE_DIR/Makefile.conda.SEQ ./Makefile.inc
+
+if [[ "${mpi}" == "nompi" ]]; then
+  SEQ="1"
+  MAKEFILE_INC=$RECIPE_DIR/Makefile.conda.SEQ
+  export PLAT="_seq"
+else
+  SEQ=""
+  MAKEFILE_INC=$RECIPE_DIR/Makefile.conda.PAR
+  export PLAT=""
+fi
+
+cp -v $MAKEFILE_INC ./Makefile.inc
 
 
-if [[ "$target_platform" == linux-* || "$target_platform" == "osx-arm64" || "$target_platform" == "osx-64" ]]
+if [[ "$target_platform" == linux-* || "$target_platform" == osx-* ]]
 then
   # Workaround for https://github.com/conda-forge/scalapack-feedstock/pull/30#issuecomment-1061196317
   export FFLAGS="${FFLAGS} -fallow-argument-mismatch"
@@ -20,7 +31,12 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   export OPAL_PREFIX=$PREFIX
 fi
 
-if [[ "$(uname)" == "Darwin" ]]; then
+if [[ -z "$SEQ" ]]; then
+  export CC=mpicc
+  export FC=mpifort
+fi
+
+if [[ "$target_platform" == osx-* ]]; then
   export SONAME="-install_name"
   export LDFLAGS="${LDFLAGS} -headerpad_max_install_names"
   function set_soname () {
@@ -38,32 +54,37 @@ export LIBEXT_SHARED=${SHLIB_EXT}
 export SHARED_OPT="${LDFLAGS} -shared"
 export RPATH_OPT="-Wl,-rpath,$PREFIX/lib"
 
-make allshared PLAT=_seq
+make allshared -j "${CPU_COUNT:-1}"
 
 mkdir -p "${PREFIX}/lib"
-mkdir -p "${PREFIX}/include/mumps_seq"
 
 ls lib
-cd lib
-# resolve -lmpiseq to libmpiseq_seq.dylib
-test -f libmpiseq_seq${SHLIB_EXT}
-ln -s libmpiseq_seq${SHLIB_EXT} libmpiseq${SHLIB_EXT}
-test -f libmpiseq${SHLIB_EXT}
-cd ..
 
 # make sure SONAME is right, which it isn't
 for dylib in lib/*${SHLIB_EXT}; do
+  echo $dylib
   set_soname "$dylib"
 done
 
-
+if [[ "$SEQ" == "1" ]]; then
+  cd lib
+  # resolve -lmpiseq to libmpiseq_seq.dylib
+  test -f libmpiseq_seq${SHLIB_EXT}
+  ln -s libmpiseq_seq${SHLIB_EXT} libmpiseq${SHLIB_EXT}
+  test -f libmpiseq${SHLIB_EXT}
+  cd ..
+  mkdir -p "${PREFIX}/include/mumps_seq"
+  cp -av libseq/mpi*.h ${PREFIX}/include/mumps_seq/
+fi
 cp -av lib/*${SHLIB_EXT} ${PREFIX}/lib/
-cp -av libseq/*${SHLIB_EXT} ${PREFIX}/lib/
-cp -av libseq/mpi*.h ${PREFIX}/include/mumps_seq/
 
 python3 $RECIPE_DIR/make_pkg_config.py
 
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+if [[ "$SEQ" == "1" && "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+  # examples were built before install_name, without rpath
+  export DYLD_LIBRARY_PATH=$PREFIX/lib
+  export LD_LIBRARY_PATH=$PREFIX/lib
+
   cd examples
 
   ./ssimpletest < input_simpletest_real
