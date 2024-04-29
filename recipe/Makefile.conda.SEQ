@@ -38,7 +38,7 @@ AR = ar -ruv #
 RANLIB = ranlib
 
 
-INCSEQ = -I$(topdir)/libseq
+INCSEQ = -I$(PREFIX)/include -I$(PREFIX)/include/mumps_seq -I$(topdir)/libseq
 LIBSEQ  =  -L$(topdir)/libseq -lmpiseq$(PLAT)
 
 SCALAP =

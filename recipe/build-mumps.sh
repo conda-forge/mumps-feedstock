@@ -79,17 +79,3 @@ fi
 cp -av lib/*${SHLIB_EXT} ${PREFIX}/lib/
 
 python3 $RECIPE_DIR/make_pkg_config.py
-
-if [[ "$SEQ" == "1" && "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
-  # examples were built before install_name, without rpath
-  export DYLD_LIBRARY_PATH=$PREFIX/lib
-  export LD_LIBRARY_PATH=$PREFIX/lib
-
-  cd examples
-
-  ./ssimpletest < input_simpletest_real
-  ./dsimpletest < input_simpletest_real
-  ./csimpletest < input_simpletest_cmplx
-  ./zsimpletest < input_simpletest_cmplx
-  ./c_example
-fi

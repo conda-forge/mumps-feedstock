@@ -67,7 +67,12 @@ outputs:
         - libscotch  # [not win]
 
     test:
+      source_files:
+        - examples
       requires:
+        - {{ compiler("c") }}  # [not win]
+        - {{ compiler("fortran") }}  # [not win]
+        - make  # [not win]
         - pkg-config  # [not win]
       commands:
         {% if not win %}
@@ -116,6 +121,7 @@ outputs:
         - if not exist "%LIBRARY_PREFIX%\include\mumps_seq\mpi.h" exit 1
         - if not exist "%LIBRARY_PREFIX%\include\mumps_seq\mpif.h" exit 1
         {% endif %}
+        - bash ${RECIPE_DIR}/parent/run_test-seq.sh  # [not win]
 
   - name: mumps-mpi
     build:
@@ -150,6 +156,8 @@ outputs:
         - libscotch
 
     test:
+      source_files:
+        - examples
       requires:
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
