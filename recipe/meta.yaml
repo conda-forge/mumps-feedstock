@@ -16,7 +16,6 @@ source:
 
 build:
   number: 0
-  skip: true  # [win and vc<14]
 
 requirements:
   build:
@@ -46,7 +45,7 @@ outputs:
       script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
       run_exports:
         - {{ pin_subpackage('mumps-seq', max_pin='x.x.x') }}
-      skip: true  # [(win and vc<14) or mpi != 'nompi']
+      skip: true  # [mpi != 'nompi']
     requirements:
       build:
         - cmake  # [win]
@@ -55,7 +54,9 @@ outputs:
         - {{ compiler('c') }}
         - make  # [unix]
         - patchelf  # [linux]
-        - python
+        # python version specified to avoid windows build matrix
+        # not sure why that happens
+        - python 3.11
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
         - libblas
