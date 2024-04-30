@@ -38,6 +38,10 @@ fi
 
 if [[ "$target_platform" == osx-* ]]; then
   export SONAME="-install_name"
+
+  # MPI_IN_PLACE seems to cause crashes on mac,
+  # especially with openmpi but now mpich as well
+  export FFLAGS="${FFLAGS} -DAVOID_MPI_IN_PLACE"
   export LDFLAGS="${LDFLAGS} -headerpad_max_install_names"
   function set_soname () {
     install_name_tool -id "@rpath/$(basename $1)" "$1"

@@ -1,0 +1,63 @@
+From c42155ebf2acc171a3ecd5a83b10018a282e2bc4 Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
+Date: Tue, 30 Apr 2024 13:56:41 +0200
+Subject: [PATCH] add missing allocok with AVOID_MPI_IN_PLACE
+
+---
+ src/csol_c.F | 1 +
+ src/dsol_c.F | 1 +
+ src/ssol_c.F | 1 +
+ src/zsol_c.F | 1 +
+ 4 files changed, 4 insertions(+)
+
+diff --git a/src/csol_c.F b/src/csol_c.F
+index a87b100..a81824d 100644
+--- a/src/csol_c.F
++++ b/src/csol_c.F
+@@ -2512,6 +2512,7 @@ C
+      &           INODE_PRINC, I, II, JAM1
+ #if defined(AVOID_MPI_IN_PLACE)
+       INTEGER, DIMENSION(:), ALLOCATABLE ::  TMP_INT_ARRAY
++      INTEGER allocok
+ #endif
+ #if defined(AVOID_MPI_IN_PLACE)
+       ALLOCATE(TMP_INT_ARRAY(KEEP(28)), STAT = allocok)
+diff --git a/src/dsol_c.F b/src/dsol_c.F
+index d2bfdf2..e36452d 100644
+--- a/src/dsol_c.F
++++ b/src/dsol_c.F
+@@ -2512,6 +2512,7 @@ C
+      &           INODE_PRINC, I, II, JAM1
+ #if defined(AVOID_MPI_IN_PLACE)
+       INTEGER, DIMENSION(:), ALLOCATABLE ::  TMP_INT_ARRAY
++      INTEGER allocok
+ #endif
+ #if defined(AVOID_MPI_IN_PLACE)
+       ALLOCATE(TMP_INT_ARRAY(KEEP(28)), STAT = allocok)
+diff --git a/src/ssol_c.F b/src/ssol_c.F
+index 222c78d..2ee66de 100644
+--- a/src/ssol_c.F
++++ b/src/ssol_c.F
+@@ -2512,6 +2512,7 @@ C
+      &           INODE_PRINC, I, II, JAM1
+ #if defined(AVOID_MPI_IN_PLACE)
+       INTEGER, DIMENSION(:), ALLOCATABLE ::  TMP_INT_ARRAY
++      INTEGER allocok
+ #endif
+ #if defined(AVOID_MPI_IN_PLACE)
+       ALLOCATE(TMP_INT_ARRAY(KEEP(28)), STAT = allocok)
+diff --git a/src/zsol_c.F b/src/zsol_c.F
+index c6a88dc..8ba0193 100644
+--- a/src/zsol_c.F
++++ b/src/zsol_c.F
+@@ -2512,6 +2512,7 @@ C
+      &           INODE_PRINC, I, II, JAM1
+ #if defined(AVOID_MPI_IN_PLACE)
+       INTEGER, DIMENSION(:), ALLOCATABLE ::  TMP_INT_ARRAY
++      INTEGER allocok
+ #endif
+ #if defined(AVOID_MPI_IN_PLACE)
+       ALLOCATE(TMP_INT_ARRAY(KEEP(28)), STAT = allocok)
+-- 
+2.42.0
+
