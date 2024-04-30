@@ -10,10 +10,11 @@ source:
   url: https://mumps-solver.org/MUMPS_{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
+    - missing-allocok.patch
     - flang-support.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
