@@ -19,6 +19,6 @@ mpi:
 mpich:
 - '4'
 openmpi:
-- '4'
+- '5'
 target_platform:
 - win-64
