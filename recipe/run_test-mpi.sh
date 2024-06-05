@@ -11,10 +11,6 @@ export FC=mpifort
 make clean
 make all
 
-mpiexec() {
-    "${RECIPE_DIR}/parent/mpiexec.sh" "$@"
-}
-
 mpiexec -n 2 ./ssimpletest < input_simpletest_real
 mpiexec -n 2 ./dsimpletest < input_simpletest_real
 mpiexec -n 2 ./csimpletest < input_simpletest_cmplx
