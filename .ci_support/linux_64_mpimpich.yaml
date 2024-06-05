@@ -33,7 +33,7 @@ mpi:
 mpich:
 - '4'
 openmpi:
-- '4'
+- '5'
 target_platform:
 - linux-64
 zip_keys:
