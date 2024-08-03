@@ -63,8 +63,9 @@ outputs:
       host:
         - libblas
         - liblapack
-        - metis  # [not win]
-        - libscotch  # [not win]
+        - metis         # [not win]
+        - libscotch     # [not win]
+        - llvm-openmp   # [win]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
         - libscotch  # [not win]
