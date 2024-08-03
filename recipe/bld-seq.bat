@@ -1,4 +1,4 @@
-setlocal EnableDelayedExpansion
+@echo on
 
 set src=%cd%
 
@@ -9,10 +9,6 @@ copy %src%\src\mumps_int_def32_h.in %src%\include\mumps_int_def.h
 
 mkdir build
 cd build
-
-set "CC=cl"
-set "CXX=cl"
-set "FC=flang-new"
 
 :: Configure using the CMakeFiles
 cmake -G "Ninja" ^

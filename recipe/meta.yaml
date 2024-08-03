@@ -43,6 +43,7 @@ outputs:
     build:
       script: ${RECIPE_DIR}/build-mumps.sh  # [not win]
       script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
+      activate_in_script: true
       run_exports:
         - {{ pin_subpackage('mumps-seq', max_pin='x.x.x') }}
       skip: true  # [mpi != 'nompi']
