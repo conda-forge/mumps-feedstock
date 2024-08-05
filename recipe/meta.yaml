@@ -14,6 +14,8 @@ source:
 
 build:
   number: 0
+  # debug
+  skip: true  # [not win]
 
 requirements:
   build:
@@ -41,12 +43,14 @@ outputs:
     build:
       script: ${RECIPE_DIR}/build-mumps.sh  # [not win]
       script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
+      activate_in_script: true
       run_exports:
         - {{ pin_subpackage('mumps-seq', max_pin='x.x.x') }}
       skip: true  # [mpi != 'nompi']
     requirements:
       build:
         - cmake  # [win]
+        - ninja  # [win]
         - m2-patch  # [win]
         - {{ compiler('fortran') }}
         - {{ compiler('c') }}
@@ -60,8 +64,9 @@ outputs:
       host:
         - libblas
         - liblapack
-        - metis  # [not win]
-        - libscotch  # [not win]
+        - metis         # [not win]
+        - libscotch     # [not win]
+        - llvm-openmp   # [win]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
         - libscotch  # [not win]
