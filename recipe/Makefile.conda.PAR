@@ -55,9 +55,9 @@ LIBOTHERS = -lpthread
 CDEFS   = -DAdd_
 
 #Begin Optimized options
-OPTF    = -O  -DALLOW_NON_INIT
+OPTF    = -O -fopenmp -DALLOW_NON_INIT
 OPTL    = -O
-OPTC    = -O
+OPTC    = -O -fopenmp
 #End Optimized options
 
 INCS = $(INCPAR)
