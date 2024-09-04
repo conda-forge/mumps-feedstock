@@ -58,7 +58,7 @@ CDEFS   = -DAdd_
 
 #Begin Optimized options
 OPTF    = -O -fopenmp -DALLOW_NON_INIT
-OPTL    = -O
+OPTL    = -O -fopenmp
 OPTC    = -O -fopenmp
 #End Optimized options
 INCS = $(INCSEQ)
