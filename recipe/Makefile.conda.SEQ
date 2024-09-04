@@ -1,66 +1,11 @@
-#  This file is part of MUMPS 5.0.1, released
-#  on Thu Jul 23 17:08:29 UTC 2015
-#
-# These settings for a PC under Debian/linux with standard packages :
-# metis (parmetis), scotch (ptscotch), mpich, gfortran
+# override the variables that differ between seq/par
+include $(RECIPE_DIR)/Makefile.conda.PAR
 
-# Begin orderings
-LSCOTCH   = -L$(PREFIX)/lib -lesmumps -lscotch -lscotcherr
-ISCOTCH   = -I$(PREFIX)/include
-
-LPORDDIR = $(topdir)/PORD/lib
-IPORD    = -I$(topdir)/PORD/include
-LPORD    = -L$(LPORDDIR) -lpord$(PLAT)
-
-IMETIS    = -I$(PREFIX)/include
-LMETIS    = -L$(PREFIX)/lib -lmetis
-
-# Corresponding variables reused later
+PLAT = _seq
+LSCOTCH = -L$(PREFIX)/lib -lesmumps -lscotch -lscotcherr
 ORDERINGSF = -Dmetis -Dpord -Dscotch
-ORDERINGSC  = $(ORDERINGSF)
-LORDERINGS = $(LMETIS) $(LPORD) $(LSCOTCH)
-IORDERINGSF = $(ISCOTCH)
-IORDERINGSC = $(IMETIS) $(IPORD) $(ISCOTCH)
-# End orderings
-################################################################################
+LMETIS = -L$(PREFIX)/lib -lmetis
 
-PLAT    = _seq
-LIBEXT  = .a
-OUTC    = -o
-OUTF    = -o
-RM = /bin/rm -f
-CC ?= gcc
-CC := $(CC) -fPIC $(CFLAGS)
-FC ?= gfortran
-FC := $(FC) -fPIC $(FFLAGS)
-FL := $(FC) $(LDFLAGS)
-AR = ar -ruv #
-RANLIB = ranlib
-
-
-INCSEQ = -I$(PREFIX)/include -I$(PREFIX)/include/mumps_seq -I$(topdir)/libseq
-LIBSEQ  =  -L$(topdir)/libseq -lmpiseq$(PLAT)
-
-SCALAP =
-
-INCPAR = -I$(PREFIX)/include
-LIBPAR = $(SCALAP) -lmpi -lmpifort -lgfortran
-
-LIBBLAS = -Wl,-rpath,$(PREFIX)/lib -L$(PREFIX)/lib -llapack -lblas
-LIBOTHERS = -lpthread
-
-# debian patch variables for dynamic linking
-MPIFLIB = $(LIBSEQ)
-MPICLIB = $(LIBSEQ)
-
-#Preprocessor defs for calling Fortran from C (-DAdd_ or -DAdd__ or -DUPPER)
-CDEFS   = -DAdd_
-
-#Begin Optimized options
-OPTF    = -O -fopenmp -DALLOW_NON_INIT
-OPTL    = -O -fopenmp
-OPTC    = -O -fopenmp
-#End Optimized options
 INCS = $(INCSEQ)
-LIBS = $(LIBSEQ) $(LIBBLAS)
+LIBS = $(LIBSEQ)
 LIBSEQNEEDED = libseqneeded

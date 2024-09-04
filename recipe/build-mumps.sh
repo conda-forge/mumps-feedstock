@@ -53,10 +53,8 @@ else
   }
 fi
 
-# Makefile doesn't accept LDFLAGS in linking, pass via SHARED_OPT
-export LIBEXT_SHARED=${SHLIB_EXT}
+# Makefile doesn't accept LDFLAGS in linking libmpi_seq, libpord, pass via SHARED_OPT
 export SHARED_OPT="${LDFLAGS} -shared"
-export RPATH_OPT="-Wl,-rpath,$PREFIX/lib"
 
 make allshared -j "${CPU_COUNT:-1}"
 

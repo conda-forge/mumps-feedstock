@@ -1,10 +1,11 @@
 #!/bin/bash
 set -ex
 
-cp "${RECIPE_DIR}/parent/Makefile.conda.PAR" Makefile.inc
+# 'parent' is the _actual_ recipe dir. Not sure why
+export RECIPE_DIR="${RECIPE_DIR}/parent"
+cp -v "${RECIPE_DIR}/Makefile.conda.PAR" Makefile.inc
 cd examples
 
-export LIBEXT_SHARED=${SHLIB_EXT}
 export CC=mpicc
 export FC=mpifort
 
