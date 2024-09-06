@@ -160,7 +160,7 @@ LIBOTHERS = -lpthread
 CDEFS = -DAdd_
 
 #COMPILER OPTIONS
-OMP_OPT = $(fopenmp)
+OMP_OPT = -fopenmp
 OPTF    = $(OMP_OPT) $(FFLAGS) -DALLOW_NON_INIT
 OPTC    = $(OMP_OPT) $(CFLAGS)
 OPTL    = $(OMP_OPT) $(LDFLAGS)
