@@ -8,51 +8,96 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_mpimpich:
-        CONFIG: linux_64_mpimpich
+      linux_64_blas_implnetlibmpimpich:
+        CONFIG: linux_64_blas_implnetlibmpimpich
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_mpimpich
-      linux_64_mpinompi:
-        CONFIG: linux_64_mpinompi
+        SHORT_CONFIG: linux_64_blas_implnetlibmpimpich
+      linux_64_blas_implnetlibmpinompi:
+        CONFIG: linux_64_blas_implnetlibmpinompi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_mpinompi
-      linux_64_mpiopenmpi:
-        CONFIG: linux_64_mpiopenmpi
+        SHORT_CONFIG: linux_64_blas_implnetlibmpinompi
+      linux_64_blas_implnetlibmpiopenmpi:
+        CONFIG: linux_64_blas_implnetlibmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_mpiopenmpi
-      linux_aarch64_mpimpich:
-        CONFIG: linux_aarch64_mpimpich
+        SHORT_CONFIG: linux_64_blas_implnetlibmpiopenmpi
+      linux_64_blas_implopenblasmpimpich:
+        CONFIG: linux_64_blas_implopenblasmpimpich
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_aarch64_mpimpich
-      linux_aarch64_mpinompi:
-        CONFIG: linux_aarch64_mpinompi
+        SHORT_CONFIG: linux_64_blas_implopenblasmpimpich
+      linux_64_blas_implopenblasmpinompi:
+        CONFIG: linux_64_blas_implopenblasmpinompi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_aarch64_mpinompi
-      linux_aarch64_mpiopenmpi:
-        CONFIG: linux_aarch64_mpiopenmpi
+        SHORT_CONFIG: linux_64_blas_implopenblasmpinompi
+      linux_64_blas_implopenblasmpiopenmpi:
+        CONFIG: linux_64_blas_implopenblasmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_aarch64_mpiopenmpi
-      linux_ppc64le_mpimpich:
-        CONFIG: linux_ppc64le_mpimpich
+        SHORT_CONFIG: linux_64_blas_implopenblasmpiopenmpi
+      linux_aarch64_blas_implnetlibmpimpich:
+        CONFIG: linux_aarch64_blas_implnetlibmpimpich
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_ppc64le_mpimpich
-      linux_ppc64le_mpinompi:
-        CONFIG: linux_ppc64le_mpinompi
+        SHORT_CONFIG: linux_aarch64_blas_implnetlibmpimpich
+      linux_aarch64_blas_implnetlibmpinompi:
+        CONFIG: linux_aarch64_blas_implnetlibmpinompi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_ppc64le_mpinompi
-      linux_ppc64le_mpiopenmpi:
-        CONFIG: linux_ppc64le_mpiopenmpi
+        SHORT_CONFIG: linux_aarch64_blas_implnetlibmpinompi
+      linux_aarch64_blas_implnetlibmpiopenmpi:
+        CONFIG: linux_aarch64_blas_implnetlibmpiopenmpi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_ppc64le_mpiopenmpi
+        SHORT_CONFIG: linux_aarch64_blas_implnetlibmpiopenmpi
+      linux_aarch64_blas_implopenblasmpimpich:
+        CONFIG: linux_aarch64_blas_implopenblasmpimpich
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_aarch64_blas_implopenblasmpimpich
+      linux_aarch64_blas_implopenblasmpinompi:
+        CONFIG: linux_aarch64_blas_implopenblasmpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_aarch64_blas_implopenblasmpinompi
+      linux_aarch64_blas_implopenblasmpiopenmpi:
+        CONFIG: linux_aarch64_blas_implopenblasmpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_aarch64_blas_implopenblasmpiopenmpi
+      linux_ppc64le_blas_implnetlibmpimpich:
+        CONFIG: linux_ppc64le_blas_implnetlibmpimpich
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_ppc64le_blas_implnetlibmpimpich
+      linux_ppc64le_blas_implnetlibmpinompi:
+        CONFIG: linux_ppc64le_blas_implnetlibmpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_ppc64le_blas_implnetlibmpinompi
+      linux_ppc64le_blas_implnetlibmpiopenmpi:
+        CONFIG: linux_ppc64le_blas_implnetlibmpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_ppc64le_blas_implnetlibmpiopenmpi
+      linux_ppc64le_blas_implopenblasmpimpich:
+        CONFIG: linux_ppc64le_blas_implopenblasmpimpich
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_ppc64le_blas_implopenblasmpimpich
+      linux_ppc64le_blas_implopenblasmpinompi:
+        CONFIG: linux_ppc64le_blas_implopenblasmpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_ppc64le_blas_implopenblasmpinompi
+      linux_ppc64le_blas_implopenblasmpiopenmpi:
+        CONFIG: linux_ppc64le_blas_implopenblasmpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_ppc64le_blas_implopenblasmpiopenmpi
   timeoutInMinutes: 360
   variables: {}
 

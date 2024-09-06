@@ -1,3 +1,5 @@
+blas_impl:
+- netlib
 c_compiler:
 - gcc
 c_compiler_version:
@@ -29,13 +31,15 @@ libscotch:
 metis:
 - 5.1.0
 mpi:
-- openmpi
+- nompi
 mpich:
 - '4'
+openblas:
+- 0.3.*
 openmpi:
 - '5'
 target_platform:
-- linux-ppc64le
+- linux-64
 zip_keys:
 - - c_compiler_version
   - fortran_compiler_version

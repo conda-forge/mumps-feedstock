@@ -1,3 +1,5 @@
+blas_impl:
+- netlib
 c_compiler:
 - gcc
 c_compiler_version:
@@ -29,9 +31,11 @@ libscotch:
 metis:
 - 5.1.0
 mpi:
-- mpich
+- openmpi
 mpich:
 - '4'
+openblas:
+- 0.3.*
 openmpi:
 - '5'
 target_platform:

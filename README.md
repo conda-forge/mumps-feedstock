@@ -37,108 +37,213 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_mpimpich</td>
+              <td>linux_64_blas_implnetlibmpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_mpimpich" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_blas_implnetlibmpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_mpinompi</td>
+              <td>linux_64_blas_implnetlibmpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_mpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_blas_implnetlibmpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_mpiopenmpi</td>
+              <td>linux_64_blas_implnetlibmpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_mpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_blas_implnetlibmpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_mpimpich</td>
+              <td>linux_64_blas_implopenblasmpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_mpimpich" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_blas_implopenblasmpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_mpinompi</td>
+              <td>linux_64_blas_implopenblasmpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_mpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_blas_implopenblasmpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_mpiopenmpi</td>
+              <td>linux_64_blas_implopenblasmpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_mpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_blas_implopenblasmpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_ppc64le_mpimpich</td>
+              <td>linux_aarch64_blas_implnetlibmpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_mpimpich" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_blas_implnetlibmpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_ppc64le_mpinompi</td>
+              <td>linux_aarch64_blas_implnetlibmpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_mpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_blas_implnetlibmpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_ppc64le_mpiopenmpi</td>
+              <td>linux_aarch64_blas_implnetlibmpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_mpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_blas_implnetlibmpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_mpimpich</td>
+              <td>linux_aarch64_blas_implopenblasmpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_mpimpich" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_blas_implopenblasmpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_mpinompi</td>
+              <td>linux_aarch64_blas_implopenblasmpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_mpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_blas_implopenblasmpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_mpiopenmpi</td>
+              <td>linux_aarch64_blas_implopenblasmpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_mpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_blas_implopenblasmpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_mpimpich</td>
+              <td>linux_ppc64le_blas_implnetlibmpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_mpimpich" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_blas_implnetlibmpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_mpinompi</td>
+              <td>linux_ppc64le_blas_implnetlibmpinompi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_mpinompi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_blas_implnetlibmpinompi" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_mpiopenmpi</td>
+              <td>linux_ppc64le_blas_implnetlibmpiopenmpi</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_mpiopenmpi" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_blas_implnetlibmpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_blas_implopenblasmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_blas_implopenblasmpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_blas_implopenblasmpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_blas_implopenblasmpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_blas_implopenblasmpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_blas_implopenblasmpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_blas_implnetlibmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implnetlibmpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_blas_implnetlibmpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implnetlibmpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_blas_implnetlibmpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implnetlibmpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_blas_implopenblasmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implopenblasmpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_blas_implopenblasmpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implopenblasmpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_blas_implopenblasmpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implopenblasmpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_blas_implnetlibmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_blas_implnetlibmpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_blas_implnetlibmpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_blas_implnetlibmpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_blas_implnetlibmpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_blas_implnetlibmpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_blas_implopenblasmpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_blas_implopenblasmpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_blas_implopenblasmpinompi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_blas_implopenblasmpinompi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_blas_implopenblasmpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=653&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mumps-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_blas_implopenblasmpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>

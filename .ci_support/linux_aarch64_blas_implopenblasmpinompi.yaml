@@ -1,5 +1,7 @@
 BUILD:
 - aarch64-conda_cos7-linux-gnu
+blas_impl:
+- openblas
 c_compiler:
 - gcc
 c_compiler_version:
@@ -36,6 +38,8 @@ mpi:
 - nompi
 mpich:
 - '4'
+openblas:
+- 0.3.*
 openmpi:
 - '5'
 target_platform:
