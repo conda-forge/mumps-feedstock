@@ -1,6 +1,12 @@
 {% set name = "mumps" %}
 {% set version = "5.7.3" %}
 {% set sha256 = "84a47f7c4231b9efdf4d4f631a2cae2bdd9adeaabc088261d15af040143ed112" %}
+{% set build = 4 %}
+
+{% set blas_impl = blas_impl or 'netlib' %}
+{% if blas_impl != "netlib" %}
+{% set build = build + 100 %}
+{% endif %}
 
 package:
   name: mumps
@@ -13,7 +19,7 @@ source:
     - flang-support.patch
 
 build:
-  number: 3
+  number: {{ build }}
 
 requirements:
   build:
@@ -60,8 +66,9 @@ outputs:
         - python 3.11
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
-        - libblas
-        - liblapack
+        - libblas  # [blas_impl == "netlib"]
+        - liblapack  # [blas_impl == "netlib"]
+        - openblas  # [blas_impl == "openblas"]
         - metis  # [not win]
         - libscotch  # [not win]
       run:
@@ -144,8 +151,9 @@ outputs:
         - patchelf  # [linux]
         - python
       host:
-        - libblas
-        - liblapack
+        - libblas  # [blas_impl == "netlib"]
+        - liblapack  # [blas_impl == "netlib"]
+        - openblas  # [blas_impl == "openblas"]
         - {{ mpi }}
         - metis
         - parmetis

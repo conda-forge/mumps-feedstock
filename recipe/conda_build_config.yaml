@@ -2,6 +2,9 @@ mpi:
   - nompi
   - mpich  # [not win]
   - openmpi  # [not win]
+blas_impl:
+  - openblas  # [not win]
+  - netlib
 
 pin_run_as_build:
   parmetis:
