@@ -69,6 +69,7 @@ outputs:
         - libblas  # [blas_impl == "netlib"]
         - liblapack  # [blas_impl == "netlib"]
         - libopenblas  # [blas_impl == "openblas"]
+        - openblas  # [blas_impl == "openblas"]
         - metis  # [not win]
         - libscotch  # [not win]
       run:
