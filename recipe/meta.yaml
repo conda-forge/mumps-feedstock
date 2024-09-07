@@ -68,7 +68,7 @@ outputs:
       host:
         - libblas  # [blas_impl == "netlib"]
         - liblapack  # [blas_impl == "netlib"]
-        - openblas  # [blas_impl == "openblas"]
+        - libopenblas  # [blas_impl == "openblas"]
         - metis  # [not win]
         - libscotch  # [not win]
       run:
