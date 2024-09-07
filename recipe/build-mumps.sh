@@ -12,17 +12,6 @@ else
   export PLAT=""
 fi
 
-if [[ "${blas_impl}" != "netlib" ]]; then
-  echo "Enabling DGEMMT"
-  export FFLAGS="${FFLAGS} -DGEMMT_AVAILABLE"
-  if [[ "${blas_impl}" == "openblas" ]]; then
-    export LIBBLAS="-L$PREFIX/lib -lopenblas"
-    export LAPACK="-L$PREFIX/lib -lopenblas"
-  else
-    echo "unexpected blas_impl=${blas_impl}"
-    exit 1
-  fi
-fi
 cp -v $MAKEFILE_INC ./Makefile.inc
 
 

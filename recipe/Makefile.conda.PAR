@@ -122,7 +122,7 @@ RANLIB  = ranlib
 
 # DEFINE HERE YOUR LAPACK LIBRARY
 
-LAPACK ?= -L$(PREFIX)/lib -llapack -lblas
+LAPACK = -L$(PREFIX)/lib -llapack -lblas
 
 # SCALAP should define the SCALAPACK and  BLACS libraries.
 SCALAP  = -L$(PREFIX)/lib -lscalapack
@@ -141,7 +141,7 @@ LIBSEQ  = $(LAPACK) -L$(topdir)/libseq -lmpiseq$(PLAT)
 
 # DEFINE HERE YOUR BLAS LIBRARY
 
-LIBBLAS ?= -L$(PREFIX)/lib -lblas
+LIBBLAS = -L$(PREFIX)/lib -lblas
 
 # DEFINE HERE YOUR PTHREAD LIBRARY
 LIBOTHERS = -lpthread
@@ -164,6 +164,13 @@ OMP_OPT = -fopenmp
 OPTF    = $(OMP_OPT) $(FFLAGS) -DALLOW_NON_INIT
 OPTC    = $(OMP_OPT) $(CFLAGS)
 OPTL    = $(OMP_OPT) $(LDFLAGS)
+
+# (conda) enable GEMMT if using openblas
+ifeq ($(blas_impl),openblas)
+  OPTF := $(OPTF) -DGEMMT_AVAILABLE
+  LAPACK = -L$(PREFIX)/lib -lopenblas
+  LIBBLAS = -L$(PREFIX)/lib -lopenblas
+endif
 
 # CHOOSE BETWEEN USING THE SEQUENTIAL OR THE PARALLEL VERSION.
 
