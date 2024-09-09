@@ -74,6 +74,7 @@ outputs:
         # openblas is needed for linking at build time
         - libopenblas  # [blas_impl == "openblas"]
         - openblas  # [blas_impl == "openblas"]
+        - mkl-devel  # [blas_impl == "mkl"]
         - metis  # [not win]
         - libscotch  # [not win]
       run:
@@ -162,6 +163,7 @@ outputs:
         - libblas * *{{ blas_impl }}  # [blas_impl != "netlib"]
         - libopenblas  # [blas_impl == "openblas"]
         - openblas  # [blas_impl == "openblas"]
+        - mkl-devel  # [blas_impl == "mkl"]
         - {{ mpi }}
         - metis
         - parmetis

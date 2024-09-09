@@ -4,6 +4,7 @@ mpi:
   - openmpi  # [not win]
 blas_impl:
   - openblas  # [not win]
+  - mkl  # [linux64]
   - netlib
 
 pin_run_as_build:
