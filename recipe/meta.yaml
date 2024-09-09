@@ -60,6 +60,7 @@ outputs:
         - llvm-openmp  # [osx]
         - libgomp  # [linux]
         - make  # [unix]
+        - pkg-config  # [unix]
         - patchelf  # [linux]
         # python version specified to avoid windows build matrix
         # not sure why that happens
@@ -154,6 +155,7 @@ outputs:
         - llvm-openmp  # [osx]
         - libgomp  # [linux]
         - make  # [unix]
+        - pkg-config  # [unix]
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
         - patchelf  # [linux]
         - python

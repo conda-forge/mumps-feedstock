@@ -19,8 +19,8 @@ if [[ "${blas_impl}" != "netlib" ]]; then
     export LIBBLAS="-L$PREFIX/lib -lopenblas"
     export LAPACK="-L$PREFIX/lib -lopenblas"
   elif [[ "${blas_impl}" == "mkl" ]]; then
-    export LIBBLAS="-L$PREFIX/lib -lmkl"
-    export LAPACK="-L$PREFIX/lib -lmkl"
+    export LAPACK="$(pkg-config --libs mkl-dynamic-ilp64-gomp)"
+    export LIBBLAS="${LAPACK}"
   else
     echo "unexpected blas_impl=${blas_impl}"
     exit 1
