@@ -13,14 +13,15 @@ else
 fi
 
 if [[ "${blas_impl}" != "netlib" ]]; then
-  echo "Enabling DGEMMT"
+  echo "Enabling DGEMMT with ${blas_impl}"
   export FFLAGS="${FFLAGS} -DGEMMT_AVAILABLE"
   if [[ "${blas_impl}" == "openblas" ]]; then
     export LIBBLAS="-L$PREFIX/lib -lopenblas"
     export LAPACK="-L$PREFIX/lib -lopenblas"
   elif [[ "${blas_impl}" == "mkl" ]]; then
-    export LAPACK="$(pkg-config --libs mkl-dynamic-ilp64-gomp)"
-    export LIBBLAS="${LAPACK}"
+    # default linking to libblas/lapack
+    # should be mkl variant
+    true
   else
     echo "unexpected blas_impl=${blas_impl}"
     exit 1
