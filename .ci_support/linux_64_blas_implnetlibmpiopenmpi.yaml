@@ -30,6 +30,8 @@ libscotch:
 - 7.0.4
 metis:
 - 5.1.0
+mkl_devel:
+- '2023'
 mpi:
 - openmpi
 mpich:

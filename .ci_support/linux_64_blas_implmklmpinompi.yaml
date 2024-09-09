@@ -1,5 +1,5 @@
 blas_impl:
-- openblas
+- mkl
 c_compiler:
 - gcc
 c_compiler_version:
@@ -33,7 +33,7 @@ metis:
 mkl_devel:
 - '2023'
 mpi:
-- openmpi
+- nompi
 mpich:
 - '4'
 openblas:

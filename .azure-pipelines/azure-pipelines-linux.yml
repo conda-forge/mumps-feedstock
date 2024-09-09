@@ -8,6 +8,21 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
+      linux_64_blas_implmklmpimpich:
+        CONFIG: linux_64_blas_implmklmpimpich
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_blas_implmklmpimpich
+      linux_64_blas_implmklmpinompi:
+        CONFIG: linux_64_blas_implmklmpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_blas_implmklmpinompi
+      linux_64_blas_implmklmpiopenmpi:
+        CONFIG: linux_64_blas_implmklmpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_blas_implmklmpiopenmpi
       linux_64_blas_implnetlibmpimpich:
         CONFIG: linux_64_blas_implnetlibmpimpich
         UPLOAD_PACKAGES: 'True'
