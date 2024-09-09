@@ -68,6 +68,8 @@ outputs:
       host:
         - libblas  # [blas_impl == "netlib"]
         - liblapack  # [blas_impl == "netlib"]
+        # libblas needed for constraints
+        - libblas * *{{ blas_impl }}  # [blas_impl != "netlib"]
         # libopenblas is needed for run_exports
         # openblas is needed for linking at build time
         - libopenblas  # [blas_impl == "openblas"]
@@ -76,6 +78,7 @@ outputs:
         - libscotch  # [not win]
       run:
         - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
+        - libblas * *{{ blas_impl }}  # [blas_impl != "netlib"]
         - libscotch  # [not win]
 
     test:
@@ -86,9 +89,6 @@ outputs:
         - {{ compiler("fortran") }}  # [not win]
         - make  # [not win]
         - pkg-config  # [not win]
-        # tests link directly to openblas via makefile
-        # unclear if they should...
-        - openblas  # [blas_impl == "openblas"]
       commands:
         {% if not win %}
 
@@ -159,6 +159,8 @@ outputs:
       host:
         - libblas  # [blas_impl == "netlib"]
         - liblapack  # [blas_impl == "netlib"]
+        - libblas * *{{ blas_impl }}  # [blas_impl != "netlib"]
+        - libopenblas  # [blas_impl == "openblas"]
         - openblas  # [blas_impl == "openblas"]
         - {{ mpi }}
         - metis
@@ -169,6 +171,7 @@ outputs:
       run:
         - {{ pin_subpackage('mumps-include', exact=True) }}
         - {{ mpi }}
+        - libblas * *{{ blas_impl }}  # [blas_impl != "netlib"]
         - parmetis
         - libptscotch
         - scalapack
@@ -182,7 +185,6 @@ outputs:
         - {{ compiler("fortran") }}
         - make  # [unix]
         - pkg-config  # [not win]
-        - openblas  # [blas_impl == "openblas"]
       commands:
         {% for lib in [
           'smumps',

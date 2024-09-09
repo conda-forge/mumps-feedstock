@@ -6,6 +6,9 @@ export RECIPE_DIR="${RECIPE_DIR}/parent"
 cp -v "${RECIPE_DIR}/Makefile.conda.SEQ" Makefile.inc
 cd examples
 
+# Makefile links libblas in tests, but it's not actually used
+export LIBBLAS=""
+
 make clean
 make all
 
