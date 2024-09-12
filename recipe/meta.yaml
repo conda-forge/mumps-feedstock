@@ -13,7 +13,7 @@ source:
     - flang-support.patch
 
 build:
-  number: 3
+  number: 4
 
 requirements:
   build:
@@ -65,8 +65,10 @@ outputs:
         - metis  # [not win]
         - libscotch  # [not win]
       run:
-        - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
+        - {{ pin_subpackage('mumps-include', exact=True) }}  # [not win]
         - libscotch  # [not win]
+      run_constrained:
+        - libopenblas * *openmp*
 
     test:
       source_files:
@@ -159,6 +161,8 @@ outputs:
         - libptscotch
         - scalapack
         - libscotch
+      run_constrained:
+        - libopenblas * *openmp*
 
     test:
       source_files:
