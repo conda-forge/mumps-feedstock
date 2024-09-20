@@ -1,7 +1,7 @@
 {% set name = "mumps" %}
 {% set version = "5.7.3" %}
 {% set sha256 = "84a47f7c4231b9efdf4d4f631a2cae2bdd9adeaabc088261d15af040143ed112" %}
-{% set build = 4 %}
+{% set build = 5 %}
 
 {% set blas_impl = blas_impl or 'netlib' %}
 {% if blas_impl != "netlib" %}
@@ -80,10 +80,12 @@ outputs:
         - metis  # [not win]
         - libscotch  # [not win]
       run:
-        - {{ pin_subpackage('mumps-include', max_pin='x.x.x') }}  # [not win]
+        - {{ pin_subpackage('mumps-include', exact=True) }}  # [not win]
         - libblas * *{{ blas_impl }}  # [blas_impl != "netlib"]
         - liblapack * *{{ blas_impl }}  # [blas_impl != "netlib"]
         - libscotch  # [not win]
+      run_constrained:
+        - libopenblas * *openmp*
 
     test:
       source_files:
@@ -184,6 +186,8 @@ outputs:
         - libptscotch
         - scalapack
         - libscotch
+      run_constrained:
+        - libopenblas * *openmp*
 
     test:
       source_files:
