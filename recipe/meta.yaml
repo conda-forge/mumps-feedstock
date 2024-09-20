@@ -1,6 +1,12 @@
 {% set name = "mumps" %}
 {% set version = "5.7.3" %}
 {% set sha256 = "84a47f7c4231b9efdf4d4f631a2cae2bdd9adeaabc088261d15af040143ed112" %}
+{% set build = 5 %}
+
+{% set blas_impl = blas_impl or 'netlib' %}
+{% if blas_impl != "netlib" %}
+{% set build = build + 100 %}
+{% endif %}
 
 package:
   name: mumps
@@ -13,7 +19,7 @@ source:
     - flang-support.patch
 
 build:
-  number: 4
+  number: {{ build }}
 
 requirements:
   build:
@@ -54,18 +60,29 @@ outputs:
         - llvm-openmp  # [osx]
         - libgomp  # [linux]
         - make  # [unix]
+        - pkg-config  # [unix]
         - patchelf  # [linux]
         # python version specified to avoid windows build matrix
         # not sure why that happens
         - python 3.11
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
-        - libblas
-        - liblapack
+        - libblas  # [blas_impl == "netlib"]
+        - liblapack  # [blas_impl == "netlib"]
+        # libblas needed for constraints
+        - libblas * *{{ blas_impl }}  # [blas_impl != "netlib"]
+        - liblapack * *{{ blas_impl }}  # [blas_impl != "netlib"]
+        # libopenblas is needed for run_exports
+        # openblas is needed for linking at build time
+        - libopenblas  # [blas_impl == "openblas"]
+        - openblas  # [blas_impl == "openblas"]
+        - mkl-devel  # [blas_impl == "mkl"]
         - metis  # [not win]
         - libscotch  # [not win]
       run:
         - {{ pin_subpackage('mumps-include', exact=True) }}  # [not win]
+        - libblas * *{{ blas_impl }}  # [blas_impl != "netlib"]
+        - liblapack * *{{ blas_impl }}  # [blas_impl != "netlib"]
         - libscotch  # [not win]
       run_constrained:
         - libopenblas * *openmp*
@@ -142,12 +159,18 @@ outputs:
         - llvm-openmp  # [osx]
         - libgomp  # [linux]
         - make  # [unix]
+        - pkg-config  # [unix]
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
         - patchelf  # [linux]
         - python
       host:
-        - libblas
-        - liblapack
+        - libblas  # [blas_impl == "netlib"]
+        - liblapack  # [blas_impl == "netlib"]
+        - libblas * *{{ blas_impl }}  # [blas_impl != "netlib"]
+        - liblapack * *{{ blas_impl }}  # [blas_impl != "netlib"]
+        - libopenblas  # [blas_impl == "openblas"]
+        - openblas  # [blas_impl == "openblas"]
+        - mkl-devel  # [blas_impl == "mkl"]
         - {{ mpi }}
         - metis
         - parmetis
@@ -157,6 +180,8 @@ outputs:
       run:
         - {{ pin_subpackage('mumps-include', exact=True) }}
         - {{ mpi }}
+        - libblas * *{{ blas_impl }}  # [blas_impl != "netlib"]
+        - liblapack * *{{ blas_impl }}  # [blas_impl != "netlib"]
         - parmetis
         - libptscotch
         - scalapack

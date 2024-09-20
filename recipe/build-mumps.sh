@@ -12,6 +12,24 @@ else
   export PLAT=""
 fi
 
+if [[ "${blas_impl}" != "netlib" ]]; then
+  echo "Enabling DGEMMT with ${blas_impl}"
+  export FFLAGS="${FFLAGS} -DGEMMT_AVAILABLE"
+  case "${blas_impl}" in
+    openblas)
+      export LIBBLAS="-L$PREFIX/lib -lopenblas"
+      export LAPACK="-L$PREFIX/lib -lopenblas"
+      ;;
+    mkl)
+      # default linking to libblas/lapack
+      # this should be the mkl variant at build time
+      ;;
+    *)
+      echo "unexpected blas_impl=${blas_impl}"
+      exit 1
+      ;;
+  esac
+fi
 cp -v $MAKEFILE_INC ./Makefile.inc
 
 

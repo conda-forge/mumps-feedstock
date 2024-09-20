@@ -9,6 +9,10 @@ cd examples
 export CC=mpicc
 export FC=mpifort
 
+# Makefile links libblas in tests, but it's not actually used
+export LIBBLAS=""
+export LAPACK=""
+
 make clean
 make all
 
