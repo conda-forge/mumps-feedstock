@@ -1,16 +1,21 @@
 #!/bin/bash
 set -ex
 
-# 'parent' is the _actual_ recipe dir. Not sure why
-export RECIPE_DIR="${RECIPE_DIR}/parent"
-cp -v "${RECIPE_DIR}/Makefile.conda.PAR" Makefile.inc
-cd examples
-
 export CC=mpicc
 export FC=mpifort
 
-make clean
-make all
+set -ex
+
+cd examples
+
+for p in s d c z; do
+  # Check .pc file
+  mumps="${p}mumps"
+  pkg-config --exists --print-errors --debug ${mumps}
+  pkg-config --validate --print-errors --debug ${mumps}
+  $FC ${FFLAGS} ${LDFLAGS} $(pkg-config --cflags ${mumps}) $(pkg-config --libs ${mumps}) ${p}simpletest.F -o ${p}simpletest
+done
+$CC ${CFLAGS} ${LDFLAGS} $(pkg-config --cflags dmumps) $(pkg-config --libs dmumps) c_example.c -o c_example
 
 mpiexec -n 2 ./ssimpletest < input_simpletest_real
 mpiexec -n 2 ./dsimpletest < input_simpletest_real
