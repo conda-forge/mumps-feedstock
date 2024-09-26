@@ -11,7 +11,7 @@ includedir=${{prefix}}/include
 Name: {NAME}
 Description: {DESCRIPTION}
 Version: {VERSION}
-Cflags: -I${{includedir}}
+Cflags: -I${{includedir}}{extra_cflags}
 Libs: -L${{libdir}} -l{NAME}
 """
 
@@ -32,7 +32,7 @@ precision_desc = {
 }
 description_tpl = "The {parallel} {precision}-precision MUMPS library"
 
-def render_one(name, description):
+def render_one(name, description, extra_cflags):
     pc_file = pkgconfig_dir / (name + ".pc")
     print(f"Writing {pc_file}")
     pc_content = tpl.format(
@@ -40,7 +40,7 @@ def render_one(name, description):
         NAME=name,
         VERSION=version,
         DESCRIPTION=description,
-
+        extra_cflags=extra_cflags,
     )
     print(pc_content)
     with pc_file.open("w") as f:
@@ -49,9 +49,11 @@ def render_one(name, description):
 if os.environ["mpi"] == "nompi":
     suffix = "_seq"
     parallel = "sequential"
+    extra_cflags = " -I${includedir}/mumps_seq"
 else:
     suffix = ""
     parallel = "parallel"
+    extra_cflags = ""
 
 for precision in ("s", "d", "c", "z"):
     name = f"{precision}mumps{suffix}"
@@ -59,4 +61,4 @@ for precision in ("s", "d", "c", "z"):
         parallel=parallel,
         precision=precision_desc[precision],
     )
-    render_one(name, description)
+    render_one(name, description, extra_cflags)
