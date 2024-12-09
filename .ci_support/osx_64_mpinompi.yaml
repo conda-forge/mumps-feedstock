@@ -5,7 +5,7 @@ MACOSX_SDK_VERSION:
 c_compiler:
 - clang
 c_compiler_version:
-- '17'
+- '18'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -23,11 +23,11 @@ libblas:
 liblapack:
 - 3.9 *netlib
 libptscotch:
-- 7.0.5
+- 7.0.6
 libscotch:
-- 7.0.5
+- 7.0.6
 llvm_openmp:
-- '17'
+- '18'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 metis:
