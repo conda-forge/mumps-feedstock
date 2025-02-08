@@ -67,6 +67,7 @@ outputs:
         - metis  # [not win]
         - libscotch  # [not win]
         - llvm-openmp  # [win]
+        - llvm-openmp-fortran  # [win]
       run:
         - {{ pin_subpackage('mumps-include', exact=True) }}  # [not win]
         - libscotch  # [not win]
