@@ -1,0 +1,193 @@
+schema_version: 1
+
+context:
+  name: mumps
+  version: 5.7.3
+  sha256: 84a47f7c4231b9efdf4d4f631a2cae2bdd9adeaabc088261d15af040143ed112
+
+recipe:
+  name: mumps
+  version: ${{ version }}
+
+source:
+  url: https://mumps-solver.org/MUMPS_${{ version }}.tar.gz
+  sha256: ${{ sha256 }}
+  patches:
+    - flang-support.patch
+
+build:
+  number: 8
+
+requirements:
+  build:
+    # dummy unused top-level requirements
+    # needed to construct the right conda-smithy matrix
+    - ${{ compiler('fortran') }}
+    - ${{ compiler('c') }}
+    - if: win
+      then: m2-patch
+    - if: "mpi != 'nompi'"
+      then: mpi * ${{ mpi }}
+
+outputs:
+  - package:
+      name: mumps-include
+    build:
+      skip: win
+      script: ${RECIPE_DIR}/build-headers.sh
+    requirements:
+      build: []
+      host: []
+    tests:
+      - script:
+          - "test -f \"${PREFIX}/include/mumps_compat.h\""
+          - "test -f \"${PREFIX}/include/mumps_int_def.h\""
+  - package:
+      name: mumps-seq
+    build:
+      skip: "mpi != 'nompi'"
+      script: ${RECIPE_DIR}/build-mumps.sh  # [not win]
+      script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
+      activate_in_script: true
+    requirements:
+      build:
+        - if: win
+          then: cmake
+        - if: win
+          then: ninja
+        - if: win
+          then: m2-patch
+        - ${{ compiler('fortran') }}
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - if: osx
+          then: llvm-openmp
+        - if: linux
+          then: libgomp
+        - if: unix
+          then: make
+        - if: linux
+          then: patchelf
+        # python version specified to avoid windows build matrix
+        # not sure why that happens
+        - python 3.11.*
+        - if: "mpi == 'openmpi' and build_platform != target_platform"
+          then: ${{ mpi }}
+      host:
+        - libblas
+        - liblapack
+        - if: not win
+          then: metis
+        - if: not win
+          then: libscotch
+        - if: win
+          then: llvm-openmp
+        - if: win
+          then: llvm-openmp-fortran
+      run:
+        - if: not win
+          then: ${{ pin_subpackage('mumps-include', exact=True) }}
+        - if: not win
+          then: libscotch
+      run_exports:
+        - ${{ pin_subpackage('mumps-seq', upper_bound='x.x.x') }}
+      run_constraints:
+        - libopenblas * *openmp*
+    tests:
+      - files:
+          source:
+            - examples
+        requirements:
+          run:
+            - if: not win
+              then: ${{ compiler("c") }}
+            - if: not win
+              then: ${{ compiler("fortran") }}
+            - if: not win
+              then: make
+            - if: not win
+              then: pkg-config
+        script:
+          - if: not win
+            then: bash ${RECIPE_DIR}/parent/run_test-seq.sh
+  - package:
+      name: mumps-mpi
+    build:
+      skip: "win or mpi == 'nompi'"
+      script: ${RECIPE_DIR}/build-mumps.sh
+    requirements:
+      build:
+        - ${{ compiler('fortran') }}
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - if: osx
+          then: llvm-openmp
+        - if: linux
+          then: libgomp
+        - if: unix
+          then: make
+        - if: "mpi == 'openmpi' and build_platform != target_platform"
+          then: ${{ mpi }}
+        - if: linux
+          then: patchelf
+        - python
+      host:
+        - libblas
+        - liblapack
+        - ${{ mpi }}
+        - metis
+        - parmetis
+        - libptscotch
+        - scalapack
+        - libscotch
+      run:
+        - ${{ pin_subpackage('mumps-include', exact=True) }}
+        - ${{ mpi }}
+        - parmetis
+        - libptscotch
+        - scalapack
+        - libscotch
+      run_exports:
+        - if: not win
+          then: ${{ pin_subpackage('mumps-mpi', upper_bound='x.x.x') }}
+      run_constraints:
+        - libopenblas * *openmp*
+    tests:
+      - files:
+          source:
+            - examples
+        requirements:
+          run:
+            - ${{ compiler("c") }}
+            - ${{ compiler("fortran") }}
+            - if: unix
+              then: make
+            - if: not win
+              then: pkg-config
+        script:
+          - bash ${RECIPE_DIR}/parent/run_test-mpi.sh
+
+about:
+  license: CECILL-C
+  license_file: LICENSE
+  summary: |
+    MUMPS: a parallel sparse direct solver
+  description: |
+    MUMPS (MUltifrontal Massively Parallel Solver) is a package for solving
+    systems of linear equations of the form Ax = b, where A is a square sparse
+    matrix that can be either unsymmetric, symmetric positive definite, or
+    general symmetric, on distributed memory computers. MUMPS implements a
+    direct method based on a multifrontal approach which performs a Gaussian
+    factorization.
+  homepage: https://mumps-solver.org
+  documentation: https://mumps-solver.org/index.php?page=doc
+
+extra:
+  recipe-maintainers:
+    - traversaro
+    - basnijholt
+    - dalcinl
+    - minrk
+    - jbweston
+    - davidbrochart
+    - SylvainCorlay
