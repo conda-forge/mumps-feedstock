@@ -9,11 +9,11 @@ LIBS="-lmpiseq_seq"
 for p in s d c z; do
   # Check .pc file
   mumps="${p}mumps_seq"
-  pkg-config --exists --print-errors --debug ${mumps}
-  pkg-config --validate --print-errors --debug ${mumps}
-  $FC ${FFLAGS} ${LDFLAGS} ${LIBS} $(pkg-config --cflags ${mumps}) $(pkg-config --libs ${mumps}) ${p}simpletest.F -o ${p}simpletest
+  pkg-config --exists --print-errors ${mumps}
+  pkg-config --validate --print-errors ${mumps}
+  $FC ${FFLAGS} $(pkg-config --cflags ${mumps}) ${p}simpletest.F -o ${p}simpletest ${LDFLAGS} ${LIBS}  $(pkg-config --libs ${mumps})
 done
-$CC ${CFLAGS} ${LDFLAGS} ${LIBS} $(pkg-config --cflags dmumps_seq) $(pkg-config --libs dmumps_seq) c_example.c -o c_example
+$CC ${CFLAGS} $(pkg-config --cflags dmumps_seq) c_example.c -o c_example ${LDFLAGS} ${LIBS}  $(pkg-config --libs dmumps_seq) 
 
 ./ssimpletest < input_simpletest_real
 ./dsimpletest < input_simpletest_real
