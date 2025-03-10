@@ -56,6 +56,22 @@ fi
 # Makefile doesn't accept LDFLAGS in linking libmpi_seq, libpord, pass via SHARED_OPT
 export SHARED_OPT="${LDFLAGS} -shared"
 
+# need to patch SONAME on intermediate libraries before building the rest
+
+make prerequisitesshared -j "${CPU_COUNT:-1}"
+pushd src
+make libcommonshared -j "${CPU_COUNT:-1}"
+popd
+ls lib
+
+# make sure SONAME is right, which it isn't
+for dylib in **/*${SHLIB_EXT}; do
+  echo -e '!!!!!!\n\n\n'
+  echo $dylib
+  set_soname "$dylib"
+done
+# exit 1
+
 make allshared -j "${CPU_COUNT:-1}"
 
 mkdir -p "${PREFIX}/lib"
@@ -64,6 +80,7 @@ ls lib
 
 # make sure SONAME is right, which it isn't
 for dylib in lib/*${SHLIB_EXT}; do
+  echo -e '!!!!!!\n\n\n'
   echo $dylib
   set_soname "$dylib"
 done

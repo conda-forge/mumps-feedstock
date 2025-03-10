@@ -1,9 +1,7 @@
 schema_version: 1
 
 context:
-  name: mumps
   version: 5.7.3
-  sha256: 84a47f7c4231b9efdf4d4f631a2cae2bdd9adeaabc088261d15af040143ed112
 
 recipe:
   name: mumps
@@ -11,126 +9,163 @@ recipe:
 
 source:
   url: https://mumps-solver.org/MUMPS_${{ version }}.tar.gz
-  sha256: ${{ sha256 }}
+  sha256: 84a47f7c4231b9efdf4d4f631a2cae2bdd9adeaabc088261d15af040143ed112
   patches:
     - flang-support.patch
 
 build:
   number: 8
 
-requirements:
-  build:
-    # dummy unused top-level requirements
-    # needed to construct the right conda-smithy matrix
-    - ${{ compiler('fortran') }}
-    - ${{ compiler('c') }}
-    - if: win
-      then: m2-patch
-    - if: "mpi != 'nompi'"
-      then: mpi * ${{ mpi }}
-
 outputs:
   - package:
       name: mumps-include
     build:
       skip: win
-      script: ${RECIPE_DIR}/build-headers.sh
-    requirements:
-      build: []
-      host: []
+      script: build-headers
     tests:
-      - script:
-          - "test -f \"${PREFIX}/include/mumps_compat.h\""
-          - "test -f \"${PREFIX}/include/mumps_int_def.h\""
+      - package_contents:
+          include:
+            - mumps_compat.h
+            - mumps_int_def.h
+            - smumps_c.h
+            - smumps_root.h
+            - smumps_struc.h
+            - dmumps_c.h
+            - dmumps_root.h
+            - dmumps_struc.h
+            - cmumps_c.h
+            - cmumps_root.h
+            - cmumps_struc.h
+            - zmumps_c.h
+            - zmumps_root.h
+            - zmumps_struc.h
   - package:
       name: mumps-seq
     build:
-      skip: "mpi != 'nompi'"
-      script: ${RECIPE_DIR}/build-mumps.sh  # [not win]
-      script: "%RECIPE_DIR%\\bld-seq.bat"  # [win]
-      activate_in_script: true
+      skip: mpi != 'nompi'
+      script: build-mumps
     requirements:
       build:
-        - if: win
-          then: cmake
-        - if: win
-          then: ninja
-        - if: win
-          then: m2-patch
         - ${{ compiler('fortran') }}
         - ${{ compiler('c') }}
         - ${{ stdlib('c') }}
+        - if: win
+          then:
+            - cmake
+            - ninja
+            - m2-patch
+          else:
+            - make
         - if: osx
           then: llvm-openmp
         - if: linux
-          then: libgomp
-        - if: unix
-          then: make
-        - if: linux
-          then: patchelf
+          then:
+            - libgomp
+            - patchelf
         # python version specified to avoid windows build matrix
         # not sure why that happens
         - python 3.11.*
-        - if: "mpi == 'openmpi' and build_platform != target_platform"
+        - if: mpi == 'openmpi' and build_platform != target_platform
           then: ${{ mpi }}
       host:
         - libblas
         - liblapack
         - if: not win
-          then: metis
-        - if: not win
-          then: libscotch
+          then:
+            - metis
+            - libscotch
         - if: win
-          then: llvm-openmp
-        - if: win
-          then: llvm-openmp-fortran
+          then:
+            - llvm-openmp
+            - llvm-openmp-fortran
       run:
         - if: not win
-          then: ${{ pin_subpackage('mumps-include', exact=True) }}
-        - if: not win
-          then: libscotch
+          then:
+            - ${{ pin_subpackage('mumps-include', exact=True) }}
       run_exports:
         - ${{ pin_subpackage('mumps-seq', upper_bound='x.x.x') }}
       run_constraints:
         - libopenblas * *openmp*
     tests:
-      - files:
-          source:
-            - examples
-        requirements:
-          run:
+      - package_contents:
+          files:
             - if: not win
-              then: ${{ compiler("c") }}
-            - if: not win
-              then: ${{ compiler("fortran") }}
-            - if: not win
-              then: make
-            - if: not win
-              then: pkg-config
-        script:
-          - if: not win
-            then: bash ${RECIPE_DIR}/parent/run_test-seq.sh
+              then:
+                - lib/pkgconfig/smumps_seq.pc
+                - lib/pkgconfig/dmumps_seq.pc
+                - lib/pkgconfig/cmumps_seq.pc
+                - lib/pkgconfig/zmumps_seq.pc
+          lib:
+            - if: win
+              then:
+                - mumps_common
+                - pord
+                - smumps
+                - dmumps
+                - cmumps
+                - zmumps
+              else:
+                - mpiseq
+                - mpiseq_seq
+                - mumps_common_seq
+                - pord_seq
+                - smumps_seq
+                - dmumps_seq
+                - cmumps_seq
+                - zmumps_seq
+          include:
+            - if: win
+              then:
+                - mumps_compat.h
+                - mumps_int_def.h
+                - smumps_c.h
+                - smumps_root.h
+                - smumps_struc.h
+                - dmumps_c.h
+                - dmumps_root.h
+                - dmumps_struc.h
+                - cmumps_c.h
+                - cmumps_root.h
+                - cmumps_struc.h
+                - zmumps_c.h
+                - zmumps_root.h
+                - zmumps_struc.h
+                - mumps_seq/mpi.h
+                - mumps_seq/mpif.h
+      - if: not win
+        then:
+          script: run_test-seq
+          files:
+            source:
+              - examples/
+          requirements:
+            run:
+              - ${{ compiler("c") }}
+              - ${{ compiler("fortran") }}
+              - make
+              - pkg-config
+          
   - package:
       name: mumps-mpi
     build:
-      skip: "win or mpi == 'nompi'"
-      script: ${RECIPE_DIR}/build-mumps.sh
+      skip: mpi == 'nompi'
+      script: build-mumps
     requirements:
       build:
         - ${{ compiler('fortran') }}
         - ${{ compiler('c') }}
         - ${{ stdlib('c') }}
+        - make
         - if: osx
-          then: llvm-openmp
+          then:
+            - llvm-openmp
         - if: linux
-          then: libgomp
-        - if: unix
-          then: make
+          then:
+            - libgomp
+            - patchelf
         - if: "mpi == 'openmpi' and build_platform != target_platform"
           then: ${{ mpi }}
-        - if: linux
-          then: patchelf
-        - python
+        - python 3.11.*
       host:
         - libblas
         - liblapack
@@ -142,17 +177,24 @@ outputs:
         - libscotch
       run:
         - ${{ pin_subpackage('mumps-include', exact=True) }}
-        - ${{ mpi }}
-        - parmetis
-        - libptscotch
-        - scalapack
-        - libscotch
       run_exports:
-        - if: not win
-          then: ${{ pin_subpackage('mumps-mpi', upper_bound='x.x.x') }}
+        - ${{ pin_subpackage('mumps-mpi', upper_bound='x.x.x') }}
       run_constraints:
         - libopenblas * *openmp*
     tests:
+      - package_contents:
+          files:
+            - lib/pkgconfig/smumps.pc
+            - lib/pkgconfig/dmumps.pc
+            - lib/pkgconfig/cmumps.pc
+            - lib/pkgconfig/zmumps.pc
+          lib:
+            - mumps_common
+            - pord
+            - smumps
+            - dmumps
+            - cmumps
+            - zmumps
       - files:
           source:
             - examples
@@ -160,12 +202,10 @@ outputs:
           run:
             - ${{ compiler("c") }}
             - ${{ compiler("fortran") }}
-            - if: unix
-              then: make
-            - if: not win
-              then: pkg-config
+            - make
+            - pkg-config
         script:
-          - bash ${RECIPE_DIR}/parent/run_test-mpi.sh
+          - run_test-mpi
 
 about:
   license: CECILL-C
