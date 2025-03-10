@@ -44,7 +44,14 @@ if [[ "$target_platform" == osx-* ]]; then
   export FFLAGS="${FFLAGS} -DAVOID_MPI_IN_PLACE"
   export LDFLAGS="${LDFLAGS} -headerpad_max_install_names"
   function set_soname () {
+    otool -L "$1"
     install_name_tool -id "@rpath/$(basename $1)" "$1"
+    # relink intermediates to @rpath (libpord, etc.);
+    # conda-build does this for us, but rattler-build does not
+    for lib in $(ls lib/); do
+      install_name_tool -change ${lib} @rpath/${lib} "$1"
+    done
+    otool -L "$1"
   }
 else
   export SONAME="-soname"
@@ -56,22 +63,6 @@ fi
 # Makefile doesn't accept LDFLAGS in linking libmpi_seq, libpord, pass via SHARED_OPT
 export SHARED_OPT="${LDFLAGS} -shared"
 
-# need to patch SONAME on intermediate libraries before building the rest
-
-make prerequisitesshared -j "${CPU_COUNT:-1}"
-pushd src
-make libcommonshared -j "${CPU_COUNT:-1}"
-popd
-ls lib
-
-# make sure SONAME is right, which it isn't
-for dylib in **/*${SHLIB_EXT}; do
-  echo -e '!!!!!!\n\n\n'
-  echo $dylib
-  set_soname "$dylib"
-done
-# exit 1
-
 make allshared -j "${CPU_COUNT:-1}"
 
 mkdir -p "${PREFIX}/lib"
@@ -80,7 +71,6 @@ ls lib
 
 # make sure SONAME is right, which it isn't
 for dylib in lib/*${SHLIB_EXT}; do
-  echo -e '!!!!!!\n\n\n'
   echo $dylib
   set_soname "$dylib"
 done
