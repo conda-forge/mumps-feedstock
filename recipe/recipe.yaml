@@ -22,6 +22,9 @@ outputs:
     build:
       skip: win
       script: build-headers
+      variant:
+        use_keys:
+          - mpi
     tests:
       - package_contents:
           include:
