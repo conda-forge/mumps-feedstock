@@ -14,7 +14,7 @@ source:
     - flang-support.patch
 
 build:
-  number: 8
+  number: 9
 
 outputs:
   - package:
