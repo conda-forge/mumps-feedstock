@@ -8,21 +8,51 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_:
-        CONFIG: linux_64_
+      linux_64_mpimpich:
+        CONFIG: linux_64_mpimpich
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-        SHORT_CONFIG: linux_64_
-      linux_aarch64_:
-        CONFIG: linux_aarch64_
+        SHORT_CONFIG: linux_64_mpimpich
+      linux_64_mpinompi:
+        CONFIG: linux_64_mpinompi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-        SHORT_CONFIG: linux_aarch64_
-      linux_ppc64le_:
-        CONFIG: linux_ppc64le_
+        SHORT_CONFIG: linux_64_mpinompi
+      linux_64_mpiopenmpi:
+        CONFIG: linux_64_mpiopenmpi
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-        SHORT_CONFIG: linux_ppc64le_
+        SHORT_CONFIG: linux_64_mpiopenmpi
+      linux_aarch64_mpimpich:
+        CONFIG: linux_aarch64_mpimpich
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_aarch64_mpimpich
+      linux_aarch64_mpinompi:
+        CONFIG: linux_aarch64_mpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_aarch64_mpinompi
+      linux_aarch64_mpiopenmpi:
+        CONFIG: linux_aarch64_mpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_aarch64_mpiopenmpi
+      linux_ppc64le_mpimpich:
+        CONFIG: linux_ppc64le_mpimpich
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_ppc64le_mpimpich
+      linux_ppc64le_mpinompi:
+        CONFIG: linux_ppc64le_mpinompi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_ppc64le_mpinompi
+      linux_ppc64le_mpiopenmpi:
+        CONFIG: linux_ppc64le_mpiopenmpi
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_ppc64le_mpiopenmpi
   timeoutInMinutes: 360
   variables: {}
 
