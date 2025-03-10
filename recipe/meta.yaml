@@ -27,15 +27,17 @@ requirements:
 outputs:
   - name: mumps-include
     build:
-      script: ${RECIPE_DIR}/build-headers.sh
-      skip: true  # [win]
+      script: ${RECIPE_DIR}/build-headers.sh  # [not win]
+      script: "%RECIPE_DIR%\\bld-headers.bat"  # [win]
     requirements:
       build: []
       host: []
     test:
       commands:
-        - test -f "${PREFIX}/include/mumps_compat.h"
-        - test -f "${PREFIX}/include/mumps_int_def.h"
+        - test -f "${PREFIX}/include/mumps_compat.h"  # [not win]
+        - test -f "${PREFIX}/include/mumps_int_def.h"  # [not win]
+        - if not exist "%PREFIX%\include\mumps_compat.h" exit 1  # [win]
+        - if not exist "%PREFIX%\include\mumps_int_def.h" exit 1  # [win]
 
   - name: mumps-seq
     build:
