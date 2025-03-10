@@ -92,8 +92,11 @@ outputs:
     tests:
       - package_contents:
           files:
-            - if: not win
+            - if: win
               then:
+                - Library/lib/mumps_common.lib
+                - Library/lib/pord.lib
+              else:
                 - lib/pkgconfig/smumps_seq.pc
                 - lib/pkgconfig/dmumps_seq.pc
                 - lib/pkgconfig/cmumps_seq.pc
@@ -101,8 +104,6 @@ outputs:
           lib:
             - if: win
               then:
-                - mumps_common
-                - pord
                 - smumps
                 - dmumps
                 - cmumps
