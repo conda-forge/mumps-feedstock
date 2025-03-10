@@ -1,0 +1,236 @@
+schema_version: 1
+
+context:
+  version: 5.7.3
+
+recipe:
+  name: mumps
+  version: ${{ version }}
+
+source:
+  url: https://mumps-solver.org/MUMPS_${{ version }}.tar.gz
+  sha256: 84a47f7c4231b9efdf4d4f631a2cae2bdd9adeaabc088261d15af040143ed112
+  patches:
+    - flang-support.patch
+
+build:
+  number: 9
+
+outputs:
+  - package:
+      name: mumps-include
+    build:
+      skip: win
+      script: build-headers
+      variant:
+        use_keys:
+          - mpi
+    tests:
+      - package_contents:
+          include:
+            - mumps_compat.h
+            - mumps_int_def.h
+            - smumps_c.h
+            - smumps_root.h
+            - smumps_struc.h
+            - dmumps_c.h
+            - dmumps_root.h
+            - dmumps_struc.h
+            - cmumps_c.h
+            - cmumps_root.h
+            - cmumps_struc.h
+            - zmumps_c.h
+            - zmumps_root.h
+            - zmumps_struc.h
+  - package:
+      name: mumps-seq
+    build:
+      skip: mpi != 'nompi'
+      script: build-mumps
+    requirements:
+      build:
+        - ${{ compiler('fortran') }}
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - if: win
+          then:
+            - cmake
+            - ninja
+            - m2-patch
+          else:
+            - make
+        - if: osx
+          then: llvm-openmp
+        - if: linux
+          then:
+            - libgomp
+            - patchelf
+        # python version specified to avoid windows build matrix
+        # not sure why that happens
+        - python 3.11.*
+        - if: mpi == 'openmpi' and build_platform != target_platform
+          then: ${{ mpi }}
+      host:
+        - libblas
+        - liblapack
+        - if: not win
+          then:
+            - metis
+            - libscotch
+        - if: win
+          then:
+            - llvm-openmp
+            - llvm-openmp-fortran
+      run:
+        - if: not win
+          then:
+            - ${{ pin_subpackage('mumps-include', exact=True) }}
+      run_exports:
+        - ${{ pin_subpackage('mumps-seq', upper_bound='x.x.x') }}
+      run_constraints:
+        - libopenblas * *openmp*
+    tests:
+      - package_contents:
+          files:
+            - if: win
+              then:
+                - Library/lib/mumps_common.lib
+                - Library/lib/pord.lib
+              else:
+                - lib/pkgconfig/smumps_seq.pc
+                - lib/pkgconfig/dmumps_seq.pc
+                - lib/pkgconfig/cmumps_seq.pc
+                - lib/pkgconfig/zmumps_seq.pc
+          lib:
+            - if: win
+              then:
+                - smumps
+                - dmumps
+                - cmumps
+                - zmumps
+              else:
+                - mpiseq
+                - mpiseq_seq
+                - mumps_common_seq
+                - pord_seq
+                - smumps_seq
+                - dmumps_seq
+                - cmumps_seq
+                - zmumps_seq
+          include:
+            - if: win
+              then:
+                - mumps_compat.h
+                - mumps_int_def.h
+                - smumps_c.h
+                - smumps_root.h
+                - smumps_struc.h
+                - dmumps_c.h
+                - dmumps_root.h
+                - dmumps_struc.h
+                - cmumps_c.h
+                - cmumps_root.h
+                - cmumps_struc.h
+                - zmumps_c.h
+                - zmumps_root.h
+                - zmumps_struc.h
+                - mumps_seq/mpi.h
+                - mumps_seq/mpif.h
+      - if: not win
+        then:
+          script: run_test-seq
+          files:
+            source:
+              - examples/
+          requirements:
+            run:
+              - ${{ compiler("c") }}
+              - ${{ compiler("fortran") }}
+              - make
+              - pkg-config
+          
+  - package:
+      name: mumps-mpi
+    build:
+      skip: mpi == 'nompi'
+      script: build-mumps
+    requirements:
+      build:
+        - ${{ compiler('fortran') }}
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - make
+        - if: osx
+          then:
+            - llvm-openmp
+        - if: linux
+          then:
+            - libgomp
+            - patchelf
+        - if: "mpi == 'openmpi' and build_platform != target_platform"
+          then: ${{ mpi }}
+        - python 3.11.*
+      host:
+        - libblas
+        - liblapack
+        - ${{ mpi }}
+        - metis
+        - parmetis
+        - libptscotch
+        - scalapack
+        - libscotch
+      run:
+        - ${{ pin_subpackage('mumps-include', exact=True) }}
+      run_exports:
+        - ${{ pin_subpackage('mumps-mpi', upper_bound='x.x.x') }}
+      run_constraints:
+        - libopenblas * *openmp*
+    tests:
+      - package_contents:
+          files:
+            - lib/pkgconfig/smumps.pc
+            - lib/pkgconfig/dmumps.pc
+            - lib/pkgconfig/cmumps.pc
+            - lib/pkgconfig/zmumps.pc
+          lib:
+            - mumps_common
+            - pord
+            - smumps
+            - dmumps
+            - cmumps
+            - zmumps
+      - script: run_test-mpi
+        files:
+          source:
+            - examples/
+        requirements:
+          run:
+            - ${{ compiler("c") }}
+            - ${{ compiler("fortran") }}
+            - make
+            - pkg-config
+
+about:
+  license: CECILL-C
+  license_file: LICENSE
+  summary: |
+    MUMPS: a parallel sparse direct solver
+  description: |
+    MUMPS (MUltifrontal Massively Parallel Solver) is a package for solving
+    systems of linear equations of the form Ax = b, where A is a square sparse
+    matrix that can be either unsymmetric, symmetric positive definite, or
+    general symmetric, on distributed memory computers. MUMPS implements a
+    direct method based on a multifrontal approach which performs a Gaussian
+    factorization.
+  homepage: https://mumps-solver.org
+  documentation: https://mumps-solver.org/index.php?page=doc
+
+extra:
+  recipe-maintainers:
+    - traversaro
+    - basnijholt
+    - dalcinl
+    - minrk
+    - jbweston
+    - davidbrochart
+    - SylvainCorlay
