@@ -198,17 +198,16 @@ outputs:
             - dmumps
             - cmumps
             - zmumps
-      - files:
+      - script: run_test-mpi
+        files:
           source:
-            - examples
+            - examples/
         requirements:
           run:
             - ${{ compiler("c") }}
             - ${{ compiler("fortran") }}
             - make
             - pkg-config
-        script:
-          - run_test-mpi
 
 about:
   license: CECILL-C
