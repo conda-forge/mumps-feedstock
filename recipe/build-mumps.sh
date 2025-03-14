@@ -44,14 +44,7 @@ if [[ "$target_platform" == osx-* ]]; then
   export FFLAGS="${FFLAGS} -DAVOID_MPI_IN_PLACE"
   export LDFLAGS="${LDFLAGS} -headerpad_max_install_names"
   function set_soname () {
-    otool -L "$1"
     install_name_tool -id "@rpath/$(basename $1)" "$1"
-    # relink intermediates to @rpath (libpord, etc.);
-    # conda-build does this for us, but rattler-build does not
-    for lib in $(ls lib/); do
-      install_name_tool -change ${lib} @rpath/${lib} "$1"
-    done
-    otool -L "$1"
   }
 else
   export SONAME="-soname"
