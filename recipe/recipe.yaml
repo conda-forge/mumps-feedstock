@@ -14,7 +14,7 @@ source:
     - flang-support.patch
 
 build:
-  number: 9
+  number: 10
 
 outputs:
   - package:
@@ -77,8 +77,7 @@ outputs:
           then:
             - metis
             - libscotch
-        - if: win
-          then:
+          else:
             - llvm-openmp
             - llvm-openmp-fortran
       run:
@@ -148,7 +147,7 @@ outputs:
               - ${{ compiler("fortran") }}
               - make
               - pkg-config
-          
+
   - package:
       name: mumps-mpi
     build:
