@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: 5.7.3
+  version: "5.8.0"
 
 recipe:
   name: mumps
@@ -9,12 +9,12 @@ recipe:
 
 source:
   url: https://mumps-solver.org/MUMPS_${{ version }}.tar.gz
-  sha256: 84a47f7c4231b9efdf4d4f631a2cae2bdd9adeaabc088261d15af040143ed112
+  sha256: d762eb8b1d9843a0993b8cfc137d043d04c7c51877ad37c94560433a474340a0
   patches:
     - flang-support.patch
 
 build:
-  number: 10
+  number: 0
 
 outputs:
   - package:
