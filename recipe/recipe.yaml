@@ -31,16 +31,12 @@ outputs:
             - mumps_compat.h
             - mumps_int_def.h
             - smumps_c.h
-            - smumps_root.h
             - smumps_struc.h
             - dmumps_c.h
-            - dmumps_root.h
             - dmumps_struc.h
             - cmumps_c.h
-            - cmumps_root.h
             - cmumps_struc.h
             - zmumps_c.h
-            - zmumps_root.h
             - zmumps_struc.h
   - package:
       name: mumps-seq
