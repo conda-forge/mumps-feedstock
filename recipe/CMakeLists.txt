@@ -293,7 +293,7 @@ add_executable(${ARITH}simpletest ${EXAMPLE})
 target_link_libraries(${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 target_link_libraries(${ARITH}simpletest ${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 install(TARGETS ${ARITHLIB})
-install(FILES include/${ARITH}mumps_struc.h include/${ARITH}mumps_root.h include/${ARITH}mumps_c.h DESTINATION include)
+install(FILES include/${ARITH}mumps_struc.h include/${ARITH}mumps_c.h DESTINATION include)
 
 endforeach(ARITH)
 set(EXAMPLE examples/c_example.c)
