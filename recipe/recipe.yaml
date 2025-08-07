@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: 5.7.3
+  version: "5.8.1"
 
 recipe:
   name: mumps
@@ -9,12 +9,12 @@ recipe:
 
 source:
   url: https://mumps-solver.org/MUMPS_${{ version }}.tar.gz
-  sha256: 84a47f7c4231b9efdf4d4f631a2cae2bdd9adeaabc088261d15af040143ed112
+  sha256: e91b6dcd93597a34c0d433b862cf303835e1ea05f12af073b06c32f652f3edd8
   patches:
     - flang-support.patch
 
 build:
-  number: 10
+  number: 0
 
 outputs:
   - package:
@@ -31,16 +31,12 @@ outputs:
             - mumps_compat.h
             - mumps_int_def.h
             - smumps_c.h
-            - smumps_root.h
             - smumps_struc.h
             - dmumps_c.h
-            - dmumps_root.h
             - dmumps_struc.h
             - cmumps_c.h
-            - cmumps_root.h
             - cmumps_struc.h
             - zmumps_c.h
-            - zmumps_root.h
             - zmumps_struc.h
   - package:
       name: mumps-seq
@@ -122,16 +118,12 @@ outputs:
                 - mumps_compat.h
                 - mumps_int_def.h
                 - smumps_c.h
-                - smumps_root.h
                 - smumps_struc.h
                 - dmumps_c.h
-                - dmumps_root.h
                 - dmumps_struc.h
                 - cmumps_c.h
-                - cmumps_root.h
                 - cmumps_struc.h
                 - zmumps_c.h
-                - zmumps_root.h
                 - zmumps_struc.h
                 - mumps_seq/mpi.h
                 - mumps_seq/mpif.h
@@ -198,7 +190,10 @@ outputs:
             - dmumps
             - cmumps
             - zmumps
-      - script: run_test-mpi
+      - script:
+          file: run_test-mpi
+          env:
+            CONDA_BUILD: "1"
         files:
           source:
             - examples/

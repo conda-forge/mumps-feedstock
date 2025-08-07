@@ -63,25 +63,30 @@ endif()
 # OBJS_COMMON_MOD
 set(
   COMMON_MOD
-  src/mumps_pivnul_mod.F
-  src/ana_omp_m.F
   src/ana_blk_m.F
+  src/ana_omp_m.F
   src/ana_orderings_wrappers_m.F
   src/double_linked_list.F
   src/fac_asm_build_sort_index_m.F
   src/fac_asm_build_sort_index_ELT_m.F
   src/fac_descband_data_m.F
   src/fac_future_niv2_mod.F
-  src/fac_ibct_data_m.F
   src/fac_maprow_data_m.F
   src/front_data_mgt_m.F
   src/lr_common.F
-  src/mumps_comm_ibcast.F
+  src/lr_stats.F
+  src/mumps_comm_buffer_common.F
+  src/mumps_intr_types_common.F
   src/mumps_l0_omp_m.F
+  src/mumps_load.F
   src/mumps_memory_mod.F
   src/mumps_ooc_common.F
+  src/mumps_pivnul_mod.F
   src/mumps_static_mapping.F
   src/omp_tps_common_m.F
+  src/sol_ds_common_m.F
+  src/sol_omp_common_m.F
+  src/tools_common_m.F
 )
 
 # OBJS_COMMON_OTHER
@@ -96,8 +101,22 @@ set(
   src/mumps_type2_blocking.F
   src/mumps_version.F
   src/mumps_print_defined.F
+  src/sol_common.F
+  src/tools_common.F
+)
+
+# OBJS_C_COMMON
+set(
+  C_COMMON
   src/mumps_addr.c
   src/mumps_common.c
+  src/mumps_config_file_C.c
+  src/mumps_io.c
+  src/mumps_io_basic.c
+  src/mumps_io_thread.c
+  src/mumps_io_err.c
+  src/mumps_numa.c
+  src/mumps_io_thread.c
   src/mumps_pord.c
   src/mumps_metis.c
   src/mumps_metis64.c
@@ -105,18 +124,12 @@ set(
   src/mumps_scotch.c
   src/mumps_scotch64.c
   src/mumps_scotch_int.c
-  src/mumps_io.c
-  src/mumps_io_basic.c
-  src/mumps_io_thread.c
-  src/mumps_io_err.c
-  src/mumps_numa.c
-  src/mumps_thread.c
-  src/mumps_save_restore_C.c
   src/mumps_config_file_C.c
-  src/mumps_thread_affinity.c
   src/mumps_register_thread.c
-  src/tools_common.F
-  src/sol_common.F
+  src/mumps_thread.c
+  src/mumps_thread_affinity.c
+  src/mumps_flytes.c
+  src/mumps_save_restore_C.c
 )
 
 if(NOT WITH_MPI)
@@ -128,7 +141,7 @@ if(NOT WITH_MPI)
   )
 endif()
 
-add_library(mumps_common STATIC ${COMMON_MOD} ${COMMON_OTHER})
+add_library(mumps_common STATIC ${COMMON_MOD} ${COMMON_OTHER} ${C_COMMON})
 target_compile_definitions(mumps_common PRIVATE -DAdd_)
 # Hack to fix incorrect assumption that Windows=gfortran
 target_compile_definitions(mumps_common PRIVATE -DMUMPS_CALL=__declspec\(dllexport\))
@@ -155,7 +168,7 @@ add_library(pord STATIC ${PORD_SOURCES})
 
 foreach(ARITH s d c z)
 
-# OBJS_MOD
+# OBJS_MOD_ARITHDEP
 set(
   ARITH_MOD
   src/${ARITH}ana_aux.F
@@ -163,6 +176,7 @@ set(
   src/${ARITH}ana_lr.F
   src/${ARITH}fac_asm_master_ELT_m.F
   src/${ARITH}fac_asm_master_m.F
+  src/${ARITH}fac_compact_factors_m.F
   src/${ARITH}fac_front_aux.F
   src/${ARITH}fac_front_LU_type1.F
   src/${ARITH}fac_front_LU_type2.F
@@ -176,41 +190,35 @@ set(
   src/${ARITH}fac_par_m.F
   src/${ARITH}fac_sol_l0omp_m.F
   src/${ARITH}lr_core.F
-  src/${ARITH}lr_stats.F
   src/${ARITH}lr_type.F
   src/${ARITH}mumps_comm_buffer.F
   src/${ARITH}mumps_config_file.F
-  src/${ARITH}mumps_load.F
+  src/${ARITH}mumps_intr_types.F
   src/${ARITH}mumps_lr_data_m.F
+  src/${ARITH}mumps_mpi3_mod.F
   src/${ARITH}mumps_ooc_buffer.F
   src/${ARITH}mumps_ooc.F
   src/${ARITH}mumps_sol_es.F
-  src/${ARITH}mumps_save_restore.F
   src/${ARITH}mumps_save_restore_files.F
+  src/${ARITH}mumps_save_restore.F
   src/${ARITH}mumps_struc_def.F
   src/${ARITH}omp_tps_m.F
   src/${ARITH}sol_lr.F
   src/${ARITH}sol_omp_m.F
   src/${ARITH}static_ptr_m.F
-  src/${ARITH}mumps_mpi3_mod.F
 )
 
 # OBJS_OTHER
 set(
   ARITH_OTHER
-  src/${ARITH}ini_driver.F
-  src/${ARITH}ana_driver.F
-  src/${ARITH}fac_driver.F
-  src/${ARITH}sol_driver.F
-  src/${ARITH}sol_distrhs.F
-  src/${ARITH}sol_distsol.F
-  src/${ARITH}end_driver.F
   src/${ARITH}ana_aux_ELT.F
   src/${ARITH}ana_dist_m.F
+  src/${ARITH}ana_driver.F
   src/${ARITH}ana_LDLT_preprocess.F
   src/${ARITH}ana_reordertree.F
   src/${ARITH}arrowheads.F
   src/${ARITH}bcast_int.F
+  src/${ARITH}end_driver.F
   src/${ARITH}fac_asm_ELT.F
   src/${ARITH}fac_asm.F
   src/${ARITH}fac_b.F
@@ -218,6 +226,7 @@ set(
   src/${ARITH}fac_distrib_distentry.F
   src/${ARITH}fac_dist_arrowheads_omp.F
   src/${ARITH}fac_distrib_ELT.F
+  src/${ARITH}fac_driver.F
   src/${ARITH}fac_lastrtnelind.F
   src/${ARITH}fac_mem_alloc_cb.F
   src/${ARITH}fac_mem_compress_cb.F
@@ -247,6 +256,7 @@ set(
   src/${ARITH}fac_sol_pool.F
   src/${ARITH}fac_type3_symmetrize.F
   src/${ARITH}ini_defaults.F
+  src/${ARITH}ini_driver.F
   src/mumps_c.c
   src/${ARITH}mumps_driver.F
   src/${ARITH}mumps_f77.F
@@ -259,6 +269,9 @@ set(
   src/${ARITH}sol_bwd_aux.F
   src/${ARITH}sol_bwd.F
   src/${ARITH}sol_c.F
+  src/${ARITH}sol_distrhs.F
+  src/${ARITH}sol_distsol.F
+  src/${ARITH}sol_driver.F
   src/${ARITH}sol_fwd_aux.F
   src/${ARITH}sol_fwd.F
   src/${ARITH}sol_matvec.F
@@ -280,7 +293,7 @@ add_executable(${ARITH}simpletest ${EXAMPLE})
 target_link_libraries(${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 target_link_libraries(${ARITH}simpletest ${ARITHLIB} mumps_common pord ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 install(TARGETS ${ARITHLIB})
-install(FILES include/${ARITH}mumps_struc.h include/${ARITH}mumps_root.h include/${ARITH}mumps_c.h DESTINATION include)
+install(FILES include/${ARITH}mumps_struc.h include/${ARITH}mumps_c.h DESTINATION include)
 
 endforeach(ARITH)
 set(EXAMPLE examples/c_example.c)
