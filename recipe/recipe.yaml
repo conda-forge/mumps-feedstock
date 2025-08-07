@@ -194,7 +194,10 @@ outputs:
             - dmumps
             - cmumps
             - zmumps
-      - script: run_test-mpi
+      - script:
+          file: run_test-mpi
+          env:
+            CONDA_BUILD: "1"
         files:
           source:
             - examples/
