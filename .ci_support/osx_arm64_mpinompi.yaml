@@ -23,9 +23,9 @@ libblas:
 liblapack:
 - 3.9.* *netlib
 libptscotch:
-- 7.0.7
+- 7.0.8
 libscotch:
-- 7.0.7
+- 7.0.8
 llvm_openmp:
 - '19'
 macos_machine:
