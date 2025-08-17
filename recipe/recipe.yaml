@@ -220,6 +220,7 @@ about:
   documentation: https://mumps-solver.org/index.php?page=doc
 
 extra:
+  feedstock-name: mumps
   recipe-maintainers:
     - traversaro
     - basnijholt
