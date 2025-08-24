@@ -29,11 +29,13 @@ libscotch:
 metis:
 - 5.1.0
 mpi:
-- mpich
+- openmpi
 mpich:
 - '4'
 openmpi:
 - '5'
+scotch_intsize:
+- '64'
 target_platform:
 - linux-ppc64le
 zip_keys:

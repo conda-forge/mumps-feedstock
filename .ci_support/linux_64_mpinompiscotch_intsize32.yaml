@@ -1,19 +1,19 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
-MACOSX_SDK_VERSION:
-- '11.0'
 c_compiler:
-- clang
+- gcc
 c_compiler_version:
-- '19'
+- '14'
 c_stdlib:
-- macosx_deployment_target
+- sysroot
 c_stdlib_version:
-- '11.0'
+- '2.17'
+cdt_name:
+- conda
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+docker_image:
+- quay.io/condaforge/linux-anvil-x86_64:alma9
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
@@ -26,10 +26,6 @@ libptscotch:
 - 7.0.8
 libscotch:
 - 7.0.8
-llvm_openmp:
-- '19'
-macos_machine:
-- arm64-apple-darwin20.0.0
 metis:
 - 5.1.0
 mpi:
@@ -38,8 +34,10 @@ mpich:
 - '4'
 openmpi:
 - '5'
+scotch_intsize:
+- '32'
 target_platform:
-- osx-arm64
+- linux-64
 zip_keys:
 - - c_compiler_version
   - fortran_compiler_version

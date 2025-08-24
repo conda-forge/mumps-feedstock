@@ -38,6 +38,8 @@ mpich:
 - '4'
 openmpi:
 - '5'
+scotch_intsize:
+- '64'
 target_platform:
 - osx-arm64
 zip_keys:
