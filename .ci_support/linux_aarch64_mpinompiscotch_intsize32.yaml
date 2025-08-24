@@ -34,8 +34,10 @@ mpich:
 - '4'
 openmpi:
 - '5'
+scotch_intsize:
+- '32'
 target_platform:
-- linux-ppc64le
+- linux-aarch64
 zip_keys:
 - - c_compiler_version
   - fortran_compiler_version

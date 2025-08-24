@@ -20,5 +20,7 @@ mpich:
 - '4'
 openmpi:
 - '5'
+scotch_intsize:
+- '32'
 target_platform:
 - win-64
