@@ -14,7 +14,7 @@ source:
     - flang-support.patch
 
 build:
-  number: 2
+  number: 3
 
 outputs:
   - package:
@@ -25,6 +25,7 @@ outputs:
       variant:
         use_keys:
           - mpi
+          - scotch_intsize
     tests:
       - package_contents:
           include:
@@ -73,6 +74,7 @@ outputs:
           then:
             - metis
             - libscotch
+            - libscotch * int${{ scotch_intsize }}_*
           else:
             - llvm-openmp
             - llvm-openmp-fortran
@@ -168,6 +170,7 @@ outputs:
         - metis
         - parmetis
         - libptscotch
+        - libscotch * int${{ scotch_intsize }}_*
         - scalapack
         - libscotch
       run:
