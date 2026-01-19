@@ -1,0 +1,229 @@
+From f1156701ddcb4b3675337c7fe7f994a4abfcbdb1 Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
+Date: Mon, 19 Jan 2026 10:42:24 -0800
+Subject: [PATCH] ifdef-openmp
+
+try ifdef openmp for flang21 parse error
+on openmp within argument list
+---
+ src/cfac_asm_master_ELT_m.F | 8 ++++++--
+ src/cfac_asm_master_m.F     | 8 ++++++--
+ src/dfac_asm_master_ELT_m.F | 8 ++++++--
+ src/dfac_asm_master_m.F     | 8 ++++++--
+ src/sfac_asm_master_ELT_m.F | 8 ++++++--
+ src/sfac_asm_master_m.F     | 8 ++++++--
+ src/zfac_asm_master_ELT_m.F | 8 ++++++--
+ src/zfac_asm_master_m.F     | 8 ++++++--
+ 8 files changed, 48 insertions(+), 16 deletions(-)
+
+diff --git a/src/cfac_asm_master_ELT_m.F b/src/cfac_asm_master_ELT_m.F
+index d7ce5b8..645c4e8 100644
+--- a/src/cfac_asm_master_ELT_m.F
++++ b/src/cfac_asm_master_ELT_m.F
+@@ -619,7 +619,9 @@ C
+      &           LDA_SON, SIZFR8,
+      &           SON_IW( K1 ), K2 - K1 + 1, NELIM, ETATASS, 
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+               ENDIF
+           ENDIF
+@@ -1562,7 +1564,9 @@ C
+      &           LDA_SON, LCB,
+      &           IW( K1 ), NELIM, NELIM, ETATASS,
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+             ENDIF
+           ENDIF
+diff --git a/src/cfac_asm_master_m.F b/src/cfac_asm_master_m.F
+index d207f2e..a656b26 100644
+--- a/src/cfac_asm_master_m.F
++++ b/src/cfac_asm_master_m.F
+@@ -748,7 +748,9 @@ C
+      &           LDA_SON, SIZFR8,
+      &           SON_IW( K1 ), K2 - K1 + 1, NELIM, ETATASS, 
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+               ENDIF
+             ENDIF 
+@@ -1701,7 +1703,9 @@ C
+      &           LDA_SON, LCB,
+      &           IW( K1 ), NELIM, NELIM, ETATASS,
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+             ENDIF
+           ENDIF
+diff --git a/src/dfac_asm_master_ELT_m.F b/src/dfac_asm_master_ELT_m.F
+index 9200dbf..0d9ef19 100644
+--- a/src/dfac_asm_master_ELT_m.F
++++ b/src/dfac_asm_master_ELT_m.F
+@@ -619,7 +619,9 @@ C
+      &           LDA_SON, SIZFR8,
+      &           SON_IW( K1 ), K2 - K1 + 1, NELIM, ETATASS, 
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+               ENDIF
+           ENDIF
+@@ -1562,7 +1564,9 @@ C
+      &           LDA_SON, LCB,
+      &           IW( K1 ), NELIM, NELIM, ETATASS,
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+             ENDIF
+           ENDIF
+diff --git a/src/dfac_asm_master_m.F b/src/dfac_asm_master_m.F
+index ed2328c..a791b43 100644
+--- a/src/dfac_asm_master_m.F
++++ b/src/dfac_asm_master_m.F
+@@ -748,7 +748,9 @@ C
+      &           LDA_SON, SIZFR8,
+      &           SON_IW( K1 ), K2 - K1 + 1, NELIM, ETATASS, 
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+               ENDIF
+             ENDIF 
+@@ -1701,7 +1703,9 @@ C
+      &           LDA_SON, LCB,
+      &           IW( K1 ), NELIM, NELIM, ETATASS,
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+             ENDIF
+           ENDIF
+diff --git a/src/sfac_asm_master_ELT_m.F b/src/sfac_asm_master_ELT_m.F
+index c4d2408..461c56b 100644
+--- a/src/sfac_asm_master_ELT_m.F
++++ b/src/sfac_asm_master_ELT_m.F
+@@ -619,7 +619,9 @@ C
+      &           LDA_SON, SIZFR8,
+      &           SON_IW( K1 ), K2 - K1 + 1, NELIM, ETATASS, 
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+               ENDIF
+           ENDIF
+@@ -1562,7 +1564,9 @@ C
+      &           LDA_SON, LCB,
+      &           IW( K1 ), NELIM, NELIM, ETATASS,
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+             ENDIF
+           ENDIF
+diff --git a/src/sfac_asm_master_m.F b/src/sfac_asm_master_m.F
+index 2844d4e..f58eacd 100644
+--- a/src/sfac_asm_master_m.F
++++ b/src/sfac_asm_master_m.F
+@@ -748,7 +748,9 @@ C
+      &           LDA_SON, SIZFR8,
+      &           SON_IW( K1 ), K2 - K1 + 1, NELIM, ETATASS, 
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+               ENDIF
+             ENDIF 
+@@ -1701,7 +1703,9 @@ C
+      &           LDA_SON, LCB,
+      &           IW( K1 ), NELIM, NELIM, ETATASS,
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+             ENDIF
+           ENDIF
+diff --git a/src/zfac_asm_master_ELT_m.F b/src/zfac_asm_master_ELT_m.F
+index c7fe2a0..8b551f9 100644
+--- a/src/zfac_asm_master_ELT_m.F
++++ b/src/zfac_asm_master_ELT_m.F
+@@ -619,7 +619,9 @@ C
+      &           LDA_SON, SIZFR8,
+      &           SON_IW( K1 ), K2 - K1 + 1, NELIM, ETATASS, 
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+               ENDIF
+           ENDIF
+@@ -1562,7 +1564,9 @@ C
+      &           LDA_SON, LCB,
+      &           IW( K1 ), NELIM, NELIM, ETATASS,
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+             ENDIF
+           ENDIF
+diff --git a/src/zfac_asm_master_m.F b/src/zfac_asm_master_m.F
+index d06ea0c..ea0027d 100644
+--- a/src/zfac_asm_master_m.F
++++ b/src/zfac_asm_master_m.F
+@@ -748,7 +748,9 @@ C
+      &           LDA_SON, SIZFR8,
+      &           SON_IW( K1 ), K2 - K1 + 1, NELIM, ETATASS, 
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+               ENDIF
+             ENDIF 
+@@ -1701,7 +1703,9 @@ C
+      &           LDA_SON, LCB,
+      &           IW( K1 ), NELIM, NELIM, ETATASS,
+      &           PACKED_CB
+-!$   &           , KEEP(360)
++#ifdef _OPENMP
++     &           , KEEP(360)
++#endif
+      &          )
+             ENDIF
+           ENDIF
+-- 
+2.49.0
+

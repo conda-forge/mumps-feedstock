@@ -12,6 +12,7 @@ source:
   sha256: eb515aa688e6dbab414bb6e889ff4c8b23f1691a843c68da5230a33ac4db7039
   patches:
     - flang-support.patch
+    - ifdef-openmp.patch
 
 build:
   number: 0
