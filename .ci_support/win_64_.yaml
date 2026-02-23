@@ -17,7 +17,7 @@ liblapack:
 mpi:
 - nompi
 mpich:
-- '4'
+- '5'
 openmpi:
 - '5'
 scotch_intsize:
