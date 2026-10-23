@@ -22,8 +22,8 @@ general symmetric, on distributed memory computers. MUMPS implements a
 direct method based on a multifrontal approach which performs a Gaussian
 factorization.
 
-About mumps-mpi-devel
----------------------
+About mumps-mpi-fortran-devel
+-----------------------------
 
 Home: https://mumps-solver.org/
 
@@ -45,7 +45,7 @@ the Fortran runtime all depend on the compiler that built the library,
 and on Windows both a flang and an Intel ifx build are published.
 Fortran consumers should put the matching ABI in `host:`:
 
-    - mumps-mpi-devel * flang_*
+    - mumps-mpi-fortran-devel * flang_*
 
 The build-string prefix names the ABI: `flang_` or `ifx_` on Windows
 (`flang_` is the conda-forge default), `gfortran_` elsewhere. Depending
@@ -56,8 +56,8 @@ Nothing enforces this automatically -- pick the prefix matching the
 compiler your recipe builds with. A mismatch still links, and fails at
 runtime.
 
-About mumps-seq-devel
----------------------
+About mumps-seq-fortran-devel
+-----------------------------
 
 Home: https://mumps-solver.org/
 
@@ -79,7 +79,7 @@ the Fortran runtime all depend on the compiler that built the library,
 and on Windows both a flang and an Intel ifx build are published.
 Fortran consumers should put the matching ABI in `host:`:
 
-    - mumps-seq-devel * flang_*
+    - mumps-seq-fortran-devel * flang_*
 
 The build-string prefix names the ABI: `flang_` or `ifx_` on Windows
 (`flang_` is the conda-forge default), `gfortran_` elsewhere. Depending
@@ -171,9 +171,9 @@ Current release info
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-mumps--include-green.svg)](https://anaconda.org/conda-forge/mumps-include) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mumps-include.svg)](https://anaconda.org/conda-forge/mumps-include) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mumps-include.svg)](https://anaconda.org/conda-forge/mumps-include) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mumps-include.svg)](https://anaconda.org/conda-forge/mumps-include) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-mumps--mpi-green.svg)](https://anaconda.org/conda-forge/mumps-mpi) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mumps-mpi.svg)](https://anaconda.org/conda-forge/mumps-mpi) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mumps-mpi.svg)](https://anaconda.org/conda-forge/mumps-mpi) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mumps-mpi.svg)](https://anaconda.org/conda-forge/mumps-mpi) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-mumps--mpi--devel-green.svg)](https://anaconda.org/conda-forge/mumps-mpi-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mumps-mpi-devel.svg)](https://anaconda.org/conda-forge/mumps-mpi-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mumps-mpi-devel.svg)](https://anaconda.org/conda-forge/mumps-mpi-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mumps-mpi-devel.svg)](https://anaconda.org/conda-forge/mumps-mpi-devel) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-mumps--mpi--fortran--devel-green.svg)](https://anaconda.org/conda-forge/mumps-mpi-fortran-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mumps-mpi-fortran-devel.svg)](https://anaconda.org/conda-forge/mumps-mpi-fortran-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mumps-mpi-fortran-devel.svg)](https://anaconda.org/conda-forge/mumps-mpi-fortran-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mumps-mpi-fortran-devel.svg)](https://anaconda.org/conda-forge/mumps-mpi-fortran-devel) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-mumps--seq-green.svg)](https://anaconda.org/conda-forge/mumps-seq) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mumps-seq.svg)](https://anaconda.org/conda-forge/mumps-seq) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mumps-seq.svg)](https://anaconda.org/conda-forge/mumps-seq) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mumps-seq.svg)](https://anaconda.org/conda-forge/mumps-seq) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-mumps--seq--devel-green.svg)](https://anaconda.org/conda-forge/mumps-seq-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mumps-seq-devel.svg)](https://anaconda.org/conda-forge/mumps-seq-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mumps-seq-devel.svg)](https://anaconda.org/conda-forge/mumps-seq-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mumps-seq-devel.svg)](https://anaconda.org/conda-forge/mumps-seq-devel) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-mumps--seq--fortran--devel-green.svg)](https://anaconda.org/conda-forge/mumps-seq-fortran-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mumps-seq-fortran-devel.svg)](https://anaconda.org/conda-forge/mumps-seq-fortran-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mumps-seq-fortran-devel.svg)](https://anaconda.org/conda-forge/mumps-seq-fortran-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mumps-seq-fortran-devel.svg)](https://anaconda.org/conda-forge/mumps-seq-fortran-devel) |
 
 Installing mumps
 ================
@@ -192,7 +192,7 @@ How to use
 <summary>With conda</summary>
 
 ```
-conda install mumps-include mumps-mpi mumps-mpi-devel mumps-seq mumps-seq-devel
+conda install mumps-include mumps-mpi mumps-mpi-fortran-devel mumps-seq mumps-seq-fortran-devel
 ```
 
 </details>
@@ -201,7 +201,7 @@ conda install mumps-include mumps-mpi mumps-mpi-devel mumps-seq mumps-seq-devel
 <summary>With mamba</summary>
 
 ```
-mamba install mumps-include mumps-mpi mumps-mpi-devel mumps-seq mumps-seq-devel
+mamba install mumps-include mumps-mpi mumps-mpi-fortran-devel mumps-seq mumps-seq-fortran-devel
 ```
 
 </details>
@@ -211,9 +211,9 @@ mamba install mumps-include mumps-mpi mumps-mpi-devel mumps-seq mumps-seq-devel
 
 ```
 # for adding to your local project
-pixi add mumps-include mumps-mpi mumps-mpi-devel mumps-seq mumps-seq-devel
+pixi add mumps-include mumps-mpi mumps-mpi-fortran-devel mumps-seq mumps-seq-fortran-devel
 # for installing globally
-pixi global install mumps-include mumps-mpi mumps-mpi-devel mumps-seq mumps-seq-devel
+pixi global install mumps-include mumps-mpi mumps-mpi-fortran-devel mumps-seq mumps-seq-fortran-devel
 ```
 
 </details>
@@ -267,6 +267,7 @@ mamba repoquery depends mumps-include --channel conda-forge
 </details>
 
 
+
 About conda-forge
 =================
 
@@ -281,9 +282,7 @@ for each of the installable packages. Such a repository is known as a *feedstock
 A feedstock is made up of a conda recipe (the instructions on what and how to build
 the package) and the necessary configurations for automatic building using freely
 available continuous integration services. Thanks to the awesome service provided by
-[Azure](https://azure.microsoft.com/en-us/services/devops/), [GitHub](https://github.com/),
-[CircleCI](https://circleci.com/), [AppVeyor](https://www.appveyor.com/),
-[Drone](https://cloud.drone.io/welcome), and [TravisCI](https://travis-ci.com/)
+[Azure](https://azure.microsoft.com/en-us/services/devops/) and [GitHub](https://github.com/)
 it is possible to build and upload installable packages to the
 [conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.

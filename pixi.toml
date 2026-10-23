@@ -5,7 +5,7 @@
 
 [workspace]
 name = "mumps-feedstock"
-version = "2026.9.10"  # conda-smithy version used to generate this file
+version = "2026.10.21"  # conda-smithy version used to generate this file
 description = "Pixi configuration for conda-forge/mumps-feedstock"
 authors = ["@conda-forge/mumps"]
 channels = ["conda-forge"]
@@ -199,6 +199,60 @@ description = "Debug mumps-feedstock with variant linux_ppc64le_mpiopenmpiscotch
 [feature.build.tasks."inspect-linux_ppc64le_mpiopenmpiscotch_intsize64"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_ppc64le_mpiopenmpiscotch_intsize64.yaml"
 description = "List contents of mumps-feedstock packages built for variant linux_ppc64le_mpiopenmpiscotch_intsize64"
+[feature.build.tasks."build-linux_riscv64_mpimpichscotch_intsize32"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_riscv64_mpimpichscotch_intsize32.yaml --target-platform linux-riscv64"
+description = "Build mumps-feedstock with variant linux_riscv64_mpimpichscotch_intsize32 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_riscv64_mpimpichscotch_intsize32"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_riscv64_mpimpichscotch_intsize32.yaml --target-platform linux-riscv64"
+description = "Debug mumps-feedstock with variant linux_riscv64_mpimpichscotch_intsize32 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_riscv64_mpimpichscotch_intsize32"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_riscv64_mpimpichscotch_intsize32.yaml"
+description = "List contents of mumps-feedstock packages built for variant linux_riscv64_mpimpichscotch_intsize32"
+[feature.build.tasks."build-linux_riscv64_mpimpichscotch_intsize64"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_riscv64_mpimpichscotch_intsize64.yaml --target-platform linux-riscv64"
+description = "Build mumps-feedstock with variant linux_riscv64_mpimpichscotch_intsize64 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_riscv64_mpimpichscotch_intsize64"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_riscv64_mpimpichscotch_intsize64.yaml --target-platform linux-riscv64"
+description = "Debug mumps-feedstock with variant linux_riscv64_mpimpichscotch_intsize64 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_riscv64_mpimpichscotch_intsize64"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_riscv64_mpimpichscotch_intsize64.yaml"
+description = "List contents of mumps-feedstock packages built for variant linux_riscv64_mpimpichscotch_intsize64"
+[feature.build.tasks."build-linux_riscv64_mpinompiscotch_intsize32"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_riscv64_mpinompiscotch_intsize32.yaml --target-platform linux-riscv64"
+description = "Build mumps-feedstock with variant linux_riscv64_mpinompiscotch_intsize32 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_riscv64_mpinompiscotch_intsize32"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_riscv64_mpinompiscotch_intsize32.yaml --target-platform linux-riscv64"
+description = "Debug mumps-feedstock with variant linux_riscv64_mpinompiscotch_intsize32 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_riscv64_mpinompiscotch_intsize32"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_riscv64_mpinompiscotch_intsize32.yaml"
+description = "List contents of mumps-feedstock packages built for variant linux_riscv64_mpinompiscotch_intsize32"
+[feature.build.tasks."build-linux_riscv64_mpinompiscotch_intsize64"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_riscv64_mpinompiscotch_intsize64.yaml --target-platform linux-riscv64"
+description = "Build mumps-feedstock with variant linux_riscv64_mpinompiscotch_intsize64 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_riscv64_mpinompiscotch_intsize64"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_riscv64_mpinompiscotch_intsize64.yaml --target-platform linux-riscv64"
+description = "Debug mumps-feedstock with variant linux_riscv64_mpinompiscotch_intsize64 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_riscv64_mpinompiscotch_intsize64"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_riscv64_mpinompiscotch_intsize64.yaml"
+description = "List contents of mumps-feedstock packages built for variant linux_riscv64_mpinompiscotch_intsize64"
+[feature.build.tasks."build-linux_riscv64_mpiopenmpiscotch_intsize32"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_riscv64_mpiopenmpiscotch_intsize32.yaml --target-platform linux-riscv64"
+description = "Build mumps-feedstock with variant linux_riscv64_mpiopenmpiscotch_intsize32 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_riscv64_mpiopenmpiscotch_intsize32"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_riscv64_mpiopenmpiscotch_intsize32.yaml --target-platform linux-riscv64"
+description = "Debug mumps-feedstock with variant linux_riscv64_mpiopenmpiscotch_intsize32 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_riscv64_mpiopenmpiscotch_intsize32"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_riscv64_mpiopenmpiscotch_intsize32.yaml"
+description = "List contents of mumps-feedstock packages built for variant linux_riscv64_mpiopenmpiscotch_intsize32"
+[feature.build.tasks."build-linux_riscv64_mpiopenmpiscotch_intsize64"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_riscv64_mpiopenmpiscotch_intsize64.yaml --target-platform linux-riscv64"
+description = "Build mumps-feedstock with variant linux_riscv64_mpiopenmpiscotch_intsize64 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_riscv64_mpiopenmpiscotch_intsize64"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_riscv64_mpiopenmpiscotch_intsize64.yaml --target-platform linux-riscv64"
+description = "Debug mumps-feedstock with variant linux_riscv64_mpiopenmpiscotch_intsize64 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_riscv64_mpiopenmpiscotch_intsize64"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_riscv64_mpiopenmpiscotch_intsize64.yaml"
+description = "List contents of mumps-feedstock packages built for variant linux_riscv64_mpiopenmpiscotch_intsize64"
 [feature.build.tasks."build-osx_64_mpimpichscotch_intsize32"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_mpimpichscotch_intsize32.yaml --target-platform osx-64"
 description = "Build mumps-feedstock with variant osx_64_mpimpichscotch_intsize32 directly (without setup scripts)"
