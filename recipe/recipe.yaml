@@ -1,8 +1,8 @@
 schema_version: 1
 
 context:
-  version: "5.8.2"
-  build_num: 3
+  version: "5.9.2"
+  build_num: 0
 
 recipe:
   name: mumps
@@ -10,7 +10,7 @@ recipe:
 
 source:
   url: https://mumps-solver.org/MUMPS_${{ version }}.tar.gz
-  sha256: eb515aa688e6dbab414bb6e889ff4c8b23f1691a843c68da5230a33ac4db7039
+  sha256: 652d28a91c7ff886b4a5ea122df4e5d014bdb2eba0545e581be4d8fa50c0ff19
   patches:
     - flang-support.patch
     - ifdef-openmp.patch
